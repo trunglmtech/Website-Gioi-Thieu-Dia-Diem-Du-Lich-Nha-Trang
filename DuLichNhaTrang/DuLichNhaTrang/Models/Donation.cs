@@ -13,6 +13,7 @@ namespace DuLichNhaTrang.Models
         [Range(1000, 100000000, ErrorMessage = "Số tiền phải từ 1.000 đến 100.000.000 đồng")]
         public decimal SoTien { get; set; }
 
+        [Column(TypeName = "datetime")]
         public DateTime NgayDonate { get; set; } = DateTime.Now;
 
         // Khóa ngoại: donate cho bài nào

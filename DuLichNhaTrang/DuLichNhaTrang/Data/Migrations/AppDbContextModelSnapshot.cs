@@ -49,7 +49,7 @@ namespace DuLichNhaTrang.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("NgayDonate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -81,7 +81,7 @@ namespace DuLichNhaTrang.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("FeaturedUntil")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("HinhAnh")
                         .HasMaxLength(255)
@@ -92,7 +92,7 @@ namespace DuLichNhaTrang.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayDang")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("TieuDe")
                         .IsRequired()

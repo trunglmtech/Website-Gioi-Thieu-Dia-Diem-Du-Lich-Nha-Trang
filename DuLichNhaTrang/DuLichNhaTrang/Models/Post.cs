@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DuLichNhaTrang.Models
 {
@@ -23,9 +24,11 @@ namespace DuLichNhaTrang.Models
         [StringLength(20)]
         public string TrangThai { get; set; } = "ChoDuyet";
 
+        [Column(TypeName = "datetime")]
         public DateTime NgayDang { get; set; } = DateTime.Now;
 
         // Hạn được ưu tiên lên đầu trang. NULL = bài chưa từng donate
+        [Column(TypeName = "datetime")]
         public DateTime? FeaturedUntil { get; set; }
 
         // Khóa ngoại: bài do ai đăng

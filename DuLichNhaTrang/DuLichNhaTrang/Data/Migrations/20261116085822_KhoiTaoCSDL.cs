@@ -49,8 +49,8 @@ namespace DuLichNhaTrang.Data.Migrations
                     MoTa = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HinhAnh = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     TrangThai = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    NgayDang = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FeaturedUntil = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    NgayDang = table.Column<DateTime>(type: "datetime", nullable: false),
+                    FeaturedUntil = table.Column<DateTime>(type: "datetime", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -78,7 +78,7 @@ namespace DuLichNhaTrang.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SoTien = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
-                    NgayDonate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NgayDonate = table.Column<DateTime>(type: "datetime", nullable: false),
                     PostId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },

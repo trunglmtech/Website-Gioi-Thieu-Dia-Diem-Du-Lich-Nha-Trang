@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DuLichNhaTrang.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261116085507_KhoiTaoCSDL")]
+    [Migration("20261116085822_KhoiTaoCSDL")]
     partial class KhoiTaoCSDL
     {
         /// <inheritdoc />
@@ -52,7 +52,7 @@ namespace DuLichNhaTrang.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("NgayDonate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -84,7 +84,7 @@ namespace DuLichNhaTrang.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("FeaturedUntil")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("HinhAnh")
                         .HasMaxLength(255)
@@ -95,7 +95,7 @@ namespace DuLichNhaTrang.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayDang")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("TieuDe")
                         .IsRequired()
