@@ -1,4 +1,5 @@
 using DuLichNhaTrang.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,25 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Đăng nhập bằng cookie: chưa đăng nhập mà vào trang cần quyền sẽ bị chuyển về /Account/Login
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+        options.SlidingExpiration = true;
+    });
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
+// Tự tạo CSDL (nếu chưa có) và thêm dữ liệu mẫu
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    SeedData.KhoiTao(context);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -23,6 +42,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+// UseAuthentication phải đứng TRƯỚC UseAuthorization thì mới nhận ra người đã đăng nhập
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

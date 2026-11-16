@@ -1,0 +1,40 @@
+@model DuLichNhaTrang.Models.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+<h1 class="mb-4">Đăng ký tài khoản</h1>
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="TenDangNhap" class="form-label"></label>
+                <input asp-for="TenDangNhap" class="form-control" />
+                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MatKhau" class="form-label"></label>
+                <input asp-for="MatKhau" class="form-control" />
+                <span asp-validation-for="MatKhau" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NhapLaiMatKhau" class="form-label"></label>
+                <input asp-for="NhapLaiMatKhau" class="form-control" />
+                <span asp-validation-for="NhapLaiMatKhau" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
+            <a asp-action="Login" class="btn btn-link">Đã có tài khoản? Đăng nhập</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

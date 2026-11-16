@@ -101,10 +101,13 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 └── DuLichNhaTrang/             # Project ASP.NET Core MVC
     ├── Controllers/            # Nhận yêu cầu từ người dùng
     ├── Models/                 # Lớp dữ liệu: User, Category, Post, Donation
-    ├── Data/                   # AppDbContext và Migrations (tạo bảng CSDL)
+    │   └── ViewModels/         # Dữ liệu form đăng ký, đăng nhập
+    ├── Data/                   # AppDbContext, SeedData và Migrations
     │   └── Migrations/
     ├── Views/                  # Giao diện Razor (.cshtml)
-    │   ├── Home/               # View của HomeController
+    │   ├── Account/            # Đăng ký, đăng nhập, báo lỗi quyền
+    │   ├── Admin/              # Trang quản trị
+    │   ├── Home/               # Trang chủ
     │   └── Shared/             # Layout, Error, Partial dùng chung
     ├── wwwroot/                # File tĩnh
     │   ├── css/
@@ -159,12 +162,24 @@ dotnet ef database update
 
 > Cơ sở dữ liệu **không** lưu trong GitHub. Máy mới chỉ cần chạy `dotnet ef database update` là có đủ bảng.
 
+### Tài khoản mẫu
+
+Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (4 loại địa điểm, 6 bài viết, 1 lượt donate) và 2 tài khoản:
+
+| Vai trò | Tên đăng nhập | Mật khẩu |
+| --- | --- | --- |
+| Quản trị viên | `admin` | `123456` |
+| Thành viên | `trung` | `123456` |
+
+> Tài khoản trên chỉ dùng cho mục đích demo đồ án. Mật khẩu được lưu dưới dạng hash.
+
 ## 9. Tiến độ
 
 - [x] Chọn đề tài, tạo repository và project ASP.NET Core MVC
 - [x] Phân tích yêu cầu, vẽ sơ đồ Use Case và ERD
 - [x] Tạo Models, DbContext và cơ sở dữ liệu
-- [ ] Đăng ký, đăng nhập, phân quyền
+- [x] Thêm dữ liệu mẫu (loại địa điểm, bài viết, tài khoản)
+- [x] Đăng ký, đăng nhập, đăng xuất và phân quyền Admin/Member
 - [ ] Xem danh sách, xem chi tiết, tìm kiếm
 - [ ] Đăng bài và quản lý bài của tôi
 - [ ] Admin duyệt bài, quản lý loại địa điểm
