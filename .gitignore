@@ -1,0 +1,11 @@
+# ===== File rác của Visual Studio =====
+.vs/
+*.user
+*.suo
+
+# ===== Kết quả biên dịch (không cần đưa lên GitHub) =====
+bin/
+obj/
+
+# ===== File cấu hình riêng của từng máy =====
+appsettings.Development.local.json
