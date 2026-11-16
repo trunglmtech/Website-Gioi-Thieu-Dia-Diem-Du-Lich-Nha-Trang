@@ -15,7 +15,7 @@ namespace DuLichNhaTrang.Models
         [Required(ErrorMessage = "Vui lòng nhập mô tả")]
         public string MoTa { get; set; } = "";
 
-        // Chỉ lưu TÊN FILE ảnh (ví dụ: bai-bien.jpg), file thật nằm trong wwwroot/images
+        // Đường dẫn tương đối tới file ảnh trong wwwroot (ví dụ: images/sample/bai-bien.jpg)
         [StringLength(255)]
         public string? HinhAnh { get; set; }
 

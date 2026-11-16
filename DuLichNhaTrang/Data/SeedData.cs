@@ -44,6 +44,7 @@ namespace DuLichNhaTrang.Data
             {
                 TieuDe = "Bãi biển Nha Trang",
                 MoTa = "Bãi biển chạy dài dọc đường Trần Phú, nước xanh, cát trắng, rất thuận tiện để tắm biển và ngắm bình minh.",
+                HinhAnh = "images/sample/bai-bien.jpg",
                 TrangThai = "DaDuyet",
                 NgayDang = DateTime.Now.AddDays(-12),
                 UserId = member.Id,
@@ -54,6 +55,7 @@ namespace DuLichNhaTrang.Data
             {
                 TieuDe = "Vinpearl Hòn Tre",
                 MoTa = "Khu vui chơi giải trí trên đảo Hòn Tre, có cáp treo vượt biển, công viên nước và thủy cung.",
+                HinhAnh = "images/sample/vinpearl.jpg",
                 TrangThai = "DaDuyet",
                 NgayDang = DateTime.Now.AddDays(-10),
                 // Bài này đã được donate nên còn hạn ưu tiên 5 ngày nữa
@@ -66,6 +68,7 @@ namespace DuLichNhaTrang.Data
             {
                 TieuDe = "Tháp Bà Ponagar",
                 MoTa = "Di tích Chăm cổ nằm trên đồi Cù Lao, kiến trúc đẹp, là điểm tham quan nổi tiếng của Nha Trang.",
+                HinhAnh = "images/sample/thap-ba.jpg",
                 TrangThai = "DaDuyet",
                 NgayDang = DateTime.Now.AddDays(-7),
                 UserId = admin.Id,
@@ -76,6 +79,7 @@ namespace DuLichNhaTrang.Data
             {
                 TieuDe = "Chợ đêm Nha Trang",
                 MoTa = "Chợ đêm gần bến tàu, bán hải sản, đồ nướng và quà lưu niệm, mở từ chiều tối đến khuya.",
+                HinhAnh = "images/sample/cho-dem.jpg",
                 TrangThai = "DaDuyet",
                 NgayDang = DateTime.Now.AddDays(-5),
                 UserId = member.Id,
@@ -86,6 +90,7 @@ namespace DuLichNhaTrang.Data
             {
                 TieuDe = "Bún chả cá Nha Trang",
                 MoTa = "Món ăn sáng đặc trưng của người Nha Trang, nước dùng ngọt từ cá tươi, ăn kèm rau sống.",
+                HinhAnh = "images/sample/bun-cha-ca.jpg",
                 TrangThai = "DaDuyet",
                 NgayDang = DateTime.Now.AddDays(-3),
                 UserId = member.Id,
@@ -96,6 +101,7 @@ namespace DuLichNhaTrang.Data
             {
                 TieuDe = "Nhà thờ Núi",
                 MoTa = "Nhà thờ Công giáo xây trên đồi nhỏ giữa thành phố, kiến trúc Gothic, nhìn thấy từ nhiều nơi.",
+                HinhAnh = "images/sample/nha-tho-nui.jpg",
                 // Bài này đang chờ Admin duyệt
                 TrangThai = "ChoDuyet",
                 NgayDang = DateTime.Now.AddDays(-1),

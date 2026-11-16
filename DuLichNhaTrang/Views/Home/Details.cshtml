@@ -1,0 +1,39 @@
+@model DuLichNhaTrang.Models.Post
+
+@{
+    ViewData["Title"] = Model.TieuDe;
+    var dangNoiBat = Model.FeaturedUntil != null && Model.FeaturedUntil > DateTime.Now;
+    var duongDanAnh = string.IsNullOrEmpty(Model.HinhAnh)
+        ? Url.Content("~/images/sample/hero-nha-trang.jpg")
+        : Url.Content("~/" + Model.HinhAnh);
+}
+
+<section class="nt-detail">
+    <div class="container">
+        <a class="text-decoration-none" asp-controller="Home" asp-action="Index">&larr; Về danh sách địa điểm</a>
+
+        <img class="nt-detail-img mt-3" src="@duongDanAnh" alt="@Model.TieuDe" />
+
+        <h1 class="nt-detail-title">@Model.TieuDe</h1>
+
+        <div class="nt-detail-meta">
+            <span class="me-3">Loại: <strong>@Model.Category?.TenLoai</strong></span>
+            <span class="me-3">Đăng ngày: @Model.NgayDang.ToString("dd/MM/yyyy")</span>
+            <span>Người đăng: <strong>@Model.User?.TenDangNhap</strong></span>
+        </div>
+
+        @if (dangNoiBat)
+        {
+            <div class="nt-alert mb-4">
+                Bài viết này đang được ưu tiên hiển thị đến ngày
+                <strong>@Model.FeaturedUntil?.ToString("dd/MM/yyyy")</strong>.
+            </div>
+        }
+
+        <p class="nt-detail-text">@Model.MoTa</p>
+
+        <div class="mt-4">
+            <a class="btn btn-nt-outline" asp-controller="Home" asp-action="Index">Xem các địa điểm khác</a>
+        </div>
+    </div>
+</section>

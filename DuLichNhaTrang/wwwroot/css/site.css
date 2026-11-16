@@ -1,31 +1,468 @@
+/* =====================================================================
+   Giao diện website du lịch Nha Trang - phong cách Travello
+   Nền xanh đêm, chữ trắng, nút xanh dương, điểm nhấn vàng.
+   File này ghi đè lên Bootstrap nên phải được nạp SAU bootstrap.min.css.
+   ===================================================================== */
+
+:root {
+    --nt-navy: #0a1526;
+    --nt-navy-light: #12203a;
+    --nt-blue: #1f7ae0;
+    --nt-blue-dark: #1663bb;
+    --nt-gold: #f5c518;
+    --nt-text: #e8eef8;
+    --nt-muted: #93a4bd;
+    --nt-border: rgba(255, 255, 255, 0.08);
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: var(--nt-navy);
+    color: var(--nt-text);
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+main {
+    flex: 1 0 auto;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+a {
+    color: var(--nt-blue);
+}
+
+a:hover {
+    color: #6fb1ff;
+}
+
+/* ---------- Thanh menu ---------- */
+.nt-header {
+    background-color: rgba(10, 21, 38, 0.96);
+    border-bottom: 1px solid var(--nt-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nt-navbar {
+    padding: 14px 0;
+}
+
+.nt-brand {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.nt-brand span {
+    color: var(--nt-blue);
+}
+
+.nt-navbar .nav-link {
+    color: var(--nt-muted);
+    font-weight: 600;
+}
+
+.nt-navbar .nav-link:hover {
+    color: #fff;
+}
+
+.navbar-toggler {
+    border-color: var(--nt-border);
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.nt-hello {
+    color: var(--nt-muted) !important;
+    font-size: 0.95rem;
+}
+
+.nt-hello strong {
+    color: #fff;
+}
+
+/* ---------- Nút ---------- */
+.btn-nt-primary {
+    background-color: var(--nt-blue);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 22px;
+}
+
+.btn-nt-primary:hover,
+.btn-nt-primary:focus {
+    background-color: var(--nt-blue-dark);
+    color: #fff;
+}
+
+.btn-nt-outline {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 22px;
+}
+
+.btn-nt-outline:hover,
+.btn-nt-outline:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+/* ---------- Phần hero (ảnh lớn + ô tìm kiếm) ---------- */
+.nt-hero {
+    background-image: linear-gradient(rgba(10, 21, 38, 0.6), rgba(10, 21, 38, 0.95)), url("/images/sample/hero-nha-trang.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 110px 0 80px;
+    text-align: center;
+}
+
+.nt-hero-eyebrow {
+    color: var(--nt-gold);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.nt-hero h1 {
+    font-size: clamp(1.9rem, 4.8vw, 3.3rem);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin-bottom: 16px;
+}
+
+.nt-hero p {
+    color: var(--nt-muted);
+    max-width: 620px;
+    margin: 0 auto 32px;
+}
+
+.nt-search {
+    background-color: #fff;
+    border-radius: 50px;
+    padding: 8px;
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
+}
+
+.nt-search input {
+    border: none;
+    border-radius: 50px;
+    padding: 10px 22px;
+    flex: 1;
+    min-width: 0;
+    color: #10203a;
+}
+
+.nt-search input:focus {
+    outline: 2px solid var(--nt-blue);
+    outline-offset: -2px;
+}
+
+.nt-search button {
+    background-color: var(--nt-blue);
+    border: none;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 28px;
+    white-space: nowrap;
+}
+
+.nt-search button:hover {
+    background-color: var(--nt-blue-dark);
+}
+
+/* ---------- Dải 4 đặc điểm ---------- */
+.nt-features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: -48px;
+    position: relative;
+    z-index: 5;
+}
+
+.nt-feature {
+    background-color: var(--nt-navy-light);
+    border: 1px solid var(--nt-border);
+    border-radius: 16px;
+    padding: 20px 18px;
+    text-align: center;
+}
+
+.nt-feature-icon {
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.nt-feature strong {
+    display: block;
+    font-size: 0.98rem;
+}
+
+.nt-feature span {
+    color: var(--nt-muted);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 767px) {
+    .nt-features {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: 24px;
+    }
+}
+
+/* ---------- Tiêu đề từng mục ---------- */
+.nt-section {
+    padding: 56px 0 64px;
+}
+
+.nt-section-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.nt-section-sub {
+    color: var(--nt-muted);
+    margin-bottom: 28px;
+}
+
+/* ---------- Card địa điểm ---------- */
+.nt-card {
+    background-color: var(--nt-navy-light);
+    border: 1px solid var(--nt-border);
+    border-radius: 18px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.nt-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(31, 122, 224, 0.6);
+}
+
+.nt-card-img {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+}
+
+.nt-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.nt-badge-featured {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: var(--nt-gold);
+    color: #241c00;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    text-transform: uppercase;
+}
+
+.nt-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 18px 20px 20px;
+}
+
+.nt-card-meta {
+    color: var(--nt-muted);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.nt-card-title {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.nt-card-desc {
+    color: var(--nt-muted);
+    flex: 1;
+    font-size: 0.92rem;
+    margin-bottom: 18px;
+}
+
+.nt-card .btn {
+    align-self: flex-start;
+}
+
+/* ---------- Trang chi tiết bài viết ---------- */
+.nt-detail {
+    padding: 40px 0 64px;
+}
+
+.nt-detail-img {
+    width: 100%;
+    max-height: 430px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.nt-detail-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 24px 0 10px;
+}
+
+.nt-detail-meta {
+    color: var(--nt-muted);
+    margin-bottom: 24px;
+}
+
+.nt-detail-text {
+    color: #cfd9e8;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+/* ---------- Khung form đăng nhập / đăng ký ---------- */
+.nt-page {
+    padding: 48px 0 64px;
+}
+
+.nt-form-box {
+    background-color: var(--nt-navy-light);
+    border: 1px solid var(--nt-border);
+    border-radius: 18px;
+    max-width: 520px;
+    padding: 28px;
+}
+
+.nt-form-box h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.nt-form-box .form-label {
+    color: var(--nt-muted);
+    font-size: 0.9rem;
+}
+
+.nt-form-box .form-control {
+    background-color: #0d1a2f;
+    border: 1px solid var(--nt-border);
+    color: var(--nt-text);
+}
+
+.nt-form-box .form-control:focus {
+    background-color: #0d1a2f;
+    border-color: var(--nt-blue);
+    box-shadow: 0 0 0 0.2rem rgba(31, 122, 224, 0.25);
+    color: var(--nt-text);
+}
+
+.nt-form-box .form-check-label {
+    color: var(--nt-muted);
+}
+
+.nt-form-box .text-danger {
+    font-size: 0.85rem;
+}
+
+.nt-form-box .btn-link {
+    color: var(--nt-muted);
+}
+
+/* ---------- Hộp thông báo ---------- */
+.nt-alert {
+    background-color: rgba(31, 122, 224, 0.12);
+    border: 1px solid rgba(31, 122, 224, 0.4);
+    border-radius: 12px;
+    color: #bcd7fb;
+    padding: 14px 18px;
+}
+
+/* ---------- Khung trống khi chưa có bài ---------- */
+.nt-empty {
+    background-color: var(--nt-navy-light);
+    border: 1px dashed var(--nt-border);
+    border-radius: 16px;
+    color: var(--nt-muted);
+    padding: 40px;
+    text-align: center;
+}
+
+/* ---------- Footer ---------- */
+.nt-footer {
+    background-color: #070f1c;
+    border-top: 1px solid var(--nt-border);
+    padding: 36px 0 24px;
+}
+
+.nt-footer-brand {
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.nt-footer-brand span {
+    color: var(--nt-blue);
+}
+
+.nt-footer p {
+    color: var(--nt-muted);
+    margin: 0;
+}
+
+.nt-footer a {
+    color: var(--nt-muted);
+    text-decoration: none;
+}
+
+.nt-footer a:hover {
+    color: #fff;
 }

@@ -118,7 +118,8 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
     │   ├── css/
     │   ├── js/
     │   ├── lib/                # Bootstrap, jQuery
-    │   └── images/             # Ảnh do thành viên tải lên
+    │   └── images/
+    │       └── sample/         # Ảnh mẫu, xem NGUON-ANH.md để biết nguồn và giấy phép
     ├── appsettings.json        # Chuỗi kết nối CSDL, cấu hình
     ├── Program.cs              # Điểm khởi động, đăng ký dịch vụ
     └── DuLichNhaTrang.csproj   # Khai báo project và các gói NuGet
@@ -128,8 +129,8 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 
 | Người dùng truy cập | Controller nhận | Gọi dữ liệu | Trả về View |
 | --- | --- | --- | --- |
-| `/Home/Index` | `HomeController.Index()` | `AppDbContext` (nếu cần) | `Views/Home/Index.cshtml` |
-| `/Post/Details/5` | `PostController.Details(5)` | Bảng `Posts` | `Views/Post/Details.cshtml` |
+| `/` hoặc `/?q=biển` | `HomeController.Index(q)` | Bảng `Posts` + `Categories` | `Views/Home/Index.cshtml` |
+| `/Home/Details/5` | `HomeController.Details(5)` | Bảng `Posts` + `Categories` + `Users` | `Views/Home/Details.cshtml` |
 
 ## 7. Quy ước code
 
@@ -138,7 +139,7 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 - **Model**: số ít, PascalCase (`User`, `Post`); tên cột giữ nguyên tiếng Việt không dấu (`TieuDe`, `NgayDang`).
 - **Trạng thái bài viết**: `ChoDuyet`, `DaDuyet`, `TuChoi`.
 - **Vai trò**: `Admin`, `Member`.
-- **Ảnh tải lên**: lưu file trong `wwwroot/images`, chỉ lưu **tên file** vào cột `Posts.HinhAnh`.
+- **Ảnh tải lên**: lưu file trong `wwwroot/images`, lưu **đường dẫn tương đối** vào cột `Posts.HinhAnh` (ví dụ `images/sample/bai-bien.jpg`).
 - **Không commit**: `bin/`, `obj/`, `.vs/`, `*.user` (đã khai báo trong `.gitignore`).
 - **Commit**: mỗi chức năng hoàn thành thì commit một lần, thông điệp bằng tiếng Việt.
 
@@ -185,7 +186,7 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (4 loại đ�
 - [x] Tạo Models, DbContext và cơ sở dữ liệu
 - [x] Thêm dữ liệu mẫu (loại địa điểm, bài viết, tài khoản)
 - [x] Đăng ký, đăng nhập, đăng xuất và phân quyền Admin/Member
-- [ ] Xem danh sách, xem chi tiết, tìm kiếm
+- [x] Xem danh sách, xem chi tiết, tìm kiếm (giao diện theo phong cách Travello)
 - [ ] Đăng bài và quản lý bài của tôi
 - [ ] Admin duyệt bài, quản lý loại địa điểm
 - [ ] Hiển thị ngẫu nhiên và donate mô phỏng
@@ -201,3 +202,9 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (4 loại đ�
 ## 11. Ghi chú
 
 Sản phẩm phục vụ mục đích học tập. Chức năng donate chỉ là **mô phỏng**, không xử lý giao dịch tiền thật.
+
+- Giao diện lấy cảm hứng từ mẫu Figma **Travello – Traveling Website Landing Page**
+  (<https://www.figma.com/community/file/1230410907606513611/travello-traveling-website-landing-page>),
+  dựng lại bằng **Bootstrap 5** có sẵn trong project, không copy file của template.
+- Ảnh minh hoạ lấy từ Wikimedia Commons; danh sách tác giả và giấy phép ghi trong
+  `DuLichNhaTrang/wwwroot/images/sample/NGUON-ANH.md`.

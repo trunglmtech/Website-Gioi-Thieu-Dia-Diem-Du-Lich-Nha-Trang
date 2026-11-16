@@ -4,40 +4,42 @@
     ViewData["Title"] = "Đăng nhập";
 }
 
-<h1 class="mb-4">Đăng nhập</h1>
+<div class="nt-page">
+    <div class="container">
+        <div class="nt-form-box">
+            <h1>Đăng nhập</h1>
 
-@if (TempData["ThongBao"] != null)
-{
-    <div class="alert alert-success">@TempData["ThongBao"]</div>
-}
+            @if (TempData["ThongBao"] != null)
+            {
+                <div class="nt-alert mb-3">@TempData["ThongBao"]</div>
+            }
 
-<div class="row">
-    <div class="col-md-5">
-        <form asp-action="Login" method="post">
-            <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+            <form asp-action="Login" method="post">
+                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <div class="mb-3">
-                <label asp-for="TenDangNhap" class="form-label"></label>
-                <input asp-for="TenDangNhap" class="form-control" />
-                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
-            </div>
+                <div class="mb-3">
+                    <label asp-for="TenDangNhap" class="form-label"></label>
+                    <input asp-for="TenDangNhap" class="form-control" />
+                    <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+                </div>
 
-            <div class="mb-3">
-                <label asp-for="MatKhau" class="form-label"></label>
-                <input asp-for="MatKhau" class="form-control" />
-                <span asp-validation-for="MatKhau" class="text-danger"></span>
-            </div>
+                <div class="mb-3">
+                    <label asp-for="MatKhau" class="form-label"></label>
+                    <input asp-for="MatKhau" class="form-control" />
+                    <span asp-validation-for="MatKhau" class="text-danger"></span>
+                </div>
 
-            <div class="form-check mb-3">
-                <input asp-for="GhiNho" class="form-check-input" />
-                <label asp-for="GhiNho" class="form-check-label"></label>
-            </div>
+                <div class="form-check mb-3">
+                    <input asp-for="GhiNho" class="form-check-input" />
+                    <label asp-for="GhiNho" class="form-check-label"></label>
+                </div>
 
-            <button type="submit" class="btn btn-primary">Đăng nhập</button>
-            <a asp-action="Register" class="btn btn-link">Chưa có tài khoản? Đăng ký</a>
-        </form>
+                <button type="submit" class="btn btn-nt-primary">Đăng nhập</button>
+                <a asp-action="Register" class="btn btn-link">Chưa có tài khoản? Đăng ký</a>
+            </form>
+        </div>
     </div>
 </div>
 

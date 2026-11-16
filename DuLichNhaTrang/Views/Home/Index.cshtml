@@ -1,14 +1,109 @@
-﻿@{
+﻿@model List<DuLichNhaTrang.Models.Post>
+
+@{
     ViewData["Title"] = "Trang chủ";
+    string tuKhoa = ViewBag.TuKhoa as string ?? "";
 }
 
-<div class="p-5 mb-4 bg-light rounded-3 border">
-    <h1 class="display-6">Khám phá du lịch Nha Trang</h1>
-    <p class="lead">Nơi thành viên chia sẻ những địa điểm du lịch, ăn uống và vui chơi tại thành phố biển Nha Trang.</p>
-    <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Đăng ký thành viên</a>
-    <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+@* ---------- Phần hero: tiêu đề lớn + ô tìm kiếm ---------- *@
+<section class="nt-hero">
+    <div class="container">
+        <div class="nt-hero-eyebrow">Việt Nam · Khánh Hòa</div>
+        <h1>Khám phá Nha Trang</h1>
+        <p>
+            Nơi thành viên chia sẻ những bãi biển, di tích, món ăn và khu vui chơi
+            đẹp nhất của thành phố biển Nha Trang.
+        </p>
+
+        @* Gửi từ khóa lên HomeController.Index bằng phương thức GET (?q=...) *@
+        <form class="nt-search" asp-controller="Home" asp-action="Index" method="get">
+            <input type="text" name="q" value="@tuKhoa" placeholder="Tìm địa điểm theo tên..." />
+            <button type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+</section>
+
+@* ---------- Dải 4 đặc điểm ---------- *@
+<div class="container">
+    <div class="nt-features">
+        <div class="nt-feature">
+            <span class="nt-feature-icon">🏖️</span>
+            <strong>Bãi biển đẹp</strong>
+            <span>Nước xanh, cát trắng</span>
+        </div>
+        <div class="nt-feature">
+            <span class="nt-feature-icon">🏛️</span>
+            <strong>Di tích nổi tiếng</strong>
+            <span>Tháp Bà, nhà thờ Núi</span>
+        </div>
+        <div class="nt-feature">
+            <span class="nt-feature-icon">🍜</span>
+            <strong>Ẩm thực địa phương</strong>
+            <span>Bún chả cá, hải sản</span>
+        </div>
+        <div class="nt-feature">
+            <span class="nt-feature-icon">🎡</span>
+            <strong>Vui chơi giải trí</strong>
+            <span>Vinpearl, công viên nước</span>
+        </div>
+    </div>
 </div>
 
-<div class="alert alert-info">
-    Danh sách bài viết sẽ được hiển thị ở bước tiếp theo của đồ án.
-</div>
+@* ---------- Danh sách bài viết đã duyệt ---------- *@
+<section class="nt-section">
+    <div class="container">
+        <h2 class="nt-section-title">Địa điểm du lịch</h2>
+        <p class="nt-section-sub">
+            @if (string.IsNullOrWhiteSpace(tuKhoa))
+            {
+                <text>Tổng cộng @Model.Count địa điểm đã được duyệt. Bài có donate được ưu tiên hiển thị trước.</text>
+            }
+            else
+            {
+                <text>Kết quả cho từ khóa "@tuKhoa": @Model.Count địa điểm.</text>
+            }
+        </p>
+
+        @if (Model.Count == 0)
+        {
+            <div class="nt-empty">
+                <p class="mb-0">Chưa có bài viết nào phù hợp. Bạn thử tìm từ khóa khác nhé.</p>
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var post in Model)
+                {
+                    var dangNoiBat = post.FeaturedUntil != null && post.FeaturedUntil > DateTime.Now;
+                    var duongDanAnh = string.IsNullOrEmpty(post.HinhAnh)
+                        ? Url.Content("~/images/sample/hero-nha-trang.jpg")
+                        : Url.Content("~/" + post.HinhAnh);
+                    var moTaNgan = post.MoTa.Length > 110
+                        ? post.MoTa.Substring(0, 110) + "..."
+                        : post.MoTa;
+
+                    <div class="col-sm-6 col-lg-4">
+                        <article class="nt-card">
+                            <div class="nt-card-img">
+                                <img src="@duongDanAnh" alt="@post.TieuDe" loading="lazy" />
+                                @if (dangNoiBat)
+                                {
+                                    <span class="nt-badge-featured">Nổi bật</span>
+                                }
+                            </div>
+                            <div class="nt-card-body">
+                                <div class="nt-card-meta">@post.Category?.TenLoai</div>
+                                <h3 class="nt-card-title">@post.TieuDe</h3>
+                                <p class="nt-card-desc">@moTaNgan</p>
+                                <a class="btn btn-nt-primary btn-sm" asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">
+                                    Xem chi tiết
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
