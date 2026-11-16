@@ -9,3 +9,8 @@ obj/
 
 # ===== File cấu hình riêng của từng máy =====
 appsettings.Development.local.json
+
+# ===== File cơ sở dữ liệu (tự sinh, không đưa lên GitHub) =====
+database/*.mdf
+database/*.ldf
+database/*.bak

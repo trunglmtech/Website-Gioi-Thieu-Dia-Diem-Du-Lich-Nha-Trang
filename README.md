@@ -93,6 +93,11 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 ├── .gitattributes              # Chuẩn hóa xuống dòng, khai báo file nhị phân
 ├── .editorconfig               # Quy ước định dạng code
 │
+├── database/                   # File CSDL (tự sinh khi chạy, không commit)
+│   ├── DuLichNhaTrang.mdf      # Dữ liệu chính
+│   ├── DuLichNhaTrang_log.ldf  # File log của SQL Server
+│   └── README.md               # Hướng dẫn sao lưu / khôi phục
+│
 ├── docs/                       # Tài liệu và hình ảnh thiết kế
 │   ├── use-case.png            # Sơ đồ Use Case
 │   ├── erd.png                 # Sơ đồ ERD
@@ -149,18 +154,18 @@ git clone https://github.com/trunglmtech/Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha
 #    Mở DuLichNhaTrang.slnx bằng Visual Studio
 ```
 
-3. Kiểm tra chuỗi kết nối trong `DuLichNhaTrang/appsettings.json`.
-4. Tạo cơ sở dữ liệu bằng migration (chỉ cần làm lần đầu):
+3. Kiểm tra chuỗi kết nối trong `DuLichNhaTrang/appsettings.json`. Đường dẫn `AttachDbFilename` phải trỏ tới thư mục `database/` trên máy đang chạy.
+4. Nhấn **F5**. Lần chạy đầu tiên, Entity Framework tự tạo file CSDL `database/DuLichNhaTrang.mdf` và thêm dữ liệu mẫu.
 
-```bash
-dotnet tool install --global dotnet-ef   # cài công cụ EF Core (nếu chưa có)
-cd DuLichNhaTrang
-dotnet ef database update
-```
+   Nếu muốn tạo CSDL trước bằng dòng lệnh:
 
-5. Nhấn **F5** để chạy website.
+   ```bash
+   dotnet tool install --global dotnet-ef   # cài công cụ EF Core (nếu chưa có)
+   cd DuLichNhaTrang
+   dotnet ef database update
+   ```
 
-> Cơ sở dữ liệu **không** lưu trong GitHub. Máy mới chỉ cần chạy `dotnet ef database update` là có đủ bảng.
+> File `.mdf` / `.ldf` **không** đưa lên GitHub vì là dữ liệu riêng của từng máy. Máy mới chỉ cần chạy website một lần là có CSDL. Cách sao lưu / khôi phục: xem `database/README.md`.
 
 ### Tài khoản mẫu
 
