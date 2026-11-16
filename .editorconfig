@@ -1,0 +1,18 @@
+# Cấu hình chung để Visual Studio tự định dạng code giống nhau trên mọi máy
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+# File cấu hình và tài liệu dùng thụt lề 2 dấu cách
+[*.{json,yml,yaml,md,csproj,slnx,props,targets}]
+indent_size = 2
+
+# Không xóa khoảng trắng cuối dòng trong Markdown (dùng để xuống dòng)
+[*.md]
+trim_trailing_whitespace = false

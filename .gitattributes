@@ -1,0 +1,13 @@
+# Chuẩn hóa ký tự xuống dòng (tránh cảnh báo LF/CRLF khi commit)
+* text=auto
+
+# File nhị phân: Git không xử lý xuống dòng, không so sánh từng dòng
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.pptx binary
+*.xlsx binary
