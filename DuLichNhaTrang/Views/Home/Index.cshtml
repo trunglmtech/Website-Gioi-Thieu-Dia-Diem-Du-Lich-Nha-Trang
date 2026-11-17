@@ -79,9 +79,11 @@
                     var duongDanAnh = string.IsNullOrEmpty(post.HinhAnh)
                         ? Url.Content("~/images/sample/hero-nha-trang.jpg")
                         : Url.Content("~/" + post.HinhAnh);
-                    var moTaNgan = post.MoTa.Length > 110
-                        ? post.MoTa.Substring(0, 110) + "..."
-                        : post.MoTa;
+                    // Mô tả có thể chứa thẻ HTML, bỏ thẻ để lấy chữ thuần làm đoạn tóm tắt
+                    var moTaChu = NoiDungHtml.LayChuThuan(post.MoTa);
+                    var moTaNgan = moTaChu.Length > 110
+                        ? moTaChu.Substring(0, 110) + "..."
+                        : moTaChu;
 
                     <div class="col-sm-6 col-lg-4">
                         <article class="nt-card">

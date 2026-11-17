@@ -30,7 +30,10 @@
             </div>
         }
 
-        <p class="nt-detail-text">@Model.MoTa</p>
+        <div class="nt-detail-text">
+            @* Mô tả đã được lọc HTML khi lưu nên hiển thị được định dạng in đậm, in nghiêng... *@
+            @Html.Raw(Model.MoTa)
+        </div>
 
         <div class="mt-4">
             <a class="btn btn-nt-outline" asp-controller="Home" asp-action="Index">Xem các địa điểm khác</a>

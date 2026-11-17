@@ -118,7 +118,7 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
     ├── wwwroot/                # File tĩnh
     │   ├── css/
     │   ├── js/
-    │   ├── lib/                # Bootstrap, jQuery
+    │   ├── lib/                # Bootstrap, jQuery, Quill (soạn thảo mô tả)
     │   └── images/
     │       ├── sample/         # Ảnh mẫu, xem NGUON-ANH.md để biết nguồn và giấy phép
     │       └── posts/          # Ảnh do thành viên tải lên (tự sinh, không commit)
@@ -144,6 +144,7 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 - **Trạng thái bài viết**: `ChoDuyet`, `DaDuyet`, `TuChoi`.
 - **Vai trò**: `Admin`, `Member`.
 - **Ảnh tải lên**: lưu file trong `wwwroot/images/posts`, lưu **đường dẫn tương đối** vào cột `Posts.HinhAnh` (ví dụ `images/posts/abc123.jpg`).
+- **Mô tả bài viết**: lưu **HTML có định dạng** (in đậm, in nghiêng, danh sách...) do trình soạn thảo Quill tạo ra. Trước khi lưu, HTML được lọc bằng thư viện `HtmlSanitizer` để bỏ thẻ độc hại (`<script>`, `onerror`...).
 - **Không commit**: `bin/`, `obj/`, `.vs/`, `*.user` (đã khai báo trong `.gitignore`).
 - **Commit**: mỗi chức năng hoàn thành thì commit một lần, thông điệp bằng tiếng Việt.
 
@@ -212,3 +213,5 @@ Sản phẩm phục vụ mục đích học tập. Chức năng donate chỉ là
   dựng lại bằng **Bootstrap 5** có sẵn trong project, không copy file của template.
 - Ảnh minh hoạ lấy từ Wikimedia Commons; danh sách tác giả và giấy phép ghi trong
   `DuLichNhaTrang/wwwroot/images/sample/NGUON-ANH.md`.
+- Trình soạn thảo mô tả dùng **Quill 2** (giấy phép BSD-3), chép sẵn vào `wwwroot/lib/quill`
+  nên **không cần mạng** khi chạy demo. Giấy phép gốc nằm trong thư mục đó.

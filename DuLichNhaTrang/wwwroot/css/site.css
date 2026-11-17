@@ -364,7 +364,40 @@ a:hover {
     color: #cfd9e8;
     font-size: 1.05rem;
     line-height: 1.8;
-    white-space: pre-line;
+}
+
+.nt-detail-text p {
+    margin-bottom: 1rem;
+}
+
+.nt-detail-text ul,
+.nt-detail-text ol {
+    margin-bottom: 1rem;
+    padding-left: 1.6rem;
+}
+
+.nt-detail-text h1,
+.nt-detail-text h2,
+.nt-detail-text h3 {
+    color: #fff;
+    font-weight: 800;
+    margin: 1.4rem 0 0.75rem;
+}
+
+.nt-detail-text strong {
+    color: #fff;
+}
+
+.nt-detail-text blockquote {
+    border-left: 4px solid var(--nt-blue);
+    color: var(--nt-muted);
+    margin: 1rem 0;
+    padding-left: 1rem;
+}
+
+.nt-detail-text a {
+    color: #6fb1ff;
+    text-decoration: underline;
 }
 
 /* ---------- Khung form đăng nhập / đăng ký ---------- */
@@ -457,6 +490,89 @@ a:hover {
     color: var(--nt-muted);
     font-size: 0.92rem;
     margin-bottom: 22px;
+}
+
+/* ---------- Khung soạn thảo mô tả (Quill) ---------- */
+.nt-editor .ql-toolbar.ql-snow {
+    background-color: #0d1a2f;
+    border: 1px solid var(--nt-border);
+    border-radius: 10px 10px 0 0;
+}
+
+.nt-editor .ql-container.ql-snow {
+    background-color: #0d1a2f;
+    border: 1px solid var(--nt-border);
+    border-radius: 0 0 10px 10px;
+    color: var(--nt-text);
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.nt-editor .ql-editor {
+    min-height: 220px;
+}
+
+.nt-editor .ql-editor.ql-blank::before {
+    color: #5f708a;
+    font-style: normal;
+}
+
+.nt-editor .ql-snow .ql-stroke {
+    stroke: #cfd9e8;
+}
+
+.nt-editor .ql-snow .ql-fill {
+    fill: #cfd9e8;
+}
+
+.nt-editor .ql-snow .ql-picker {
+    color: #cfd9e8;
+}
+
+.nt-editor .ql-snow .ql-picker-options {
+    background-color: var(--nt-navy-light);
+    border-color: var(--nt-border);
+}
+
+.nt-editor .ql-snow .ql-picker-item {
+    color: var(--nt-text);
+}
+
+.nt-editor .ql-snow button:hover .ql-stroke,
+.nt-editor .ql-snow button.ql-active .ql-stroke,
+.nt-editor .ql-snow .ql-picker-label:hover .ql-stroke {
+    stroke: var(--nt-blue);
+}
+
+.nt-editor .ql-snow button:hover .ql-fill,
+.nt-editor .ql-snow button.ql-active .ql-fill {
+    fill: var(--nt-blue);
+}
+
+.nt-editor .ql-snow .ql-picker-label:hover,
+.nt-editor .ql-snow .ql-picker-label.ql-active {
+    color: var(--nt-blue);
+}
+
+/* Đổi tên mục cỡ chữ trong thanh công cụ sang tiếng Việt */
+.nt-editor .ql-snow .ql-picker.ql-header .ql-picker-label::before,
+.nt-editor .ql-snow .ql-picker.ql-header .ql-picker-item::before {
+    content: 'Văn bản';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before,
+.nt-editor .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
+    content: 'Tiêu đề 1';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="2"]::before,
+.nt-editor .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
+    content: 'Tiêu đề 2';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="3"]::before,
+.nt-editor .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
+    content: 'Tiêu đề 3';
 }
 
 /* ---------- Bảng bài viết của tôi ---------- */

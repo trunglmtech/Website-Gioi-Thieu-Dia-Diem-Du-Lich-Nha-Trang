@@ -39,8 +39,16 @@
 
                 <div class="mb-3">
                     <label asp-for="MoTa" class="form-label"></label>
-                    <textarea asp-for="MoTa" class="form-control" rows="5"
-                              placeholder="Giới thiệu ngắn về địa điểm: ở đâu, có gì đặc biệt..."></textarea>
+
+                    @* Khung soạn thảo có nút định dạng (Quill). Nội dung thật gửi lên nằm ở ô ẩn bên dưới *@
+                    <div class="nt-editor">
+                        <div id="moTaEditor"></div>
+                    </div>
+                    <input asp-for="MoTa" type="hidden" id="MoTaInput" />
+
+                    <div class="form-text">
+                        Có thể in đậm, in nghiêng, đổi cỡ chữ, màu chữ, tạo danh sách giống như trong Word.
+                    </div>
                     <span asp-validation-for="MoTa" class="text-danger"></span>
                 </div>
 
@@ -53,4 +61,36 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <link rel="stylesheet" href="~/lib/quill/quill.snow.css" />
+    <script src="~/lib/quill/quill.js"></script>
+    <script>
+        // Khởi tạo khung soạn thảo có thanh công cụ định dạng
+        var quill = new Quill('#moTaEditor', {
+            theme: 'snow',
+            placeholder: 'Giới thiệu ngắn về địa điểm: ở đâu, có gì đặc biệt...',
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ color: [] }, { background: [] }],
+                    [{ list: 'ordered' }, { list: 'bullet' }],
+                    ['blockquote', 'link'],
+                    ['clean']
+                ]
+            }
+        });
+
+        var moTaInput = document.getElementById('MoTaInput');
+
+        // Nếu form bị lỗi (thiếu ảnh, thiếu loại...), đổ lại nội dung đã nhập vào khung soạn thảo
+        if (moTaInput.value) {
+            quill.clipboard.dangerouslyPasteHTML(moTaInput.value);
+        }
+
+        // Trước khi gửi form, chép nội dung trong khung soạn thảo vào ô ẩn để gửi lên server
+        document.querySelector('form').addEventListener('submit', function () {
+            moTaInput.value = quill.getSemanticHTML();
+        });
+    </script>
 }

@@ -1,6 +1,7 @@
 using DuLichNhaTrang.Data;
 using DuLichNhaTrang.Models;
 using DuLichNhaTrang.Models.ViewModels;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,6 +19,9 @@ namespace DuLichNhaTrang.Controllers
 
         // Các đuôi file ảnh được phép tải lên
         private static readonly string[] DuoiAnhChoPhep = { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+
+        // Bộ lọc HTML: giữ các thẻ định dạng hợp lệ, xóa <script>, onerror... để chống XSS
+        private static readonly HtmlSanitizer BoLocHtml = new HtmlSanitizer();
 
         public PostController(AppDbContext context, IWebHostEnvironment environment)
         {
@@ -57,6 +61,16 @@ namespace DuLichNhaTrang.Controllers
                 {
                     ModelState.AddModelError("HinhAnh", "Ảnh không được lớn hơn 5 MB");
                 }
+            }
+
+            // Lọc HTML của mô tả: giữ in đậm, in nghiêng, danh sách... và bỏ mã độc
+            model.MoTa = BoLocHtml.Sanitize(model.MoTa ?? "");
+
+            // Khung soạn thảo để trống thường gửi lên "<p><br></p>"
+            // nên phải bỏ thẻ HTML rồi kiểm tra xem còn chữ nào không
+            if (string.IsNullOrWhiteSpace(NoiDungHtml.LayChuThuan(model.MoTa)))
+            {
+                ModelState.AddModelError("MoTa", "Vui lòng nhập mô tả");
             }
 
             if (!ModelState.IsValid)
