@@ -135,6 +135,9 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 | `/Home/Details/5` | `HomeController.Details(5)` | Bảng `Posts` + `Categories` + `Users` | `Views/Home/Details.cshtml` |
 | `/Post/Create` | `PostController.Create()` | Bảng `Categories`, lưu ảnh vào `wwwroot/images/posts` | `Views/Post/Create.cshtml` |
 | `/Post/MyPosts` | `PostController.MyPosts()` | Bảng `Posts` + `Categories` (lọc theo `UserId`) | `Views/Post/MyPosts.cshtml` |
+| `/Admin` | `AdminController.Index(trangThai)` | Bảng `Posts` + `Categories` + `Users` | `Views/Admin/Index.cshtml` |
+| `/Admin/ChiTiet/5` | `AdminController.ChiTiet(5)` | Bảng `Posts` + `Categories` + `Users` | `Views/Admin/ChiTiet.cshtml` |
+| `POST /Admin/Duyet/5` | `AdminController.Duyet(5)` | Cập nhật `Posts.TrangThai` | Chuyển về `Views/Admin/Index.cshtml` |
 
 ## 7. Quy ước code
 
@@ -193,7 +196,8 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (4 loại đ�
 - [x] Đăng ký, đăng nhập, đăng xuất và phân quyền Admin/Member
 - [x] Xem danh sách, xem chi tiết, tìm kiếm (giao diện theo phong cách Travello)
 - [x] Đăng bài và quản lý bài của tôi
-- [ ] Admin duyệt bài, quản lý loại địa điểm
+- [x] Admin duyệt, từ chối, xóa bài
+- [ ] Admin quản lý loại địa điểm
 - [ ] Hiển thị ngẫu nhiên và donate mô phỏng
 - [ ] Kiểm thử và hoàn thiện
 - [ ] Báo cáo và demo

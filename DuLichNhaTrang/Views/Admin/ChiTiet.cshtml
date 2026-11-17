@@ -1,0 +1,63 @@
+@model DuLichNhaTrang.Models.Post
+
+@{
+    ViewData["Title"] = "Xem bài viết";
+    var duongDanAnh = string.IsNullOrEmpty(Model.HinhAnh)
+        ? Url.Content("~/images/sample/hero-nha-trang.jpg")
+        : Url.Content("~/" + Model.HinhAnh);
+}
+
+<section class="nt-section">
+    <div class="container">
+        <a asp-action="Index" class="nt-back-link">← Về trang quản trị</a>
+
+        @if (TempData["ThongBao"] != null)
+        {
+            <div class="nt-alert mb-4">@TempData["ThongBao"]</div>
+        }
+
+        <div class="nt-admin-detail">
+            <span class="nt-status @TrangThaiBaiViet.LopHienThi(Model.TrangThai)">
+                @TrangThaiBaiViet.TenHienThi(Model.TrangThai)
+            </span>
+
+            <h1>@Model.TieuDe</h1>
+            <p class="nt-admin-meta">
+                Loại: <strong>@Model.Category?.TenLoai</strong> ·
+                Người đăng: <strong>@Model.User?.TenDangNhap</strong> ·
+                Ngày đăng: @Model.NgayDang.ToString("dd/MM/yyyy HH:mm")
+            </p>
+
+            <img src="@duongDanAnh" alt="@Model.TieuDe" class="nt-admin-detail-img" />
+
+            <div class="nt-detail-text">
+                @* Mô tả đã được lọc HTML khi lưu nên hiển thị định dạng an toàn *@
+                @Html.Raw(Model.MoTa)
+            </div>
+
+            <div class="nt-admin-actions mt-4">
+                @if (Model.TrangThai != "DaDuyet")
+                {
+                    <form asp-action="Duyet" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-nt-approve">Duyệt bài</button>
+                    </form>
+                }
+
+                @if (Model.TrangThai != "TuChoi")
+                {
+                    <form asp-action="TuChoi" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-nt-reject">Từ chối bài</button>
+                    </form>
+                }
+
+                <form asp-action="Xoa" method="post"
+                      onsubmit="return confirm('Xóa bài này? Thao tác không hoàn tác được.');">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-nt-delete">Xóa bài</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

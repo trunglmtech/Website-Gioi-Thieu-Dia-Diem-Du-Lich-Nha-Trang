@@ -642,6 +642,7 @@ a:hover {
 
 .nt-table {
     border-collapse: collapse;
+    min-width: 900px;
     width: 100%;
 }
 
@@ -688,6 +689,159 @@ a:hover {
 .nt-status-tu {
     background-color: rgba(248, 113, 113, 0.15);
     color: #f87171;
+}
+
+/* ---------- Trang quản trị ---------- */
+.nt-admin-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.nt-admin-filter {
+    border: 1px solid var(--nt-border);
+    border-radius: 30px;
+    color: var(--nt-muted);
+    font-size: 0.9rem;
+    padding: 7px 16px;
+    text-decoration: none;
+}
+
+.nt-admin-filter:hover {
+    border-color: var(--nt-blue);
+    color: #fff;
+}
+
+.nt-admin-filter.active {
+    background-color: var(--nt-blue);
+    border-color: var(--nt-blue);
+    color: #fff;
+}
+
+.nt-admin-thumb {
+    border-radius: 8px;
+    display: block;
+    height: 54px;
+    object-fit: cover;
+    width: 72px;
+}
+
+.nt-admin-title-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nt-admin-title-link:hover {
+    color: var(--nt-blue);
+}
+
+.nt-admin-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+}
+
+.nt-admin-actions form {
+    margin: 0;
+}
+
+.nt-admin-actions .btn {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    white-space: nowrap;
+}
+
+.btn-nt-approve {
+    border: 1px solid rgba(74, 222, 128, 0.6);
+    color: #4ade80;
+}
+
+.btn-nt-approve:hover {
+    background-color: #4ade80;
+    border-color: #4ade80;
+    color: var(--nt-navy);
+}
+
+.btn-nt-reject {
+    border: 1px solid rgba(248, 113, 113, 0.6);
+    color: #f87171;
+}
+
+.btn-nt-reject:hover {
+    background-color: #f87171;
+    border-color: #f87171;
+    color: var(--nt-navy);
+}
+
+.btn-nt-delete {
+    background-color: rgba(248, 113, 113, 0.15);
+    border: 1px solid rgba(248, 113, 113, 0.6);
+    color: #f87171;
+}
+
+.btn-nt-delete:hover {
+    background-color: #f87171;
+    border-color: #f87171;
+    color: var(--nt-navy);
+}
+
+.nt-back-link {
+    color: var(--nt-muted);
+    display: inline-block;
+    margin-bottom: 18px;
+    text-decoration: none;
+}
+
+.nt-back-link:hover {
+    color: var(--nt-blue);
+}
+
+.nt-admin-detail {
+    background-color: var(--nt-navy-light);
+    border: 1px solid var(--nt-border);
+    border-radius: 16px;
+    padding: 28px;
+}
+
+.nt-admin-detail h1 {
+    color: #fff;
+    font-weight: 800;
+    margin: 10px 0;
+}
+
+.nt-admin-meta {
+    color: var(--nt-muted);
+    font-size: 0.9rem;
+}
+
+.nt-admin-detail-img {
+    border-radius: 12px;
+    margin: 18px 0;
+    max-height: 420px;
+    object-fit: cover;
+    width: 100%;
+}
+
+/* Màn hình hẹp: ẩn bớt cột phụ để bảng không bị tràn ngang */
+@media (max-width: 991px) {
+    .nt-table {
+        min-width: 0;
+    }
+
+    .nt-col-optional {
+        display: none;
+    }
+
+    .nt-admin-thumb {
+        height: 42px;
+        width: 56px;
+    }
+
+    .nt-table th,
+    .nt-table td {
+        padding: 10px 8px;
+    }
 }
 
 /* ---------- Hộp thông báo ---------- */
