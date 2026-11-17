@@ -21,7 +21,15 @@ namespace DuLichNhaTrang.Controllers
         private static readonly string[] DuoiAnhChoPhep = { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
 
         // Bộ lọc HTML: giữ các thẻ định dạng hợp lệ, xóa <script>, onerror... để chống XSS
-        private static readonly HtmlSanitizer BoLocHtml = new HtmlSanitizer();
+        // font-size: cho phép giữ cỡ chữ (12px, 14px...) do người dùng chọn trong khung soạn thảo
+        private static readonly HtmlSanitizer BoLocHtml = TaoBoLocHtml();
+
+        private static HtmlSanitizer TaoBoLocHtml()
+        {
+            var boLoc = new HtmlSanitizer();
+            boLoc.AllowedCssProperties.Add("font-size");
+            return boLoc;
+        }
 
         public PostController(AppDbContext context, IWebHostEnvironment environment)
         {

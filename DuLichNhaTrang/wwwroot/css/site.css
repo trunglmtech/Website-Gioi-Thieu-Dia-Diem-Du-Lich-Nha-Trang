@@ -575,6 +575,66 @@ a:hover {
     content: 'Tiêu đề 3';
 }
 
+/* Hiện số cỡ chữ (px) trong ô chọn cỡ chữ */
+.nt-editor .ql-snow .ql-picker.ql-size {
+    width: 86px;
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item::before {
+    content: 'Cỡ chữ';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="12px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="12px"]::before {
+    content: '12';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="14px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="14px"]::before {
+    content: '14';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="16px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before {
+    content: '16';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="18px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before {
+    content: '18';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="20px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before {
+    content: '20';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="24px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="24px"]::before {
+    content: '24';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="28px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="28px"]::before {
+    content: '28';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="32px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="32px"]::before {
+    content: '32';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="36px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="36px"]::before {
+    content: '36';
+}
+
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="48px"]::before,
+.nt-editor .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="48px"]::before {
+    content: '48';
+}
+
 /* ---------- Bảng bài viết của tôi ---------- */
 .nt-table-wrap {
     overflow-x: auto;

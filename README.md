@@ -144,7 +144,7 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 - **Trạng thái bài viết**: `ChoDuyet`, `DaDuyet`, `TuChoi`.
 - **Vai trò**: `Admin`, `Member`.
 - **Ảnh tải lên**: lưu file trong `wwwroot/images/posts`, lưu **đường dẫn tương đối** vào cột `Posts.HinhAnh` (ví dụ `images/posts/abc123.jpg`).
-- **Mô tả bài viết**: lưu **HTML có định dạng** (in đậm, in nghiêng, danh sách...) do trình soạn thảo Quill tạo ra. Trước khi lưu, HTML được lọc bằng thư viện `HtmlSanitizer` để bỏ thẻ độc hại (`<script>`, `onerror`...).
+- **Mô tả bài viết**: lưu **HTML có định dạng** (in đậm, in nghiêng, cỡ chữ theo px, danh sách...) do trình soạn thảo Quill tạo ra. Trước khi lưu, HTML được lọc bằng thư viện `HtmlSanitizer` để bỏ thẻ độc hại (`<script>`, `onerror`...), nhưng vẫn giữ thuộc tính `font-size`.
 - **Không commit**: `bin/`, `obj/`, `.vs/`, `*.user` (đã khai báo trong `.gitignore`).
 - **Commit**: mỗi chức năng hoàn thành thì commit một lần, thông điệp bằng tiếng Việt.
 
