@@ -404,6 +404,20 @@ a:hover {
     color: var(--nt-text);
 }
 
+.nt-form-box .form-control::placeholder {
+    color: #5f708a;
+}
+
+.nt-form-box input[type="file"]::file-selector-button {
+    background-color: var(--nt-blue);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    margin-right: 12px;
+    padding: 8px 16px;
+}
+
 .nt-form-box .form-check-label {
     color: var(--nt-muted);
 }
@@ -414,6 +428,90 @@ a:hover {
 
 .nt-form-box .btn-link {
     color: var(--nt-muted);
+}
+
+.nt-form-box .form-select {
+    background-color: #0d1a2f;
+    border: 1px solid var(--nt-border);
+    color: var(--nt-text);
+}
+
+.nt-form-box .form-select:focus {
+    border-color: var(--nt-blue);
+    box-shadow: 0 0 0 0.2rem rgba(31, 122, 224, 0.25);
+}
+
+.nt-form-box .form-text {
+    color: var(--nt-muted);
+}
+
+.nt-form-box textarea.form-control {
+    min-height: 140px;
+}
+
+.nt-form-wide {
+    max-width: 680px;
+}
+
+.nt-form-note {
+    color: var(--nt-muted);
+    font-size: 0.92rem;
+    margin-bottom: 22px;
+}
+
+/* ---------- Bảng bài viết của tôi ---------- */
+.nt-table-wrap {
+    overflow-x: auto;
+}
+
+.nt-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.nt-table th {
+    border-bottom: 1px solid var(--nt-border);
+    color: var(--nt-muted);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 12px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.nt-table td {
+    border-bottom: 1px solid var(--nt-border);
+    padding: 14px 12px;
+    vertical-align: middle;
+}
+
+.nt-table-title {
+    color: #fff;
+    font-weight: 600;
+}
+
+.nt-status {
+    border-radius: 30px;
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    white-space: nowrap;
+}
+
+.nt-status-cho {
+    background-color: rgba(245, 197, 24, 0.15);
+    color: var(--nt-gold);
+}
+
+.nt-status-da {
+    background-color: rgba(74, 222, 128, 0.15);
+    color: #4ade80;
+}
+
+.nt-status-tu {
+    background-color: rgba(248, 113, 113, 0.15);
+    color: #f87171;
 }
 
 /* ---------- Hộp thông báo ---------- */

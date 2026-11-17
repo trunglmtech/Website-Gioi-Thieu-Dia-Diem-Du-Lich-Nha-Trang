@@ -14,3 +14,6 @@ appsettings.Development.local.json
 database/*.mdf
 database/*.ldf
 database/*.bak
+
+# ===== Ảnh do thành viên tải lên (tự sinh khi chạy) =====
+DuLichNhaTrang/wwwroot/images/posts/

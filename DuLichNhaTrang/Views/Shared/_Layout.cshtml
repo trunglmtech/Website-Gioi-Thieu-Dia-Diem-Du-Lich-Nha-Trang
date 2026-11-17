@@ -25,6 +25,16 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Trang chủ</a>
                         </li>
+                        @* Chỉ người đã đăng nhập mới thấy mục đăng bài *@
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Post" asp-action="Create">Đăng bài</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Post" asp-action="MyPosts">Bài của tôi</a>
+                            </li>
+                        }
                         @* Chỉ Admin mới thấy mục Quản trị *@
                         @if (User.IsInRole("Admin"))
                         {

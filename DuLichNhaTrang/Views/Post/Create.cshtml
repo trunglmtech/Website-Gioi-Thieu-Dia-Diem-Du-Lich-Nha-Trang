@@ -1,0 +1,56 @@
+@model DuLichNhaTrang.Models.ViewModels.PostCreateViewModel
+
+@{
+    ViewData["Title"] = "Đăng bài";
+}
+
+<div class="nt-page">
+    <div class="container">
+        <div class="nt-form-box nt-form-wide">
+            <h1>Đăng bài giới thiệu địa điểm</h1>
+            <p class="nt-form-note">
+                Bài viết sau khi gửi sẽ ở trạng thái <strong>Chờ duyệt</strong>.
+                Khi Admin duyệt, bài mới hiện trên trang chủ.
+            </p>
+
+            <form asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="TieuDe" class="form-label"></label>
+                    <input asp-for="TieuDe" class="form-control" placeholder="Ví dụ: Bãi biển Nha Trang" />
+                    <span asp-validation-for="TieuDe" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label"></label>
+                    <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
+                        <option value="">-- Chọn loại địa điểm --</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="HinhAnh" class="form-label"></label>
+                    <input asp-for="HinhAnh" type="file" accept=".jpg,.jpeg,.png,.gif,.webp" class="form-control" />
+                    <div class="form-text">Ảnh .jpg, .png, .gif, .webp, dung lượng tối đa 5 MB.</div>
+                    <span asp-validation-for="HinhAnh" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MoTa" class="form-label"></label>
+                    <textarea asp-for="MoTa" class="form-control" rows="5"
+                              placeholder="Giới thiệu ngắn về địa điểm: ở đâu, có gì đặc biệt..."></textarea>
+                    <span asp-validation-for="MoTa" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-nt-primary">Gửi bài chờ duyệt</button>
+                <a asp-action="MyPosts" class="btn btn-link">Bài của tôi</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

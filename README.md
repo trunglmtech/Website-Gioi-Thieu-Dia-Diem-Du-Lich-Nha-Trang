@@ -106,20 +106,22 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 └── DuLichNhaTrang/             # Project ASP.NET Core MVC
     ├── Controllers/            # Nhận yêu cầu từ người dùng
     ├── Models/                 # Lớp dữ liệu: User, Category, Post, Donation
-    │   └── ViewModels/         # Dữ liệu form đăng ký, đăng nhập
+    │   └── ViewModels/         # Dữ liệu form đăng ký, đăng nhập, đăng bài
     ├── Data/                   # AppDbContext, SeedData và Migrations
     │   └── Migrations/
     ├── Views/                  # Giao diện Razor (.cshtml)
     │   ├── Account/            # Đăng ký, đăng nhập, báo lỗi quyền
     │   ├── Admin/              # Trang quản trị
-    │   ├── Home/               # Trang chủ
+    │   ├── Home/               # Trang chủ, chi tiết bài
+    │   ├── Post/               # Đăng bài, bài của tôi
     │   └── Shared/             # Layout, Error, Partial dùng chung
     ├── wwwroot/                # File tĩnh
     │   ├── css/
     │   ├── js/
     │   ├── lib/                # Bootstrap, jQuery
     │   └── images/
-    │       └── sample/         # Ảnh mẫu, xem NGUON-ANH.md để biết nguồn và giấy phép
+    │       ├── sample/         # Ảnh mẫu, xem NGUON-ANH.md để biết nguồn và giấy phép
+    │       └── posts/          # Ảnh do thành viên tải lên (tự sinh, không commit)
     ├── appsettings.json        # Chuỗi kết nối CSDL, cấu hình
     ├── Program.cs              # Điểm khởi động, đăng ký dịch vụ
     └── DuLichNhaTrang.csproj   # Khai báo project và các gói NuGet
@@ -131,6 +133,8 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 | --- | --- | --- | --- |
 | `/` hoặc `/?q=biển` | `HomeController.Index(q)` | Bảng `Posts` + `Categories` | `Views/Home/Index.cshtml` |
 | `/Home/Details/5` | `HomeController.Details(5)` | Bảng `Posts` + `Categories` + `Users` | `Views/Home/Details.cshtml` |
+| `/Post/Create` | `PostController.Create()` | Bảng `Categories`, lưu ảnh vào `wwwroot/images/posts` | `Views/Post/Create.cshtml` |
+| `/Post/MyPosts` | `PostController.MyPosts()` | Bảng `Posts` + `Categories` (lọc theo `UserId`) | `Views/Post/MyPosts.cshtml` |
 
 ## 7. Quy ước code
 
@@ -139,7 +143,7 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 - **Model**: số ít, PascalCase (`User`, `Post`); tên cột giữ nguyên tiếng Việt không dấu (`TieuDe`, `NgayDang`).
 - **Trạng thái bài viết**: `ChoDuyet`, `DaDuyet`, `TuChoi`.
 - **Vai trò**: `Admin`, `Member`.
-- **Ảnh tải lên**: lưu file trong `wwwroot/images`, lưu **đường dẫn tương đối** vào cột `Posts.HinhAnh` (ví dụ `images/sample/bai-bien.jpg`).
+- **Ảnh tải lên**: lưu file trong `wwwroot/images/posts`, lưu **đường dẫn tương đối** vào cột `Posts.HinhAnh` (ví dụ `images/posts/abc123.jpg`).
 - **Không commit**: `bin/`, `obj/`, `.vs/`, `*.user` (đã khai báo trong `.gitignore`).
 - **Commit**: mỗi chức năng hoàn thành thì commit một lần, thông điệp bằng tiếng Việt.
 
@@ -187,7 +191,7 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (4 loại đ�
 - [x] Thêm dữ liệu mẫu (loại địa điểm, bài viết, tài khoản)
 - [x] Đăng ký, đăng nhập, đăng xuất và phân quyền Admin/Member
 - [x] Xem danh sách, xem chi tiết, tìm kiếm (giao diện theo phong cách Travello)
-- [ ] Đăng bài và quản lý bài của tôi
+- [x] Đăng bài và quản lý bài của tôi
 - [ ] Admin duyệt bài, quản lý loại địa điểm
 - [ ] Hiển thị ngẫu nhiên và donate mô phỏng
 - [ ] Kiểm thử và hoàn thiện

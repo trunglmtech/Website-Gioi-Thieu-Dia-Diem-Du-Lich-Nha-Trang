@@ -1,0 +1,68 @@
+@model List<DuLichNhaTrang.Models.Post>
+
+@{
+    ViewData["Title"] = "Bài của tôi";
+}
+
+<section class="nt-section">
+    <div class="container">
+        <h1 class="nt-section-title">Bài của tôi</h1>
+        <p class="nt-section-sub">
+            Chỉ hiển thị bài do chính bạn đăng. Bài mới đăng cần Admin duyệt mới lên trang chủ.
+        </p>
+
+        @if (TempData["ThongBao"] != null)
+        {
+            <div class="nt-alert mb-4">@TempData["ThongBao"]</div>
+        }
+
+        @if (Model.Count == 0)
+        {
+            <div class="nt-empty">
+                <p class="mb-3">Bạn chưa đăng bài nào.</p>
+                <a class="btn btn-nt-primary" asp-controller="Post" asp-action="Create">Đăng bài đầu tiên</a>
+            </div>
+        }
+        else
+        {
+            <div class="mb-4">
+                <a class="btn btn-nt-primary btn-sm" asp-controller="Post" asp-action="Create">Đăng bài mới</a>
+            </div>
+
+            <div class="nt-table-wrap">
+                <table class="nt-table">
+                    <thead>
+                        <tr>
+                            <th>Tiêu đề</th>
+                            <th>Loại địa điểm</th>
+                            <th>Ngày đăng</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var post in Model)
+                        {
+                            <tr>
+                                <td class="nt-table-title">@post.TieuDe</td>
+                                <td>@post.Category?.TenLoai</td>
+                                <td>@post.NgayDang.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <span class="nt-status @TrangThaiBaiViet.LopHienThi(post.TrangThai)">
+                                        @TrangThaiBaiViet.TenHienThi(post.TrangThai)
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (post.TrangThai == "DaDuyet")
+                                    {
+                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">Xem</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</section>
