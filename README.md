@@ -61,7 +61,7 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 | --- | --- |
 | Nền tảng | ASP.NET Core MVC (.NET 10) |
 | Ngôn ngữ | C# |
-| Cơ sở dữ liệu | SQL Server LocalDB |
+| Cơ sở dữ liệu | SQL Server Express (quản lí bằng SSMS) |
 | Truy cập dữ liệu | Entity Framework Core 10.0.15 (Code First + Migration) |
 | Giao diện | HTML, CSS, Bootstrap 5, Razor |
 | Quản lý mã nguồn | Git, GitHub |
@@ -96,9 +96,9 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 ├── .editorconfig               # Quy ước định dạng code
 │
 ├── database/                   # File CSDL (tự sinh khi chạy, không commit)
-│   ├── DuLichNhaTrang.mdf      # Dữ liệu chính
+│   ├── DuLichNhaTrang.mdf      # Dữ liệu chính (gắn vào SQL Server Express)
 │   ├── DuLichNhaTrang_log.ldf  # File log của SQL Server
-│   └── README.md               # Hướng dẫn sao lưu / khôi phục
+│   └── README.md               # Hướng dẫn mở bằng SSMS, sao lưu / khôi phục
 │
 ├── docs/                       # Tài liệu và hình ảnh thiết kế
 │   ├── use-case.png            # Sơ đồ Use Case
@@ -156,7 +156,7 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 
 ## 8. Hướng dẫn chạy
 
-**Yêu cầu:** Visual Studio 2026 (có gói *ASP.NET and web development*) và SQL Server LocalDB.
+**Yêu cầu:** Visual Studio 2026 (có gói *ASP.NET and web development*), SQL Server Express và SQL Server Management Studio (SSMS) để xem/sửa dữ liệu.
 
 ```bash
 # 1. Tải mã nguồn
@@ -166,7 +166,7 @@ git clone https://github.com/trunglmtech/Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha
 #    Mở DuLichNhaTrang.slnx bằng Visual Studio
 ```
 
-3. Kiểm tra chuỗi kết nối trong `DuLichNhaTrang/appsettings.json`. Đường dẫn `AttachDbFilename` phải trỏ tới thư mục `database/` trên máy đang chạy.
+3. Kiểm tra chuỗi kết nối trong `DuLichNhaTrang/appsettings.json`. Đường dẫn `AttachDbFilename` phải trỏ tới thư mục `database/` trên máy đang chạy, còn `Server` phải là `.\SQLEXPRESS` (SQL Server Express trên máy).
 4. Nhấn **F5**. Lần chạy đầu tiên, Entity Framework tự tạo file CSDL `database/DuLichNhaTrang.mdf` và thêm dữ liệu mẫu.
 
    Nếu muốn tạo CSDL trước bằng dòng lệnh:
@@ -178,6 +178,44 @@ git clone https://github.com/trunglmtech/Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha
    ```
 
 > File `.mdf` / `.ldf` **không** đưa lên GitHub vì là dữ liệu riêng của từng máy. Máy mới chỉ cần chạy website một lần là có CSDL. Cách sao lưu / khôi phục: xem `database/README.md`.
+
+### Quản lí dữ liệu bằng SSMS
+
+CSDL `DuLichNhaTrang` được **gắn (attach)** vào **SQL Server Express** trên máy, nên mở được trực tiếp bằng SSMS:
+
+1. Mở **SQL Server Management Studio**.
+2. Ở hộp **Connect to Server**:
+   - **Server type**: Database Engine
+   - **Server name**: `.\SQLEXPRESS` (nếu không kết nối được thì thử `localhost\SQLEXPRESS`)
+   - **Authentication**: Windows Authentication
+3. Bấm **Connect** → mở **Databases** → chọn `DuLichNhaTrang` → mở **Tables**.
+4. Chuột phải bảng cần xem:
+   - **Select Top 1000 Rows**: xem dữ liệu
+   - **Edit Top 200 Rows**: sửa trực tiếp (sửa xong nhấn **Ctrl + S** để lưu)
+
+| Bảng | Dùng để xem / sửa |
+| --- | --- |
+| `dbo.Users` | Tài khoản và vai trò (`Admin` / `Member`) |
+| `dbo.Categories` | Loại địa điểm |
+| `dbo.Posts` | Bài viết, trạng thái duyệt, lý do từ chối, hạn ưu tiên |
+| `dbo.Donations` | Lịch sử donate mô phỏng |
+
+> ⚠️ Cột `Users.MatKhau` là **mật khẩu đã hash**, không phải chữ thường. Đừng gõ mật khẩu mới vào cột này — tài khoản sẽ không đăng nhập được. Muốn thêm tài khoản thì dùng trang **Đăng ký** của website.
+
+Một số câu lệnh hay dùng: chọn CSDL `DuLichNhaTrang` → **New Query** → dán câu lệnh → **Execute (F5)**.
+
+```sql
+-- Xem toàn bộ bài viết kèm trạng thái
+SELECT Id, TieuDe, TrangThai, LyDoTuChoi, NgayDang FROM dbo.Posts ORDER BY Id;
+
+-- Duyệt tất cả bài đang chờ
+UPDATE dbo.Posts SET TrangThai = N'DaDuyet', LyDoTuChoi = NULL WHERE TrangThai = N'ChoDuyet';
+
+-- Đẩy một bài lên đầu trang 7 ngày (donate mô phỏng)
+UPDATE dbo.Posts SET FeaturedUntil = DATEADD(DAY, 7, GETDATE()) WHERE Id = 6;
+```
+
+> Chỉ nên sửa dữ liệu trực tiếp trong SSMS khi demo hoặc sửa dữ liệu mẫu. Khi website đang chạy, nên thao tác qua giao diện để đúng quy tắc nghiệp vụ (ví dụ: duyệt bài, donate).
 
 ### Tài khoản mẫu
 
