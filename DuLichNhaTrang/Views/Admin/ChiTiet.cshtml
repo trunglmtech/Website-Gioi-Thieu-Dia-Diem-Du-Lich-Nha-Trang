@@ -35,6 +35,13 @@
                 @Html.Raw(Model.MoTa)
             </div>
 
+            @if (Model.TrangThai == "TuChoi" && !string.IsNullOrEmpty(Model.LyDoTuChoi))
+            {
+                <div class="nt-admin-reason">
+                    <strong>Lý do từ chối:</strong> @Model.LyDoTuChoi
+                </div>
+            }
+
             <div class="nt-admin-actions mt-4">
                 @if (Model.TrangThai != "DaDuyet")
                 {
@@ -44,20 +51,28 @@
                     </form>
                 }
 
-                @if (Model.TrangThai != "TuChoi")
-                {
-                    <form asp-action="TuChoi" method="post">
-                        <input type="hidden" name="id" value="@Model.Id" />
-                        <button type="submit" class="btn btn-nt-reject">Từ chối bài</button>
-                    </form>
-                }
-
                 <form asp-action="Xoa" method="post"
                       onsubmit="return confirm('Xóa bài này? Thao tác không hoàn tác được.');">
                     <input type="hidden" name="id" value="@Model.Id" />
                     <button type="submit" class="btn btn-nt-delete">Xóa bài</button>
                 </form>
             </div>
+
+            @* Từ chối phải nhập lý do để thành viên biết cần sửa gì *@
+            @if (Model.TrangThai != "TuChoi")
+            {
+                <form asp-action="TuChoi" method="post" class="nt-admin-reject-box mt-4">
+                    <input type="hidden" name="id" value="@Model.Id" />
+
+                    <label for="lyDo" class="form-label">Lý do từ chối</label>
+                    <textarea id="lyDo" name="lyDo" class="form-control" rows="3"
+                              placeholder="Ví dụ: Ảnh bị mờ, mô tả quá ngắn, không phải địa điểm ở Nha Trang...">@ViewBag.LyDoNhap</textarea>
+                    <span class="text-danger">@Html.ValidationMessage("lyDo")</span>
+
+                    <p class="form-text">Lý do này sẽ hiện cho thành viên trong mục "Bài của tôi".</p>
+                    <button type="submit" class="btn btn-nt-reject">Từ chối bài</button>
+                </form>
+            }
         </div>
     </div>
 </section>

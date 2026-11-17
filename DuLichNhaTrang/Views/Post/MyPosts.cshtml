@@ -51,6 +51,11 @@
                                     <span class="nt-status @TrangThaiBaiViet.LopHienThi(post.TrangThai)">
                                         @TrangThaiBaiViet.TenHienThi(post.TrangThai)
                                     </span>
+                                    @* Bài bị từ chối thì hiện lý do để thành viên biết cần sửa gì *@
+                                    @if (post.TrangThai == "TuChoi" && !string.IsNullOrEmpty(post.LyDoTuChoi))
+                                    {
+                                        <div class="nt-reject-reason">Lý do: @post.LyDoTuChoi</div>
+                                    }
                                 </td>
                                 <td>
                                     @if (post.TrangThai == "DaDuyet")

@@ -79,6 +79,8 @@ namespace DuLichNhaTrang.Controllers
             }
 
             post.TrangThai = "DaDuyet";
+            // Duyệt lại thì xóa lý do từ chối cũ (nếu trước đó bài đã bị từ chối)
+            post.LyDoTuChoi = null;
             _context.SaveChanges();
 
             TempData["ThongBao"] = "Đã duyệt bài \"" + post.TieuDe + "\". Bài viết đã hiện trên trang chủ.";
@@ -86,21 +88,44 @@ namespace DuLichNhaTrang.Controllers
         }
 
         // POST: /Admin/TuChoi/5
+        // Từ chối bài và lưu lý do để thành viên biết cần sửa gì
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult TuChoi(int id, string? boLoc)
+        public IActionResult TuChoi(int id, string? lyDo)
         {
-            var post = _context.Posts.Find(id);
+            // Phải nạp kèm Category/User để hiện lại trang chi tiết nếu thiếu lý do
+            var post = _context.Posts
+                .Include(p => p.Category)
+                .Include(p => p.User)
+                .FirstOrDefault(p => p.Id == id);
+
             if (post == null)
             {
                 return NotFound();
             }
 
+            lyDo = lyDo?.Trim();
+
+            if (string.IsNullOrEmpty(lyDo))
+            {
+                ViewBag.LyDoNhap = lyDo;
+                ModelState.AddModelError("lyDo", "Vui lòng nhập lý do từ chối để thành viên biết cần sửa gì");
+                return View("ChiTiet", post);
+            }
+
+            if (lyDo.Length > 500)
+            {
+                ViewBag.LyDoNhap = lyDo;
+                ModelState.AddModelError("lyDo", "Lý do từ chối tối đa 500 ký tự");
+                return View("ChiTiet", post);
+            }
+
             post.TrangThai = "TuChoi";
+            post.LyDoTuChoi = lyDo;
             _context.SaveChanges();
 
             TempData["ThongBao"] = "Đã từ chối bài \"" + post.TieuDe + "\".";
-            return RedirectToAction("Index", new { trangThai = boLoc });
+            return RedirectToAction("Index");
         }
 
         // POST: /Admin/Xoa/5

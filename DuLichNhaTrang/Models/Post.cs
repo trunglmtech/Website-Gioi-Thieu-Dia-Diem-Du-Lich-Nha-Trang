@@ -24,6 +24,10 @@ namespace DuLichNhaTrang.Models
         [StringLength(20)]
         public string TrangThai { get; set; } = "ChoDuyet";
 
+        // Lý do Admin từ chối bài (NULL nếu bài chưa bị từ chối)
+        [StringLength(500)]
+        public string? LyDoTuChoi { get; set; }
+
         [Column(TypeName = "datetime")]
         public DateTime NgayDang { get; set; } = DateTime.Now;
 

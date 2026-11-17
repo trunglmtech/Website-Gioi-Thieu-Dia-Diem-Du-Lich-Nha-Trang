@@ -86,14 +86,10 @@
                                             </form>
                                         }
 
-                                        @* Từ chối: chỉ hiện khi bài chưa bị từ chối *@
+                                        @* Từ chối: mở trang chi tiết để Admin nhập lý do từ chối *@
                                         @if (post.TrangThai != "TuChoi")
                                         {
-                                            <form asp-action="TuChoi" method="post">
-                                                <input type="hidden" name="id" value="@post.Id" />
-                                                <input type="hidden" name="boLoc" value="@boLoc" />
-                                                <button type="submit" class="btn btn-nt-reject btn-sm">Từ chối</button>
-                                            </form>
+                                            <a class="btn btn-nt-reject btn-sm" asp-action="ChiTiet" asp-route-id="@post.Id">Từ chối</a>
                                         }
 
                                         @* Xóa: hỏi lại trước khi xóa để tránh bấm nhầm *@

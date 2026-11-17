@@ -40,13 +40,15 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 
 ### Quản trị viên (Admin)
 
-- Duyệt hoặc từ chối bài viết
+- Duyệt hoặc từ chối bài viết (khi từ chối phải nhập lý do)
 - Xóa bài vi phạm
 - Quản lý loại địa điểm (thêm, sửa, xóa)
 
 ## 3. Quy tắc nghiệp vụ
 
 1. Bài mới đăng có trạng thái **Chờ duyệt**. Admin duyệt thành **Đã duyệt** hoặc **Từ chối**.
+   Khi từ chối, Admin **bắt buộc nhập lý do**; lý do này hiện cho thành viên ở mục **Bài của tôi**.
+   Nếu bài bị từ chối được duyệt lại thì lý do cũ bị xóa.
 2. Trang chủ chỉ hiển thị bài **Đã duyệt**.
 3. Bài có donate còn hiệu lực (`FeaturedUntil` lớn hơn thời điểm hiện tại) hiển thị ở đầu trang; các bài còn lại sắp xếp **ngẫu nhiên** mỗi lần tải trang.
 4. Donate là **mô phỏng**: hệ thống lưu lượt donate và đặt `FeaturedUntil` = hôm nay + 7 ngày, không xử lý giao dịch tiền thật.
@@ -80,7 +82,7 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 | --- | --- | --- |
 | `Users` | Tài khoản người dùng và vai trò (Admin, Member) | 1 người dùng — nhiều bài viết, nhiều lượt donate |
 | `Categories` | Loại địa điểm (bãi biển, di tích, ẩm thực...) | 1 loại — nhiều bài viết |
-| `Posts` | Bài giới thiệu, trạng thái duyệt, hạn ưu tiên | 1 bài — nhiều lượt donate |
+| `Posts` | Bài giới thiệu, trạng thái duyệt, lý do từ chối, hạn ưu tiên | 1 bài — nhiều lượt donate |
 | `Donations` | Lịch sử donate để đẩy bài lên đầu trang | Nhiều donate — 1 bài, 1 người dùng |
 
 ## 6. Cấu trúc thư mục
@@ -145,6 +147,7 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 - **View**: `Views/TenController/TenAction.cshtml` (ví dụ `Views/Post/Index.cshtml`).
 - **Model**: số ít, PascalCase (`User`, `Post`); tên cột giữ nguyên tiếng Việt không dấu (`TieuDe`, `NgayDang`).
 - **Trạng thái bài viết**: `ChoDuyet`, `DaDuyet`, `TuChoi`.
+- **Lý do từ chối**: lưu ở cột `Posts.LyDoTuChoi` (tối đa 500 ký tự, có thể để trống với bài chưa bị từ chối).
 - **Vai trò**: `Admin`, `Member`.
 - **Ảnh tải lên**: lưu file trong `wwwroot/images/posts`, lưu **đường dẫn tương đối** vào cột `Posts.HinhAnh` (ví dụ `images/posts/abc123.jpg`).
 - **Mô tả bài viết**: lưu **HTML có định dạng** (in đậm, in nghiêng, cỡ chữ theo px, danh sách...) do trình soạn thảo Quill tạo ra. Trước khi lưu, HTML được lọc bằng thư viện `HtmlSanitizer` để bỏ thẻ độc hại (`<script>`, `onerror`...), nhưng vẫn giữ thuộc tính `font-size`.
