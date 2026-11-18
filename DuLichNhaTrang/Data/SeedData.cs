@@ -30,13 +30,14 @@ namespace DuLichNhaTrang.Data
             context.Users.AddRange(admin, member);
             context.SaveChanges();
 
-            // 4 loại địa điểm
-            var baiBien = new Category { TenLoai = "Bãi biển" };
-            var diTich = new Category { TenLoai = "Di tích - Chùa" };
-            var amThuc = new Category { TenLoai = "Ẩm thực" };
-            var khuVuiChoi = new Category { TenLoai = "Khu vui chơi" };
+            // 5 loại địa điểm
+            var vuiChoi = new Category { TenLoai = "Điểm vui chơi" };
+            var anUong = new Category { TenLoai = "Điểm ăn uống" };
+            var thamQuan = new Category { TenLoai = "Điểm tham quan" };
+            var nghiDuong = new Category { TenLoai = "Điểm nghỉ dưỡng" };
+            var caPhe = new Category { TenLoai = "Điểm cà phê" };
 
-            context.Categories.AddRange(baiBien, diTich, amThuc, khuVuiChoi);
+            context.Categories.AddRange(vuiChoi, anUong, thamQuan, nghiDuong, caPhe);
             context.SaveChanges();
 
             // 6 bài mẫu: 5 bài Đã duyệt, 1 bài Chờ duyệt (để thử chức năng duyệt sau)
@@ -48,7 +49,7 @@ namespace DuLichNhaTrang.Data
                 TrangThai = "DaDuyet",
                 NgayDang = DateTime.Now.AddDays(-12),
                 UserId = member.Id,
-                CategoryId = baiBien.Id
+                CategoryId = nghiDuong.Id
             };
 
             var bai2 = new Post
@@ -61,7 +62,7 @@ namespace DuLichNhaTrang.Data
                 // Bài này đã được donate nên còn hạn ưu tiên 5 ngày nữa
                 FeaturedUntil = DateTime.Now.AddDays(5),
                 UserId = member.Id,
-                CategoryId = khuVuiChoi.Id
+                CategoryId = vuiChoi.Id
             };
 
             var bai3 = new Post
@@ -72,7 +73,7 @@ namespace DuLichNhaTrang.Data
                 TrangThai = "DaDuyet",
                 NgayDang = DateTime.Now.AddDays(-7),
                 UserId = admin.Id,
-                CategoryId = diTich.Id
+                CategoryId = thamQuan.Id
             };
 
             var bai4 = new Post
@@ -83,7 +84,7 @@ namespace DuLichNhaTrang.Data
                 TrangThai = "DaDuyet",
                 NgayDang = DateTime.Now.AddDays(-5),
                 UserId = member.Id,
-                CategoryId = amThuc.Id
+                CategoryId = anUong.Id
             };
 
             var bai5 = new Post
@@ -94,7 +95,7 @@ namespace DuLichNhaTrang.Data
                 TrangThai = "DaDuyet",
                 NgayDang = DateTime.Now.AddDays(-3),
                 UserId = member.Id,
-                CategoryId = amThuc.Id
+                CategoryId = anUong.Id
             };
 
             var bai6 = new Post
@@ -106,7 +107,7 @@ namespace DuLichNhaTrang.Data
                 TrangThai = "ChoDuyet",
                 NgayDang = DateTime.Now.AddDays(-1),
                 UserId = member.Id,
-                CategoryId = diTich.Id
+                CategoryId = thamQuan.Id
             };
 
             context.Posts.AddRange(bai1, bai2, bai3, bai4, bai5, bai6);

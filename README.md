@@ -83,7 +83,7 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 | Bảng | Mô tả | Quan hệ |
 | --- | --- | --- |
 | `Users` | Tài khoản người dùng và vai trò (Admin, Member) | 1 người dùng — nhiều bài viết, nhiều lượt donate |
-| `Categories` | Loại địa điểm (bãi biển, di tích, ẩm thực...) | 1 loại — nhiều bài viết |
+| `Categories` | Loại địa điểm (điểm vui chơi, ăn uống, tham quan, nghỉ dưỡng, cà phê) | 1 loại — nhiều bài viết |
 | `Posts` | Bài giới thiệu, trạng thái duyệt, lý do từ chối, hạn ưu tiên | 1 bài — nhiều lượt donate |
 | `Donations` | Lịch sử donate để đẩy bài lên đầu trang | Nhiều donate — 1 bài, 1 người dùng |
 
@@ -225,7 +225,7 @@ UPDATE dbo.Posts SET FeaturedUntil = DATEADD(DAY, 7, GETDATE()) WHERE Id = 6;
 
 ### Tài khoản mẫu
 
-Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (4 loại địa điểm, 6 bài viết, 1 lượt donate) và 2 tài khoản:
+Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (5 loại địa điểm, 6 bài viết, 1 lượt donate) và 2 tài khoản:
 
 | Vai trò | Tên đăng nhập | Mật khẩu |
 | --- | --- | --- |
