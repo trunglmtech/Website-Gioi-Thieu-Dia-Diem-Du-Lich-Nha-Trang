@@ -103,7 +103,8 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 ├── database/                   # File CSDL (tự sinh khi chạy, không commit)
 │   ├── DuLichNhaTrang.mdf      # Dữ liệu chính (gắn vào SQL Server Express)
 │   ├── DuLichNhaTrang_log.ldf  # File log của SQL Server
-│   └── README.md               # Hướng dẫn mở bằng SSMS, sao lưu / khôi phục
+│   ├── quan-ly-tai-khoan.sql   # Câu lệnh mẫu: phân quyền, xóa tài khoản
+│   └── README.md               # Hướng dẫn mở bằng SSMS, quản lý tài khoản, sao lưu / khôi phục
 │
 ├── docs/                       # Tài liệu và hình ảnh thiết kế
 │   ├── use-case.png            # Sơ đồ Use Case
@@ -229,6 +230,19 @@ UPDATE dbo.Posts SET FeaturedUntil = DATEADD(DAY, 7, GETDATE()) WHERE Id = 6;
 ```
 
 > Chỉ nên sửa dữ liệu trực tiếp trong SSMS khi demo hoặc sửa dữ liệu mẫu. Khi website đang chạy, nên thao tác qua giao diện để đúng quy tắc nghiệp vụ (ví dụ: duyệt bài, donate).
+
+### Quản lý tài khoản trong SSMS
+
+Tài khoản lưu ở bảng **`dbo.Users`** (`TenDangNhap`, `MatKhau` đã hash, `VaiTro` = `Admin` / `Member`).
+
+| Việc cần làm | Cách làm |
+| --- | --- |
+| Xem tài khoản | `dbo.Users` → chuột phải → **Select Top 1000 Rows** |
+| Phân quyền | **Edit Top 200 Rows** → sửa `VaiTro` → **Ctrl + S** |
+| Xóa tài khoản | Phải xóa `Donations` → `Posts` → `Users` của người đó (xem `database/quan-ly-tai-khoan.sql`) |
+| Thêm tài khoản | Dùng trang **Đăng ký** trên website (mật khẩu được hash đúng) |
+
+> Chi tiết và câu lệnh mẫu: xem mục **Quản lý tài khoản** trong `database/README.md`.
 
 ### Tài khoản mẫu
 

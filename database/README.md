@@ -38,6 +38,42 @@ Sửa xong nhấn **Ctrl + S** để lưu. Các bảng cần biết:
 > ⚠️ `Users.MatKhau` là **mật khẩu đã hash**, không phải chữ thường. Không gõ mật khẩu mới vào cột này.
 > Muốn có tài khoản mới, dùng trang **Đăng ký** trên website.
 
+### Quản lý tài khoản (xóa, phân quyền)
+
+Bảng **`dbo.Users`** là nơi lưu tài khoản. Có 2 cách thao tác:
+
+**Cách 1: sửa trực tiếp trong bảng**
+1. Chuột phải `dbo.Users` → **Edit Top 200 Rows**.
+2. Đổi **`VaiTro`** từ `Member` → `Admin` (hoặc ngược lại). Chỉ nhận đúng 2 giá trị `Admin` / `Member`.
+3. Nhấn **Ctrl + S**.
+
+**Cách 2: chạy câu lệnh** — mở file `database/quan-ly-tai-khoan.sql` trong SSMS (mỗi lần chỉ bôi đen một đoạn rồi **F5**):
+
+```sql
+-- Cấp quyền Admin
+UPDATE dbo.Users SET VaiTro = N'Admin' WHERE TenDangNhap = N'ten_dang_nhap';
+
+-- Đếm dữ liệu của tài khoản trước khi xóa
+SELECT u.TenDangNhap,
+       (SELECT COUNT(*) FROM dbo.Posts p WHERE p.UserId = u.Id)     AS SoBaiViet,
+       (SELECT COUNT(*) FROM dbo.Donations d WHERE d.UserId = u.Id) AS SoLanDonate
+FROM dbo.Users u WHERE u.TenDangNhap = N'ten_dang_nhap';
+
+-- Xóa theo thứ tự: donate → bài viết → tài khoản
+DELETE FROM dbo.Donations WHERE UserId = (SELECT Id FROM dbo.Users WHERE TenDangNhap = N'ten_dang_nhap');
+DELETE FROM dbo.Posts     WHERE UserId = (SELECT Id FROM dbo.Users WHERE TenDangNhap = N'ten_dang_nhap');
+DELETE FROM dbo.Users     WHERE TenDangNhap = N'ten_dang_nhap';
+```
+
+> ❗ **Xóa tài khoản thì không thể xóa ngay** nếu người đó còn bài viết hoặc lượt donate: CSDL báo lỗi
+> `REFERENCE constraint ... FK_Posts_Users_UserId`. Đây là chủ ý để tránh mất dữ liệu — phải xóa donate và bài của họ trước.
+>
+> ❗ **Không xóa tài khoản `admin`** cuối cùng, nếu không sẽ không còn ai duyệt bài. Nên tạo sẵn 2 tài khoản Admin.
+>
+> Đổi mật khẩu **không** làm bằng SSMS (cột `MatKhau` là hash). Cách đơn giản cho đồ án: xóa tài khoản đó (theo các bước trên) rồi
+> đăng ký lại trên website.
+
+
 ## 2. Câu lệnh SQL hay dùng
 
 Chọn CSDL `DuLichNhaTrang` → **New Query** → dán câu lệnh → **Execute (F5)**.
