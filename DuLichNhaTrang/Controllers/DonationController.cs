@@ -32,11 +32,12 @@ namespace DuLichNhaTrang.Controllers
         {
             var userId = LayUserId();
 
-            // Chỉ donate cho bài đã duyệt, và nên ưu tiên bài của chính mình
+            // Chỉ donate cho bài đã duyệt. Bài của chính mình xếp lên đầu
+            // vì mục đích chính là "đẩy tin của mình lên đầu trang" (giống Chợ Tốt)
             var danhSachBai = _context.Posts
                 .Include(p => p.Category)
                 .Where(p => p.TrangThai == "DaDuyet")
-                .OrderByDescending(p => p.UserId == userId) // bài của mình lên trước
+                .OrderByDescending(p => p.UserId == userId)
                 .ThenBy(p => p.TieuDe)
                 .ToList();
 
@@ -74,13 +75,6 @@ namespace DuLichNhaTrang.Controllers
                 return View(model);
             }
 
-            // Không tự donate cho bài của chính mình (tránh tự đẩy bài mình lên đầu)
-            if (post.UserId == userId)
-            {
-                TempData["Loi"] = "Bạn không thể donate cho bài do chính mình đăng. Hãy chọn bài của người khác.";
-                return RedirectToAction("Index");
-            }
-
             // Sang trang xác nhận, chưa lưu gì vào CSDL
             return View("XacNhan", new DonateViewModel { PostId = post.Id, SoTien = model.SoTien });
         }
@@ -97,12 +91,6 @@ namespace DuLichNhaTrang.Controllers
             if (post == null)
             {
                 return NotFound();
-            }
-
-            if (post.UserId == LayUserId())
-            {
-                TempData["Loi"] = "Bạn không thể donate cho bài do chính mình đăng.";
-                return RedirectToAction("Index");
             }
 
             return View(new DonateViewModel { PostId = post.Id, SoTien = soTien });
@@ -125,13 +113,6 @@ namespace DuLichNhaTrang.Controllers
                 return NotFound();
             }
 
-            // Vẫn kiểm tra lại ở server, không tin vào dữ liệu gửi lên
-            if (post.UserId == userId)
-            {
-                TempData["Loi"] = "Bạn không thể donate cho bài do chính mình đăng.";
-                return RedirectToAction("Index");
-            }
-
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -139,7 +120,8 @@ namespace DuLichNhaTrang.Controllers
 
             var soTien = model.SoTien ?? 0;
 
-            // Bước 1: lưu lượt donate vào bảng Donations
+            // Bước 1: lưu lượt donate vào bảng Donations.
+            // Cho phép donate cho bài của chính mình: đó là cách "đẩy tin của mình lên đầu" (như Chợ Tốt).
             _context.Donations.Add(new Donation
             {
                 PostId = post.Id,

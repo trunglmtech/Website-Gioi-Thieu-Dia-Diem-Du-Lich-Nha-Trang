@@ -37,7 +37,7 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 - Quên mật khẩu: nhận mã 6 số và đặt lại mật khẩu mới *(mô phỏng gửi mã, chưa dùng email)*
 - Đăng bài (tiêu đề, mô tả, hình ảnh, loại địa điểm)
 - Xem bài của mình và trạng thái (chờ duyệt, đã duyệt, từ chối)
-- Donate để đẩy bài lên đầu trang *(mô phỏng, không dùng thanh toán thật)*
+- Donate để đẩy bài lên đầu trang *(mô phỏng, không dùng thanh toán thật)* — thường là donate cho **bài của chính mình**
 
 ### Quản trị viên (Admin)
 
@@ -54,7 +54,8 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 3. Bài có donate còn hiệu lực (`FeaturedUntil` lớn hơn thời điểm hiện tại) hiển thị ở đầu trang; các bài còn lại sắp xếp **ngẫu nhiên** mỗi lần tải trang.
 4. Donate là **mô phỏng**: hệ thống lưu lượt donate và đặt `FeaturedUntil` = hôm nay + 7 ngày, không xử lý giao dịch tiền thật.
    - Mỗi lần donate cộng thêm **7 ngày** vào hạn ưu tiên hiện có (donate 2 lần thì được 14 ngày).
-   - Không donate được cho bài của chính mình, cho bài chưa duyệt hoặc đã bị từ chối.
+   - **Được** donate cho bài của chính mình: đây là cách **đẩy tin của mình lên đầu trang** (giống Chợ Tốt đẩy tin).
+   - Không donate được cho bài chưa duyệt hoặc đã bị từ chối.
    - Số tiền từ **1.000** đến **100.000.000** đồng.
 5. Chỉ Admin vào được trang quản trị. Chỉ thành viên đã đăng nhập mới được đăng bài và donate.
 6. Mật khẩu lưu dưới dạng **hash**, không lưu chữ thường.
@@ -269,7 +270,7 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (5 loại đ�
 | Tài liệu | Nội dung |
 | --- | --- |
 | `docs/huong-dan-su-dung.md` | Hướng dẫn dùng theo từng vai trò (Khách, Thành viên, Admin) |
-| `docs/test-case.md` | Bảng test case 45 trường hợp kèm kết quả |
+| `docs/test-case.md` | Bảng test case 50 trường hợp kèm kết quả |
 | `database/README.md` | Mở CSDL bằng SSMS, quản lý tài khoản, sao lưu / khôi phục |
 
 ## 9. Tiến độ

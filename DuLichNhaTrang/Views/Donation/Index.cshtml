@@ -12,6 +12,10 @@
             Donate là <strong>mô phỏng</strong>: hệ thống lưu lượt donate và đưa bài lên đầu trang chủ trong
             <strong>7 ngày</strong>. Không có giao dịch tiền thật.
         </p>
+        <p class="nt-form-note mb-4">
+            Bài của bạn được xếp đầu danh sách bên dưới. Muốn đẩy tin lên đầu trang chủ thì
+            donate cho <strong>bài của chính mình</strong>.
+        </p>
 
         @if (TempData["Loi"] != null)
         {
@@ -40,7 +44,7 @@
                             }
                         </select>
                         <span asp-validation-for="PostId" class="text-danger"></span>
-                        <div class="form-text">Bài của chính bạn không donate được.</div>
+                        <div class="form-text">Bài có donate được ưu tiên lên đầu trang chủ 7 ngày.</div>
                     </div>
 
                     @* Các nút số tiền nhanh: bấm vào sẽ điền vào ô số tiền *@

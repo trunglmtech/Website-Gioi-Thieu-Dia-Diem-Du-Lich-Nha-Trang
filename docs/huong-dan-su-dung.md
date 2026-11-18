@@ -57,7 +57,7 @@ Menu **Bài của tôi** hiện các bài bạn đã đăng kèm trạng thái:
 **Cách 2 – tự chọn số tiền:**
 
 1. Menu **Donate**.
-2. Chọn bài muốn donate (bài của chính mình bị chặn).
+2. Chọn bài muốn donate — muốn đẩy tin của mình thì chọn **bài của chính mình** (được xếp đầu danh sách).
 3. Bấm nút số tiền gợi ý (20.000 / 50.000 / 100.000 / 200.000) hoặc gõ số tiền (1.000 – 100.000.000).
 4. Bấm **Tiếp tục** → kiểm tra thông tin → **Xác nhận donate**.
 5. Bài được ưu tiên lên đầu trang chủ trong **7 ngày** (donate lần nữa thì cộng tiếp 7 ngày).

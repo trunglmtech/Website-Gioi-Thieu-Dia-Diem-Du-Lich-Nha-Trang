@@ -19,9 +19,10 @@ Tài liệu này ghi lại các trường hợp kiểm thử của website **Gi�
 | Tìm kiếm | 2 | 2 | 0 |
 | Duyệt / từ chối / xóa bài | 8 | 8 | 0 |
 | Donate mô phỏng | 6 | 6 | 0 |
+| Donate tự đẩy tin (kiểm thử lại) | 5 | 5 | 0 |
 | Quản lý loại địa điểm | 4 | 4 | 0 |
 | Quên mật khẩu | 4 | 4 | 0 |
-| **Tổng** | **45** | **45** | **0** |
+| **Tổng** | **50** | **50** | **0** |
 
 ## 2. Chi tiết test case
 
@@ -94,7 +95,7 @@ Tài liệu này ghi lại các trường hợp kiểm thử của website **Gi�
 | TC-33 | Donate hợp lệ | Chọn bài + 50.000đ | Lưu vào `Donations`, `FeaturedUntil` = hôm nay + 7 ngày, bài lên đầu | Đúng | ✅ |
 | TC-34 | Donate lần 2 | Donate thêm cùng bài | Cộng thêm 7 ngày (7 → 14 ngày) | Đúng | ✅ |
 | TC-35 | Số tiền không hợp lệ | Nhập 500đ hoặc bỏ trống | Báo lỗi, không lưu | Đúng | ✅ |
-| TC-36 | Donate cho bài của chính mình | `trung` chọn bài của `trung` | Báo "Bạn không thể donate cho bài do chính mình đăng" | Đúng | ✅ |
+| TC-36 | Donate cho bài của chính mình (đẩy tin của mình) | `trung` chọn bài của `trung`, 50.000đ | Lưu lượt donate, bài lên đầu trang chủ 7 ngày | Đúng, `Donations` có dòng `UserId=2, PostId=1` | ✅ |
 | TC-37 | Hết hạn ưu tiên | Đặt `FeaturedUntil` là hôm qua | Bài trở về nhóm hiển thị ngẫu nhiên | Đúng | ✅ |
 
 ### 2.8 Quản lý loại địa điểm
@@ -105,6 +106,11 @@ Tài liệu này ghi lại các trường hợp kiểm thử của website **Gi�
 | TC-39 | Thêm loại trùng tên / để trống | Nhập "Bãi biển" hoặc để trống | Báo lỗi "đã có" / "Vui lòng nhập tên loại địa điểm" | Đúng | ✅ |
 | TC-40 | Sửa tên loại | Đổi "Địa điểm kiểm thử" thành tên khác | CSDL cập nhật, bài viết vẫn giữ liên kết | Đúng | ✅ |
 | TC-41 | Xóa loại đang có bài | Bấm **Xóa** ở loại còn bài | Bị chặn: "Không xóa được ... vì đang có N bài viết" | Đúng | ✅ |
+
+| TC-41b | Tự donate đẩy tin của mình (kiểm thử lại sau khi sửa) | `trung` donate lần 2 cho bài của mình, 20.000đ | Cộng thêm 7 ngày (7 → 14 ngày) | Đúng, `DATEDIFF` = 14 ngày | ✅ |
+| TC-41c | Bài của mình xếp đầu danh sách donate | `trung` mở **Donate** | Bài của `trung` hiện đầu tiên, có ghi chú "(bài của bạn)" | Đúng | ✅ |
+| TC-41d | Khách vào trang donate | Chưa đăng nhập, mở `/Donation` | Chuyển về trang đăng nhập | Đúng | ✅ |
+| TC-41e | Donate bài chưa duyệt | Chọn bài **Chờ duyệt** | Báo "Bài viết không tồn tại hoặc chưa được duyệt" | Đúng | ✅ |
 
 ### 2.9 Quên mật khẩu
 
@@ -121,6 +127,7 @@ Tài liệu này ghi lại các trường hợp kiểm thử của website **Gi�
 | --- | --- | --- |
 | Kết quả kiểm thử TC-25c sai | Đếm bài ra 7 thay vì 6 | Bài kiểm thử tạo thêm (trong script test) chưa bị xóa trước khi kiểm tra. Đây là lỗi của **dữ liệu test**, không phải của website. Đã xóa dữ liệu test và chạy lại: đạt. |
 | Thiếu trường hợp "bài bị từ chối phải ẩn" | Ban đầu không có test case | Bổ sung TC-29 |
+| Chặn sai việc tự donate | Theo đề tài, donate là để **tự đẩy tin của mình lên đầu** (giống Chợ Tốt). Bản đầu lại chặn donate cho bài của chính mình | Bỏ kiểm tra chặn trong `DonationController`, xếp bài của mình lên đầu danh sách chọn. Chạy lại: 17/17 test case donate đạt |
 
 ## 4. Hạn chế còn lại
 
