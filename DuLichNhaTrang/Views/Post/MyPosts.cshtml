@@ -9,6 +9,7 @@
         <h1 class="nt-section-title">Bài của tôi</h1>
         <p class="nt-section-sub">
             Chỉ hiển thị bài do chính bạn đăng. Bài mới đăng cần Admin duyệt mới lên trang chủ.
+            Nếu muốn donate cho bài của người khác, bấm <strong>Donate</strong> ở bài đó trên trang chủ.
         </p>
 
         @if (TempData["ThongBao"] != null)
@@ -61,6 +62,9 @@
                                     @if (post.TrangThai == "DaDuyet")
                                     {
                                         <a asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">Xem</a>
+                                        <span class="nt-muted-sep">|</span>
+                                        <a asp-controller="Donation" asp-action="XacNhan"
+                                           asp-route-id="@post.Id" asp-route-soTien="50000">Donate</a>
                                     }
                                 </td>
                             </tr>

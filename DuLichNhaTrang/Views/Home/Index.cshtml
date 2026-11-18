@@ -98,9 +98,21 @@
                                 <div class="nt-card-meta">@post.Category?.TenLoai</div>
                                 <h3 class="nt-card-title">@post.TieuDe</h3>
                                 <p class="nt-card-desc">@moTaNgan</p>
-                                <a class="btn btn-nt-primary btn-sm" asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">
-                                    Xem chi tiết
-                                </a>
+                                <div class="d-flex flex-wrap gap-2 align-items-center">
+                                    <a class="btn btn-nt-primary btn-sm" asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">
+                                        Xem chi tiết
+                                    </a>
+
+                                    @* Khách chưa đăng nhập bấm donate sẽ được chuyển tới trang đăng nhập *@
+                                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                                    {
+                                        <a class="btn btn-nt-gold btn-sm" asp-controller="Donation" asp-action="XacNhan"
+                                           asp-route-id="@post.Id" asp-route-soTien="50000"
+                                           title="Donate 50.000 đồng (mô phỏng) để bài lên đầu trang 7 ngày">
+                                            Donate
+                                        </a>
+                                    }
+                                </div>
                             </div>
                         </article>
                     </div>

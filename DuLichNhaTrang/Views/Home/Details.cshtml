@@ -30,13 +30,27 @@
             </div>
         }
 
+        @if (TempData["ThongBao"] != null)
+        {
+            <div class="nt-alert mb-4">@TempData["ThongBao"]</div>
+        }
+
         <div class="nt-detail-text">
             @* Mô tả đã được lọc HTML khi lưu nên hiển thị được định dạng in đậm, in nghiêng... *@
             @Html.Raw(Model.MoTa)
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4 d-flex flex-wrap gap-2">
             <a class="btn btn-nt-outline" asp-controller="Home" asp-action="Index">Xem các địa điểm khác</a>
+
+            @* Chỉ thành viên đã đăng nhập mới thấy nút donate *@
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-nt-gold" asp-controller="Donation" asp-action="XacNhan"
+                   asp-route-id="@Model.Id" asp-route-soTien="50000">
+                    Donate 50.000 đồng (mô phỏng)
+                </a>
+            }
         </div>
     </div>
 </section>

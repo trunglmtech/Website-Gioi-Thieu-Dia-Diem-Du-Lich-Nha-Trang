@@ -52,6 +52,9 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 2. Trang chủ chỉ hiển thị bài **Đã duyệt**.
 3. Bài có donate còn hiệu lực (`FeaturedUntil` lớn hơn thời điểm hiện tại) hiển thị ở đầu trang; các bài còn lại sắp xếp **ngẫu nhiên** mỗi lần tải trang.
 4. Donate là **mô phỏng**: hệ thống lưu lượt donate và đặt `FeaturedUntil` = hôm nay + 7 ngày, không xử lý giao dịch tiền thật.
+   - Mỗi lần donate cộng thêm **7 ngày** vào hạn ưu tiên hiện có (donate 2 lần thì được 14 ngày).
+   - Không donate được cho bài của chính mình, cho bài chưa duyệt hoặc đã bị từ chối.
+   - Số tiền từ **1.000** đến **100.000.000** đồng.
 5. Chỉ Admin vào được trang quản trị. Chỉ thành viên đã đăng nhập mới được đăng bài và donate.
 6. Mật khẩu lưu dưới dạng **hash**, không lưu chữ thường.
 7. Tên loại địa điểm **không được trùng**, tối đa 100 ký tự.
@@ -110,12 +113,13 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 └── DuLichNhaTrang/             # Project ASP.NET Core MVC
     ├── Controllers/            # Nhận yêu cầu từ người dùng
     ├── Models/                 # Lớp dữ liệu: User, Category, Post, Donation
-    │   └── ViewModels/         # Dữ liệu form đăng ký, đăng nhập, đăng bài
+    │   └── ViewModels/         # Dữ liệu form đăng ký, đăng nhập, đăng bài, donate
     ├── Data/                   # AppDbContext, SeedData và Migrations
     │   └── Migrations/
     ├── Views/                  # Giao diện Razor (.cshtml)
     │   ├── Account/            # Đăng ký, đăng nhập, báo lỗi quyền
     │   ├── Admin/              # Trang quản trị
+    │   ├── Donation/           # Donate: chọn bài, xác nhận
     │   ├── Home/               # Trang chủ, chi tiết bài
     │   ├── Post/               # Đăng bài, bài của tôi
     │   └── Shared/             # Layout, Error, Partial dùng chung
@@ -146,6 +150,9 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 | `POST /Admin/ThemLoai` | `AdminController.ThemLoai(model)` | Thêm dòng vào `Categories` | Chuyển về `Views/Admin/LoaiDiaDiem.cshtml` |
 | `POST /Admin/SuaLoai` | `AdminController.SuaLoai(model)` | Sửa `Categories.TenLoai` | Chuyển về `Views/Admin/LoaiDiaDiem.cshtml` |
 | `POST /Admin/XoaLoai/5` | `AdminController.XoaLoai(5)` | Kiểm tra `Posts`, xóa `Categories` | Chuyển về `Views/Admin/LoaiDiaDiem.cshtml` |
+| `/Donation` | `DonationController.Index()` | Bảng `Posts` (bài đã duyệt) + `Categories` | `Views/Donation/Index.cshtml` |
+| `POST /Donation` | `DonationController.Index(model)` | Kiểm tra bài, chưa lưu gì | `Views/Donation/XacNhan.cshtml` |
+| `POST /Donation/XacNhan` | `DonationController.XacNhan(model)` | Thêm `Donations`, đặt `Posts.FeaturedUntil` | Chuyển về `Views/Home/Details.cshtml` |
 
 ## 7. Quy ước code
 
@@ -245,7 +252,7 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (5 loại đ�
 - [x] Đăng bài và quản lý bài của tôi
 - [x] Admin duyệt, từ chối, xóa bài
 - [x] Admin quản lý loại địa điểm
-- [ ] Hiển thị ngẫu nhiên và donate mô phỏng
+- [x] Hiển thị ngẫu nhiên và donate mô phỏng
 - [ ] Kiểm thử và hoàn thiện
 - [ ] Báo cáo và demo
 

@@ -990,6 +990,69 @@ a:hover {
     opacity: 0.45;
 }
 
+/* ---------- Donate (mô phỏng) ---------- */
+.btn-nt-gold {
+    background-color: var(--nt-gold);
+    border: 1px solid var(--nt-gold);
+    color: #14213d;
+    font-weight: 700;
+}
+
+.btn-nt-gold:hover,
+.btn-nt-gold:focus {
+    background-color: #ffd63a;
+    border-color: #ffd63a;
+    color: #14213d;
+}
+
+.nt-donate-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.nt-donate-preset {
+    background-color: transparent;
+    border: 1px solid var(--nt-border);
+    border-radius: 30px;
+    color: var(--nt-text);
+    font-size: 0.9rem;
+    padding: 6px 16px;
+}
+
+.nt-donate-preset:hover {
+    border-color: var(--nt-gold);
+    color: var(--nt-gold);
+}
+
+.nt-donate-summary {
+    background-color: #0d1a2f;
+    border: 1px solid var(--nt-border);
+    border-radius: 12px;
+    padding: 14px 18px;
+}
+
+.nt-donate-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+.nt-donate-row span {
+    color: var(--nt-muted);
+}
+
+.nt-donate-money {
+    color: var(--nt-gold);
+}
+
+.nt-muted-sep {
+    color: var(--nt-border);
+    margin: 0 4px;
+}
+
 /* ---------- Khung trống khi chưa có bài ---------- */
 .nt-empty {
     background-color: var(--nt-navy-light);

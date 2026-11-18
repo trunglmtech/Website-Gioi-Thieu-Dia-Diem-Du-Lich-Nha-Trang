@@ -1,0 +1,79 @@
+@model DuLichNhaTrang.Models.ViewModels.DonateViewModel
+
+@{
+    ViewData["Title"] = "Donate đẩy bài lên đầu";
+    var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value);
+}
+
+<section class="nt-section">
+    <div class="container">
+        <h1 class="nt-section-title">Donate đẩy bài lên đầu</h1>
+        <p class="nt-section-sub">
+            Donate là <strong>mô phỏng</strong>: hệ thống lưu lượt donate và đưa bài lên đầu trang chủ trong
+            <strong>7 ngày</strong>. Không có giao dịch tiền thật.
+        </p>
+
+        @if (TempData["Loi"] != null)
+        {
+            <div class="nt-alert nt-alert-danger mb-4">@TempData["Loi"]</div>
+        }
+
+        @if (Model.DanhSachBai.Count == 0)
+        {
+            <div class="nt-empty">
+                <p class="mb-0">Chưa có bài nào đã được duyệt để donate.</p>
+            </div>
+        }
+        else
+        {
+            <div class="nt-form-box">
+                <form asp-action="Index" method="post">
+                    <div class="mb-3">
+                        <label asp-for="PostId" class="form-label">Bài viết muốn donate</label>
+                        <select asp-for="PostId" class="form-select">
+                            <option value="">-- Chọn bài viết --</option>
+                            @foreach (var post in Model.DanhSachBai)
+                            {
+                                // Bài của chính mình thì ghi chú, server sẽ chặn khi gửi
+                                var ghiChu = post.UserId == userId ? " (bài của bạn)" : "";
+                                <option value="@post.Id">@post.TieuDe — @post.Category?.TenLoai@ghiChu</option>
+                            }
+                        </select>
+                        <span asp-validation-for="PostId" class="text-danger"></span>
+                        <div class="form-text">Bài của chính bạn không donate được.</div>
+                    </div>
+
+                    @* Các nút số tiền nhanh: bấm vào sẽ điền vào ô số tiền *@
+                    <div class="mb-3">
+                        <div class="nt-donate-presets">
+                            <button type="button" class="nt-donate-preset" data-tien="20000">20.000</button>
+                            <button type="button" class="nt-donate-preset" data-tien="50000">50.000</button>
+                            <button type="button" class="nt-donate-preset" data-tien="100000">100.000</button>
+                            <button type="button" class="nt-donate-preset" data-tien="200000">200.000</button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="SoTien" class="form-label">Số tiền (đồng)</label>
+                        <input asp-for="SoTien" id="oTien" class="form-control" type="number" min="1000" step="1000"
+                               placeholder="Ví dụ: 50000" />
+                        <span asp-validation-for="SoTien" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-nt-primary">Tiếp tục</button>
+                </form>
+            </div>
+        }
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Bấm nút số tiền gợi ý thì điền số đó vào ô nhập (không cần viết tay)
+        document.querySelectorAll('.nt-donate-preset').forEach(function (nut) {
+            nut.addEventListener('click', function () {
+                document.getElementById('oTien').value = nut.getAttribute('data-tien');
+            });
+        });
+    </script>
+}

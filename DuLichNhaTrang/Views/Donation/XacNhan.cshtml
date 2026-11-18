@@ -1,0 +1,64 @@
+@model DuLichNhaTrang.Models.ViewModels.DonateViewModel
+@using DuLichNhaTrang.Data
+@using Microsoft.EntityFrameworkCore
+@inject AppDbContext Db
+
+@{
+    ViewData["Title"] = "Xác nhận donate";
+
+    // Lấy lại bài để hiện thông tin tóm tắt. GET và POST đều đi qua đây.
+    var post = Db.Posts.Include(p => p.Category).Include(p => p.User).FirstOrDefault(p => p.Id == Model.PostId);
+    var soTien = Model.SoTien ?? 0;
+    var hanMoi = DateTime.Now.AddDays(7);
+
+    // Hiện số tiền theo định dạng Việt Nam: 50.000 thay cho 50,000
+    var vanHoa = new System.Globalization.CultureInfo("vi-VN");
+}
+
+<section class="nt-section">
+    <div class="container">
+        <div class="nt-form-box">
+            <h1>Xác nhận donate</h1>
+
+            <div class="nt-donate-summary mb-3">
+                <div class="nt-donate-row">
+                    <span>Bài viết</span>
+                    <strong>@post?.TieuDe</strong>
+                </div>
+                <div class="nt-donate-row">
+                    <span>Loại địa điểm</span>
+                    <strong>@post?.Category?.TenLoai</strong>
+                </div>
+                <div class="nt-donate-row">
+                    <span>Người đăng</span>
+                    <strong>@post?.User?.TenDangNhap</strong>
+                </div>
+                <div class="nt-donate-row">
+                    <span>Số tiền</span>
+                    <strong class="nt-donate-money">@soTien.ToString("N0", vanHoa) đồng</strong>
+                </div>
+                <div class="nt-donate-row">
+                    <span>Ưu tiên đến</span>
+                    <strong>@hanMoi.ToString("dd/MM/yyyy")</strong>
+                </div>
+            </div>
+
+            <p class="nt-form-note">
+                Đây là giao dịch <strong>mô phỏng</strong>, không trừ tiền thật.
+                Sau khi xác nhận, bài viết được đẩy lên đầu trang chủ trong 7 ngày.
+            </p>
+
+            <form asp-action="XacNhan" method="post">
+                <input type="hidden" name="PostId" value="@Model.PostId" />
+                <input type="hidden" name="SoTien" value="@Model.SoTien" />
+
+                <span asp-validation-for="SoTien" class="text-danger d-block mb-2"></span>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-nt-primary">Xác nhận donate</button>
+                    <a class="btn btn-nt-outline" asp-action="Index">Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
