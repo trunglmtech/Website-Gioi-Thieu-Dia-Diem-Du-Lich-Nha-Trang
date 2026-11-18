@@ -271,6 +271,7 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (5 loại đ�
 | --- | --- |
 | `docs/huong-dan-su-dung.md` | Hướng dẫn dùng theo từng vai trò (Khách, Thành viên, Admin) |
 | `docs/test-case.md` | Bảng test case 50 trường hợp kèm kết quả |
+| `docs/khung-bao-cao.md` | Khung và dàn ý báo cáo đồ án, việc cần làm thêm |
 | `database/README.md` | Mở CSDL bằng SSMS, quản lý tài khoản, sao lưu / khôi phục |
 
 ## 9. Tiến độ
