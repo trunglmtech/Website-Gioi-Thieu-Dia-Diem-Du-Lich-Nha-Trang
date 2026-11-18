@@ -15,6 +15,7 @@ namespace DuLichNhaTrang.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Donation> Donations { get; set; }
+        public DbSet<PasswordReset> PasswordResets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,6 +53,13 @@ namespace DuLichNhaTrang.Data
                 .WithMany(u => u.Donations)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // 6) Một User có nhiều mã đặt lại mật khẩu. Xóa tài khoản thì xóa luôn mã
+            modelBuilder.Entity<PasswordReset>()
+                .HasOne(r => r.User)
+                .WithMany(u => u.PasswordResets)
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

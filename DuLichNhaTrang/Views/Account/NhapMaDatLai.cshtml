@@ -1,0 +1,61 @@
+@model DuLichNhaTrang.Models.ViewModels.DatLaiMatKhauViewModel
+
+@{
+    ViewData["Title"] = "Đặt lại mật khẩu";
+}
+
+<div class="nt-page">
+    <div class="container">
+        <div class="nt-form-box">
+            <h1>Đặt lại mật khẩu</h1>
+
+            @* Giai đoạn demo: chưa gửi email nên hiện mã ngay trên màn hình.
+               Khi làm phần gửi mail thì xóa ô thông báo này (mã sẽ đi qua email). *@
+            @if (ViewBag.MaDemo != null)
+            {
+                <div class="nt-alert mb-3">
+                    <p class="mb-1">Mã đặt lại mật khẩu của bạn là:</p>
+                    <p class="mb-1 nt-code">@ViewBag.MaDemo</p>
+                    <p class="mb-0 small">
+                        (Chưa gửi email nên mã hiện ở đây để demo. Mã dùng được trong 15 phút và chỉ một lần.)
+                    </p>
+                </div>
+            }
+
+            <form asp-action="NhapMaDatLai" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="TenDangNhap" class="form-label"></label>
+                    <input asp-for="TenDangNhap" class="form-control" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MaDatLai" class="form-label"></label>
+                    <input asp-for="MaDatLai" class="form-control" maxlength="6" inputmode="numeric"
+                           placeholder="Ví dụ: 123456" />
+                    <span asp-validation-for="MaDatLai" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MatKhauMoi" class="form-label"></label>
+                    <input asp-for="MatKhauMoi" class="form-control" />
+                    <span asp-validation-for="MatKhauMoi" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="NhapLaiMatKhau" class="form-label"></label>
+                    <input asp-for="NhapLaiMatKhau" class="form-control" />
+                    <span asp-validation-for="NhapLaiMatKhau" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-nt-primary">Đặt lại mật khẩu</button>
+                <a asp-action="QuenMatKhau" class="btn btn-link">Xin mã khác</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

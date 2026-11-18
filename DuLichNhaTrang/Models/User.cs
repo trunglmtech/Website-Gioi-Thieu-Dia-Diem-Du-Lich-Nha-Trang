@@ -26,5 +26,8 @@ namespace DuLichNhaTrang.Models
 
         // Một người dùng có nhiều lượt donate
         public List<Donation> Donations { get; set; } = new List<Donation>();
+
+        // Một người dùng có nhiều mã đặt lại mật khẩu
+        public List<PasswordReset> PasswordResets { get; set; } = new List<PasswordReset>();
     }
 }

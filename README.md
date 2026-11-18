@@ -34,6 +34,7 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 ### Thành viên (đã đăng nhập)
 
 - Đăng nhập
+- Quên mật khẩu: nhận mã 6 số và đặt lại mật khẩu mới *(mô phỏng gửi mã, chưa dùng email)*
 - Đăng bài (tiêu đề, mô tả, hình ảnh, loại địa điểm)
 - Xem bài của mình và trạng thái (chờ duyệt, đã duyệt, từ chối)
 - Donate để đẩy bài lên đầu trang *(mô phỏng, không dùng thanh toán thật)*
@@ -59,6 +60,9 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 6. Mật khẩu lưu dưới dạng **hash**, không lưu chữ thường.
 7. Tên loại địa điểm **không được trùng**, tối đa 100 ký tự.
 8. **Không xóa được loại địa điểm** đang có bài viết; phải xóa hoặc chuyển các bài đó sang loại khác trước.
+9. **Quên mật khẩu (mô phỏng gửi mã)**: thành viên nhập tên đăng nhập, hệ thống tạo **mã 6 số** có hiệu lực **15 phút**, dùng **1 lần**.
+   - Giai đoạn hiện tại chưa gửi email nên mã hiện ngay trên màn hình (để demo). Khi làm phần gửi mail, mã sẽ được gửi qua email.
+   - Mật khẩu mới vẫn được **hash** trước khi lưu.
 
 ## 4. Công nghệ sử dụng
 
@@ -89,6 +93,7 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 | `Categories` | Loại địa điểm (điểm vui chơi, ăn uống, tham quan, nghỉ dưỡng, cà phê) | 1 loại — nhiều bài viết |
 | `Posts` | Bài giới thiệu, trạng thái duyệt, lý do từ chối, hạn ưu tiên | 1 bài — nhiều lượt donate |
 | `Donations` | Lịch sử donate để đẩy bài lên đầu trang | Nhiều donate — 1 bài, 1 người dùng |
+| `PasswordResets` | Mã đặt lại mật khẩu (6 số, hết hạn 15 phút) | Nhiều mã — 1 người dùng |
 
 ## 6. Cấu trúc thư mục
 
@@ -154,6 +159,8 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 | `/Donation` | `DonationController.Index()` | Bảng `Posts` (bài đã duyệt) + `Categories` | `Views/Donation/Index.cshtml` |
 | `POST /Donation` | `DonationController.Index(model)` | Kiểm tra bài, chưa lưu gì | `Views/Donation/XacNhan.cshtml` |
 | `POST /Donation/XacNhan` | `DonationController.XacNhan(model)` | Thêm `Donations`, đặt `Posts.FeaturedUntil` | Chuyển về `Views/Home/Details.cshtml` |
+| `/Account/QuenMatKhau` | `AccountController.QuenMatKhau()` | Thêm dòng vào `PasswordResets` (mã 6 số) | `Views/Account/NhapMaDatLai.cshtml` |
+| `POST /Account/NhapMaDatLai` | `AccountController.NhapMaDatLai(model)` | Kiểm tra mã, cập nhật `Users.MatKhau` (hash) | Chuyển về `Views/Account/Login.cshtml` |
 
 ## 7. Quy ước code
 

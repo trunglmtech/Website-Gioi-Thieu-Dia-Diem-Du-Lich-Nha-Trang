@@ -1,0 +1,34 @@
+@model DuLichNhaTrang.Models.ViewModels.QuenMatKhauViewModel
+
+@{
+    ViewData["Title"] = "Quên mật khẩu";
+}
+
+<div class="nt-page">
+    <div class="container">
+        <div class="nt-form-box">
+            <h1>Quên mật khẩu</h1>
+
+            <p class="nt-form-note">
+                Nhập tên đăng nhập, hệ thống sẽ tạo một <strong>mã đặt lại gồm 6 số</strong> có hiệu lực 15 phút.
+            </p>
+
+            <form asp-action="QuenMatKhau" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="TenDangNhap" class="form-label"></label>
+                    <input asp-for="TenDangNhap" class="form-control" />
+                    <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-nt-primary">Nhận mã đặt lại</button>
+                <a asp-action="Login" class="btn btn-link">Quay lại đăng nhập</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

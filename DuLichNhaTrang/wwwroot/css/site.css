@@ -1048,6 +1048,14 @@ a:hover {
     color: var(--nt-gold);
 }
 
+/* Mã đặt lại mật khẩu (6 số) hiện to, dễ đọc khi demo */
+.nt-code {
+    color: var(--nt-gold);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 6px;
+}
+
 .nt-muted-sep {
     color: var(--nt-border);
     margin: 0 4px;

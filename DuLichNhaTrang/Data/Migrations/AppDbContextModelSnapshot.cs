@@ -69,6 +69,38 @@ namespace DuLichNhaTrang.Data.Migrations
                     b.ToTable("Donations");
                 });
 
+            modelBuilder.Entity("DuLichNhaTrang.Models.PasswordReset", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("DaDung")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("HetHan")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("MaDatLai")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<DateTime>("NgayYeuCau")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PasswordResets");
+                });
+
             modelBuilder.Entity("DuLichNhaTrang.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -170,6 +202,17 @@ namespace DuLichNhaTrang.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DuLichNhaTrang.Models.PasswordReset", b =>
+                {
+                    b.HasOne("DuLichNhaTrang.Models.User", "User")
+                        .WithMany("PasswordResets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DuLichNhaTrang.Models.Post", b =>
                 {
                     b.HasOne("DuLichNhaTrang.Models.Category", "Category")
@@ -202,6 +245,8 @@ namespace DuLichNhaTrang.Data.Migrations
             modelBuilder.Entity("DuLichNhaTrang.Models.User", b =>
                 {
                     b.Navigation("Donations");
+
+                    b.Navigation("PasswordResets");
 
                     b.Navigation("Posts");
                 });
