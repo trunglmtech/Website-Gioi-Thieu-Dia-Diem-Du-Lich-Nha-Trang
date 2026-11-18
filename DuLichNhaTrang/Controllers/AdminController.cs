@@ -150,6 +150,129 @@ namespace DuLichNhaTrang.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: /Admin/LoaiDiaDiem
+        // Danh sách loại địa điểm kèm số bài viết của từng loại
+        public IActionResult LoaiDiaDiem()
+        {
+            return View(LayDanhSachLoai());
+        }
+
+        // POST: /Admin/ThemLoai
+        // Thêm một loại địa điểm mới
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ThemLoai(Category model)
+        {
+            // Bỏ khoảng trắng ở hai đầu tên loại trước khi kiểm tra
+            model.TenLoai = (model.TenLoai ?? "").Trim();
+
+            // Không cho trùng tên loại đã có
+            if (!string.IsNullOrEmpty(model.TenLoai)
+                && _context.Categories.Any(c => c.TenLoai == model.TenLoai))
+            {
+                ModelState.AddModelError("TenLoai", "Loại địa điểm này đã có, vui lòng nhập tên khác");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                // Nhập sai thì hiện lại danh sách kèm thông báo lỗi và giữ chữ vừa nhập
+                ViewBag.TenLoaiNhap = model.TenLoai;
+                return View("LoaiDiaDiem", LayDanhSachLoai());
+            }
+
+            _context.Categories.Add(model);
+            _context.SaveChanges();
+
+            TempData["ThongBao"] = "Đã thêm loại địa điểm \"" + model.TenLoai + "\".";
+            return RedirectToAction("LoaiDiaDiem");
+        }
+
+        // GET: /Admin/SuaLoai/5
+        // Mở form sửa tên loại địa điểm
+        public IActionResult SuaLoai(int id)
+        {
+            var loai = _context.Categories.Find(id);
+            if (loai == null)
+            {
+                return NotFound();
+            }
+
+            return View(loai);
+        }
+
+        // POST: /Admin/SuaLoai
+        // Lưu tên loại địa điểm sau khi sửa
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SuaLoai(Category model)
+        {
+            var loai = _context.Categories.Find(model.Id);
+            if (loai == null)
+            {
+                return NotFound();
+            }
+
+            model.TenLoai = (model.TenLoai ?? "").Trim();
+
+            // Không cho trùng tên với loại KHÁC (bỏ qua chính nó)
+            if (!string.IsNullOrEmpty(model.TenLoai)
+                && _context.Categories.Any(c => c.Id != model.Id && c.TenLoai == model.TenLoai))
+            {
+                ModelState.AddModelError("TenLoai", "Loại địa điểm này đã có, vui lòng nhập tên khác");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            loai.TenLoai = model.TenLoai;
+            _context.SaveChanges();
+
+            TempData["ThongBao"] = "Đã sửa loại địa điểm thành \"" + loai.TenLoai + "\".";
+            return RedirectToAction("LoaiDiaDiem");
+        }
+
+        // POST: /Admin/XoaLoai/5
+        // Xóa loại địa điểm. Chỉ xóa được khi loại đó KHÔNG còn bài viết nào
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult XoaLoai(int id)
+        {
+            // Nạp kèm Posts để biết loại này còn bài viết hay không
+            var loai = _context.Categories
+                .Include(c => c.Posts)
+                .FirstOrDefault(c => c.Id == id);
+
+            if (loai == null)
+            {
+                return NotFound();
+            }
+
+            // Còn bài viết thì không cho xóa để tránh mất dữ liệu
+            if (loai.Posts.Count > 0)
+            {
+                TempData["Loi"] = "Không xóa được \"" + loai.TenLoai + "\" vì đang có "
+                    + loai.Posts.Count + " bài viết. Hãy xóa hoặc chuyển các bài đó sang loại khác trước.";
+                return RedirectToAction("LoaiDiaDiem");
+            }
+
+            _context.Categories.Remove(loai);
+            _context.SaveChanges();
+
+            TempData["ThongBao"] = "Đã xóa loại địa điểm \"" + loai.TenLoai + "\".";
+            return RedirectToAction("LoaiDiaDiem");
+        }
+
+        // Lấy danh sách loại địa điểm kèm số bài viết (dùng cho trang quản lý loại)
+        private List<Category> LayDanhSachLoai()
+        {
+            return _context.Categories
+                .Include(c => c.Posts)
+                .OrderBy(c => c.TenLoai)
+                .ToList();
+        }
+
         // Chỉ xóa file trong wwwroot/images/posts (ảnh do người dùng tải lên)
         private void XoaAnhDaTaiLen(string? hinhAnh)
         {

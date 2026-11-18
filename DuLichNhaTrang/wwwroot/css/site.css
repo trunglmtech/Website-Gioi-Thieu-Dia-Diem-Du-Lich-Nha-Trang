@@ -905,6 +905,91 @@ a:hover {
     padding: 14px 18px;
 }
 
+/* Thông báo lỗi (ví dụ: không xóa được loại đang có bài) */
+.nt-alert-danger {
+    background-color: rgba(248, 113, 113, 0.12);
+    border-color: rgba(248, 113, 113, 0.4);
+    color: #fecaca;
+}
+
+/* ---------- Quản lý loại địa điểm ---------- */
+.nt-admin-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.nt-admin-tab {
+    border: 1px solid var(--nt-border);
+    border-radius: 30px;
+    color: var(--nt-muted);
+    font-size: 0.9rem;
+    padding: 7px 16px;
+    text-decoration: none;
+}
+
+.nt-admin-tab:hover {
+    border-color: var(--nt-blue);
+    color: #fff;
+}
+
+.nt-admin-tab.active {
+    background-color: var(--nt-blue);
+    border-color: var(--nt-blue);
+    color: #fff;
+}
+
+.nt-category-add {
+    align-items: flex-end;
+    background-color: var(--nt-navy-light);
+    border: 1px solid var(--nt-border);
+    border-radius: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-width: 760px;
+    padding: 18px;
+}
+
+.nt-category-add-field {
+    flex: 1 1 320px;
+}
+
+.nt-category-add .form-label {
+    color: var(--nt-muted);
+    font-size: 0.9rem;
+}
+
+.nt-category-add .form-control {
+    background-color: #0d1a2f;
+    border: 1px solid var(--nt-border);
+    color: var(--nt-text);
+}
+
+.nt-category-add .form-control:focus {
+    background-color: #0d1a2f;
+    border-color: var(--nt-blue);
+    box-shadow: 0 0 0 0.2rem rgba(31, 122, 224, 0.25);
+    color: var(--nt-text);
+}
+
+.nt-category-add .form-control::placeholder {
+    color: #5f708a;
+}
+
+.nt-category-add .text-danger {
+    font-size: 0.85rem;
+}
+
+.nt-category-table {
+    min-width: 520px;
+}
+
+.nt-admin-actions .btn:disabled {
+    opacity: 0.45;
+}
+
 /* ---------- Khung trống khi chưa có bài ---------- */
 .nt-empty {
     background-color: var(--nt-navy-light);

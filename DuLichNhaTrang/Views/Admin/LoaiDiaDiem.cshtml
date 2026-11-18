@@ -1,0 +1,94 @@
+@model List<DuLichNhaTrang.Models.Category>
+
+@{
+    ViewData["Title"] = "Quản lý loại địa điểm";
+}
+
+<section class="nt-section">
+    <div class="container">
+        <h1 class="nt-section-title">Quản lý loại địa điểm</h1>
+        <p class="nt-section-sub">
+            Thêm, sửa, xóa loại địa điểm dùng khi thành viên đăng bài.
+            Loại đang có bài viết thì không xóa được.
+        </p>
+
+        @* Hai tab chuyển qua lại giữa quản trị bài viết và loại địa điểm *@
+        <div class="nt-admin-tabs">
+            <a class="nt-admin-tab" asp-action="Index">Bài viết</a>
+            <a class="nt-admin-tab active" asp-action="LoaiDiaDiem">Loại địa điểm</a>
+        </div>
+
+        @if (TempData["ThongBao"] != null)
+        {
+            <div class="nt-alert mb-4">@TempData["ThongBao"]</div>
+        }
+        @if (TempData["Loi"] != null)
+        {
+            <div class="nt-alert nt-alert-danger mb-4">@TempData["Loi"]</div>
+        }
+
+        @* Form thêm loại mới. Nhập sai thì quay lại trang này kèm lỗi *@
+        <form asp-action="ThemLoai" method="post" class="nt-category-add mb-4">
+            <div class="nt-category-add-field">
+                <label for="TenLoai" class="form-label">Tên loại địa điểm mới</label>
+                <input id="TenLoai" name="TenLoai" class="form-control" maxlength="100"
+                       value="@ViewBag.TenLoaiNhap" placeholder="Ví dụ: Cà phê, Công viên..." />
+                @Html.ValidationMessage("TenLoai", new { @class = "text-danger" })
+            </div>
+            <button type="submit" class="btn btn-nt-primary">Thêm loại</button>
+        </form>
+
+        @if (Model.Count == 0)
+        {
+            <div class="nt-empty">
+                <p class="mb-0">Chưa có loại địa điểm nào.</p>
+            </div>
+        }
+        else
+        {
+            <div class="nt-table-wrap">
+                <table class="nt-table nt-category-table">
+                    <thead>
+                        <tr>
+                            <th>Tên loại</th>
+                            <th>Số bài viết</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var loai in Model)
+                        {
+                            <tr>
+                                <td class="nt-table-title">@loai.TenLoai</td>
+                                <td>@loai.Posts.Count</td>
+                                <td>
+                                    <div class="nt-admin-actions">
+                                        <a class="btn btn-nt-outline btn-sm"
+                                           asp-action="SuaLoai" asp-route-id="@loai.Id">Sửa</a>
+
+                                        @if (loai.Posts.Count > 0)
+                                        {
+                                            @* Còn bài viết thì không cho xóa, chỉ hiện nút bị khóa *@
+                                            <button type="button" class="btn btn-nt-delete btn-sm" disabled
+                                                    title="Không xóa được vì còn bài viết thuộc loại này">
+                                                Xóa
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <form asp-action="XoaLoai" method="post"
+                                                  onsubmit="return confirm('Xóa loại địa điểm này? Thao tác không hoàn tác được.');">
+                                                <input type="hidden" name="id" value="@loai.Id" />
+                                                <button type="submit" class="btn btn-nt-delete btn-sm">Xóa</button>
+                                            </form>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</section>

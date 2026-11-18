@@ -54,6 +54,8 @@ Website cho phép **thành viên đăng bài** giới thiệu các địa điể
 4. Donate là **mô phỏng**: hệ thống lưu lượt donate và đặt `FeaturedUntil` = hôm nay + 7 ngày, không xử lý giao dịch tiền thật.
 5. Chỉ Admin vào được trang quản trị. Chỉ thành viên đã đăng nhập mới được đăng bài và donate.
 6. Mật khẩu lưu dưới dạng **hash**, không lưu chữ thường.
+7. Tên loại địa điểm **không được trùng**, tối đa 100 ký tự.
+8. **Không xóa được loại địa điểm** đang có bài viết; phải xóa hoặc chuyển các bài đó sang loại khác trước.
 
 ## 4. Công nghệ sử dụng
 
@@ -140,6 +142,10 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 | `/Admin` | `AdminController.Index(trangThai)` | Bảng `Posts` + `Categories` + `Users` | `Views/Admin/Index.cshtml` |
 | `/Admin/ChiTiet/5` | `AdminController.ChiTiet(5)` | Bảng `Posts` + `Categories` + `Users` | `Views/Admin/ChiTiet.cshtml` |
 | `POST /Admin/Duyet/5` | `AdminController.Duyet(5)` | Cập nhật `Posts.TrangThai` | Chuyển về `Views/Admin/Index.cshtml` |
+| `/Admin/LoaiDiaDiem` | `AdminController.LoaiDiaDiem()` | Bảng `Categories` + `Posts` (đếm số bài) | `Views/Admin/LoaiDiaDiem.cshtml` |
+| `POST /Admin/ThemLoai` | `AdminController.ThemLoai(model)` | Thêm dòng vào `Categories` | Chuyển về `Views/Admin/LoaiDiaDiem.cshtml` |
+| `POST /Admin/SuaLoai` | `AdminController.SuaLoai(model)` | Sửa `Categories.TenLoai` | Chuyển về `Views/Admin/LoaiDiaDiem.cshtml` |
+| `POST /Admin/XoaLoai/5` | `AdminController.XoaLoai(5)` | Kiểm tra `Posts`, xóa `Categories` | Chuyển về `Views/Admin/LoaiDiaDiem.cshtml` |
 
 ## 7. Quy ước code
 
@@ -238,7 +244,7 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (4 loại đ�
 - [x] Xem danh sách, xem chi tiết, tìm kiếm (giao diện theo phong cách Travello)
 - [x] Đăng bài và quản lý bài của tôi
 - [x] Admin duyệt, từ chối, xóa bài
-- [ ] Admin quản lý loại địa điểm
+- [x] Admin quản lý loại địa điểm
 - [ ] Hiển thị ngẫu nhiên và donate mô phỏng
 - [ ] Kiểm thử và hoàn thiện
 - [ ] Báo cáo và demo

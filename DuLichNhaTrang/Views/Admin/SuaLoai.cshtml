@@ -1,0 +1,29 @@
+@model DuLichNhaTrang.Models.Category
+
+@{
+    ViewData["Title"] = "Sửa loại địa điểm";
+}
+
+<section class="nt-section">
+    <div class="container">
+        <div class="nt-form-box">
+            <h1>Sửa loại địa điểm</h1>
+
+            <form asp-action="SuaLoai" method="post">
+                @* Gửi kèm Id để Controller biết đang sửa loại nào *@
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="TenLoai" class="form-label">Tên loại địa điểm</label>
+                    <input asp-for="TenLoai" class="form-control" maxlength="100" />
+                    <span asp-validation-for="TenLoai" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-nt-primary">Lưu thay đổi</button>
+                    <a class="btn btn-nt-outline" asp-action="LoaiDiaDiem">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

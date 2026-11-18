@@ -12,6 +12,12 @@
             Duyệt, từ chối hoặc xóa bài do thành viên đăng. Chỉ bài <strong>Đã duyệt</strong> mới hiện trên trang chủ.
         </p>
 
+        @* Hai tab chuyển qua lại giữa quản trị bài viết và loại địa điểm *@
+        <div class="nt-admin-tabs">
+            <a class="nt-admin-tab active" asp-action="Index">Bài viết</a>
+            <a class="nt-admin-tab" asp-action="LoaiDiaDiem">Loại địa điểm</a>
+        </div>
+
         @if (TempData["ThongBao"] != null)
         {
             <div class="nt-alert mb-4">@TempData["ThongBao"]</div>
