@@ -114,16 +114,18 @@ Website-Gioi-Thieu-Dia-Diem-Du-Lich-Nha-Trang/
 ├── docs/                       # Tài liệu và hình ảnh thiết kế
 │   ├── use-case.png            # Sơ đồ Use Case
 │   ├── erd.png                 # Sơ đồ ERD
+│   ├── test-case.md            # Bảng kiểm thử (kết quả chạy test)
+│   ├── huong-dan-su-dung.md    # Hướng dẫn sử dụng theo từng vai trò
 │   └── screenshots/            # Ảnh chụp màn hình (bổ sung khi hoàn thiện)
 │
 └── DuLichNhaTrang/             # Project ASP.NET Core MVC
     ├── Controllers/            # Nhận yêu cầu từ người dùng
-    ├── Models/                 # Lớp dữ liệu: User, Category, Post, Donation
-    │   └── ViewModels/         # Dữ liệu form đăng ký, đăng nhập, đăng bài, donate
+    ├── Models/                 # Lớp dữ liệu: User, Category, Post, Donation, PasswordReset
+    │   └── ViewModels/         # Dữ liệu form đăng ký, đăng nhập, đăng bài, donate, quên mật khẩu
     ├── Data/                   # AppDbContext, SeedData và Migrations
     │   └── Migrations/
     ├── Views/                  # Giao diện Razor (.cshtml)
-    │   ├── Account/            # Đăng ký, đăng nhập, báo lỗi quyền
+    │   ├── Account/            # Đăng ký, đăng nhập, quên mật khẩu, báo lỗi quyền
     │   ├── Admin/              # Trang quản trị
     │   ├── Donation/           # Donate: chọn bài, xác nhận
     │   ├── Home/               # Trang chủ, chi tiết bài
@@ -262,6 +264,14 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (5 loại đ�
 
 > Tài khoản trên chỉ dùng cho mục đích demo đồ án. Mật khẩu được lưu dưới dạng hash.
 
+### Tài liệu
+
+| Tài liệu | Nội dung |
+| --- | --- |
+| `docs/huong-dan-su-dung.md` | Hướng dẫn dùng theo từng vai trò (Khách, Thành viên, Admin) |
+| `docs/test-case.md` | Bảng test case 45 trường hợp kèm kết quả |
+| `database/README.md` | Mở CSDL bằng SSMS, quản lý tài khoản, sao lưu / khôi phục |
+
 ## 9. Tiến độ
 
 - [x] Chọn đề tài, tạo repository và project ASP.NET Core MVC
@@ -274,7 +284,9 @@ Khi chạy lần đầu, hệ thống tự tạo dữ liệu mẫu (5 loại đ�
 - [x] Admin duyệt, từ chối, xóa bài
 - [x] Admin quản lý loại địa điểm
 - [x] Hiển thị ngẫu nhiên và donate mô phỏng
-- [ ] Kiểm thử và hoàn thiện
+- [x] Quên mật khẩu bằng mã đặt lại 6 số (mô phỏng gửi mã)
+- [x] Kiểm thử và hoàn thiện
+- [ ] Gửi mã đặt lại qua email thật
 - [ ] Báo cáo và demo
 
 ## 10. Tác giả
