@@ -166,13 +166,79 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--nt-blue);
 }
 
-/* ---------- Phần hero (ảnh lớn + ô tìm kiếm) ---------- */
+/* ---------- Phần hero (ảnh/video lớn + ô tìm kiếm) ---------- */
 .nt-hero {
     background-image: linear-gradient(rgba(234, 240, 248, 0.55), rgba(234, 240, 248, 0.9)), url("/images/sample/hero-nha-trang.jpg");
     background-size: cover;
     background-position: center;
     padding: 110px 0 80px;
     text-align: center;
+}
+
+/* Hero có video nền chiếm cả màn hình đầu */
+.nt-hero-video {
+    align-items: center;
+    background-color: #0b2239;
+    background-image: url("/images/sample/hero-nha-trang.jpg");
+    display: flex;
+    justify-content: center;
+    min-height: 88vh;
+    overflow: hidden;
+    padding: 96px 0 120px;
+    position: relative;
+    text-align: center;
+}
+
+.nt-hero-media {
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+
+/* Lớp phủ tối để chữ trắng đọc rõ trên video, nhạt dần xuống dưới cho hòa vào nền */
+.nt-hero-overlay {
+    background: linear-gradient(180deg, rgba(4, 18, 34, 0.72) 0%, rgba(4, 18, 34, 0.5) 50%, rgba(4, 18, 34, 0.25) 80%, rgba(234, 240, 248, 0.9) 100%);
+    inset: 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.nt-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.nt-hero-video .nt-hero-eyebrow {
+    color: #9fd4ff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.nt-hero-video h1 {
+    color: #fff;
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    text-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
+}
+
+.nt-hero-video p {
+    color: #f2f7ff;
+    font-size: 1.05rem;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+}
+
+/* Khi hero có video: tiêu đề trắng nổi bật (ghi sau .nt-hero h1 để được áp dụng) */
+.nt-hero.nt-hero-video h1 {
+    color: #fff;
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    text-shadow: 0 6px 28px rgba(0, 0, 0, 0.65);
+}
+
+.nt-hero.nt-hero-video p {
+    color: #f2f7ff;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65);
 }
 
 .nt-hero-eyebrow {
@@ -1655,6 +1721,64 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--nt-muted);
     padding: 44px;
     text-align: center;
+}
+
+/* ---------- Bản đồ vị trí địa điểm ---------- */
+.nt-map-box {
+    background-color: var(--nt-surface-soft);
+    border-radius: 22px;
+    box-shadow: var(--nt-shadow-soft);
+    padding: 20px;
+}
+
+.nt-map-title {
+    color: var(--nt-heading);
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.nt-map-frame {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    height: 340px;
+    background-color: var(--nt-surface);
+}
+
+.nt-map-frame iframe {
+    border: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.nt-map-placeholder {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.nt-map-pin {
+    font-size: 2rem;
+    margin-bottom: 6px;
+}
+
+.nt-map-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.nt-map-coord {
+    color: var(--nt-muted);
+    font-size: 0.9rem;
+    margin-right: auto;
 }
 
 /* ---------- Footer ---------- */

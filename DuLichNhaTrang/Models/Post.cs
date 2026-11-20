@@ -19,6 +19,10 @@ namespace DuLichNhaTrang.Models
         [StringLength(255)]
         public string? HinhAnh { get; set; }
 
+        // Vị trí địa điểm trên Google Maps (dạng 10.7769,106.7009). NULL = chưa có tọa độ
+        [StringLength(50)]
+        public string? ToaDo { get; set; }
+
         // Chỉ nhận 3 giá trị: "ChoDuyet", "DaDuyet", "TuChoi"
         [Required]
         [StringLength(20)]

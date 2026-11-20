@@ -39,6 +39,19 @@
                     <span asp-validation-for="HinhAnh" class="text-danger"></span>
                 </div>
 
+                @* Vị trí để hiện bản đồ ở trang chi tiết. Không bắt buộc nhập. *@
+                <div class="mb-3">
+                    <label asp-for="ToaDo" class="form-label"></label>
+                    <div class="nt-vong-sang">
+                        <input asp-for="ToaDo" class="form-control" placeholder="Ví dụ: 12.2388,109.1967" />
+                    </div>
+                    <div class="form-text">
+                        Mở <a href="https://www.google.com/maps" target="_blank" rel="noopener">Google Maps</a>,
+                        bấm chuột phải vào địa điểm, chọn dòng tọa độ đầu tiên rồi dán vào đây.
+                    </div>
+                    <span asp-validation-for="ToaDo" class="text-danger"></span>
+                </div>
+
                 <div class="mb-3">
                     <label asp-for="MoTa" class="form-label"></label>
 

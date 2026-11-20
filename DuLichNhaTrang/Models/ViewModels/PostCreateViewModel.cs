@@ -21,5 +21,10 @@ namespace DuLichNhaTrang.Models.ViewModels
         [Required(ErrorMessage = "Vui lòng chọn loại địa điểm")]
         [Display(Name = "Loại địa điểm")]
         public int CategoryId { get; set; }
+
+        // Vị trí trên bản đồ: dạng "10.7769,106.7009". Để trống được.
+        [StringLength(50)]
+        [Display(Name = "Vị trí trên bản đồ (không bắt buộc)")]
+        public string? ToaDo { get; set; }
     }
 }

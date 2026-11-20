@@ -25,9 +25,21 @@
     }
 }
 
-@* ---------- Phần hero: tiêu đề lớn + ô tìm kiếm nhiều lựa chọn ---------- *@
-<section class="nt-hero">
-    <div class="container">
+@* ---------- Phần hero: video nền lớn + tiêu đề + ô tìm kiếm ---------- *@
+@{
+    // Nếu có file này trong wwwroot/videos thì dùng làm video nền, không có thì dùng ảnh
+    var videoHero = Url.Content("~/videos/hero-nha-trang.mp4");
+}
+<section class="nt-hero nt-hero-video" style="background-image: url('@Url.Content("~/images/sample/hero-nha-trang.jpg")');">
+    @* Video tự chạy, không tiếng, lặp lại. Nếu máy/chương trình duyệt không chạy được
+       video (hoặc chưa có file) thì phần nền ảnh phía sau vẫn hiện bình thường. *@
+    <video class="nt-hero-media" autoplay muted loop playsinline
+           poster="@Url.Content("~/images/sample/hero-nha-trang.jpg")">
+        <source src="@videoHero" type="video/mp4" />
+    </video>
+    <div class="nt-hero-overlay"></div>
+
+    <div class="container nt-hero-content">
         <div class="nt-hero-eyebrow">Việt Nam · Khánh Hòa</div>
         <h1>Khám phá Nha Trang</h1>
         <p>

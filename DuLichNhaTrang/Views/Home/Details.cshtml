@@ -6,6 +6,10 @@
     var duongDanAnh = string.IsNullOrEmpty(Model.HinhAnh)
         ? Url.Content("~/images/sample/hero-nha-trang.jpg")
         : Url.Content("~/" + Model.HinhAnh);
+
+    // Bản đồ: chỉ hiện khi bài có tọa độ hợp lệ (dạng 12.2388,109.1967)
+    bool coBanDo = !string.IsNullOrEmpty(Model.ToaDo) && DuLichNhaTrang.Controllers.PostController.LaToaDoHopLe(Model.ToaDo);
+    var toaDo = coBanDo ? Model.ToaDo!.Trim() : "";
 }
 
 <section class="nt-detail">
@@ -40,6 +44,31 @@
             @Html.Raw(Model.MoTa)
         </div>
 
+        @* ---------- Vị trí trên bản đồ (khung có sẵn, chỉ tải bản đồ khi bấm) ---------- *@
+        @if (coBanDo)
+        {
+            <section class="nt-map-box mt-4">
+                <h2 class="nt-map-title">Vị trí trên bản đồ</h2>
+
+                <div class="nt-map-frame" id="khungBanDo" data-toa-do="@toaDo" data-ten="@Model.TieuDe">
+                    <div class="nt-map-placeholder">
+                        <span class="nt-map-pin">📍</span>
+                        <p class="mb-2">Bản đồ chỉ tải khi cần, để trang nhanh hơn.</p>
+                        <button type="button" class="btn btn-nt-primary btn-sm" id="nutTaiBanDo">
+                            Xem vị trí trên bản đồ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="nt-map-actions">
+                    <span class="nt-map-coord">Tọa độ: @toaDo</span>
+                    <a class="btn btn-nt-outline btn-sm"
+                       href="https://www.google.com/maps/search/?api=1&amp;query=@toaDo"
+                       target="_blank" rel="noopener">Mở bằng Google Maps</a>
+                </div>
+            </section>
+        }
+
         <div class="mt-4 d-flex flex-wrap gap-2">
             <a class="btn btn-nt-outline" asp-controller="Home" asp-action="Index">Xem các địa điểm khác</a>
 
@@ -54,3 +83,31 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        // Chỉ tải bản đồ khi người dùng bấm nút (tránh tải bản đồ ở mọi lần mở trang)
+        var nutBanDo = document.getElementById('nutTaiBanDo');
+        if (nutBanDo) {
+            nutBanDo.addEventListener('click', function () {
+                var khung = document.getElementById('khungBanDo');
+                var toaDo = khung.getAttribute('data-toa-do').split(',');
+                var viDo = parseFloat(toaDo[0]);
+                var kinhDo = parseFloat(toaDo[1]);
+                var lech = 0.01; // xem rộng khoảng hơn 1 km quanh địa điểm
+
+                var diaChi = 'https://www.openstreetmap.org/export/embed.html'
+                    + '?bbox=' + (kinhDo - lech) + ',' + (viDo - lech) + ',' + (kinhDo + lech) + ',' + (viDo + lech)
+                    + '&layer=mapnik&marker=' + viDo + ',' + kinhDo;
+
+                var iframe = document.createElement('iframe');
+                iframe.src = diaChi;
+                iframe.title = 'Bản đồ ' + khung.getAttribute('data-ten');
+                iframe.loading = 'lazy';
+
+                khung.innerHTML = '';
+                khung.appendChild(iframe);
+            });
+        }
+    </script>
+}

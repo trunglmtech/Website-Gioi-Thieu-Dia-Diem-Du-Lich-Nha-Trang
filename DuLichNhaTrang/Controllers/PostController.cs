@@ -56,6 +56,13 @@ namespace DuLichNhaTrang.Controllers
                 ModelState.AddModelError("CategoryId", "Loại địa điểm không hợp lệ");
             }
 
+            // Kiểm tra vị trí bản đồ: nếu có nhập thì phải đúng dạng "vi do, kinh do" ví dụ 12.2388,109.1967
+            model.ToaDo = model.ToaDo?.Trim();
+            if (!string.IsNullOrEmpty(model.ToaDo) && !LaToaDoHopLe(model.ToaDo))
+            {
+                ModelState.AddModelError("ToaDo", "Vị trí phải có dạng 12.2388,109.1967 (vĩ độ, kinh độ)");
+            }
+
             // Kiểm tra ảnh tải lên: đúng đuôi file và không quá 5 MB
             if (model.HinhAnh != null)
             {
@@ -113,6 +120,7 @@ namespace DuLichNhaTrang.Controllers
                 HinhAnh = "images/posts/" + tenFile,
                 TrangThai = "ChoDuyet",
                 NgayDang = DateTime.Now,
+                ToaDo = string.IsNullOrEmpty(model.ToaDo) ? null : model.ToaDo,
                 UserId = userId,
                 CategoryId = model.CategoryId
             };
@@ -144,6 +152,24 @@ namespace DuLichNhaTrang.Controllers
         {
             var danhSachLoai = _context.Categories.OrderBy(c => c.TenLoai).ToList();
             ViewBag.Categories = new SelectList(danhSachLoai, "Id", "TenLoai");
+        }
+
+        // Tọa độ hợp lệ phải là "vi do, kinh do", mỗi số nằm trong khoảng -180..180
+        public static bool LaToaDoHopLe(string toaDo)
+        {
+            var phan = toaDo.Split(',');
+            if (phan.Length != 2)
+            {
+                return false;
+            }
+
+            double viDo = 0;
+            double kinhDo = 0;
+            var vanHoa = System.Globalization.CultureInfo.InvariantCulture;
+            var docViDo = double.TryParse(phan[0].Trim(), System.Globalization.NumberStyles.Float, vanHoa, out viDo);
+            var docKinhDo = double.TryParse(phan[1].Trim(), System.Globalization.NumberStyles.Float, vanHoa, out kinhDo);
+
+            return docViDo && docKinhDo && viDo >= -90 && viDo <= 90 && kinhDo >= -180 && kinhDo <= 180;
         }
     }
 }

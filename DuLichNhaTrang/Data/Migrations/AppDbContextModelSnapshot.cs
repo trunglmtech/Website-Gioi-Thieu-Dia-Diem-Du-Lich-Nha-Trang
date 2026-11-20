@@ -135,6 +135,10 @@ namespace DuLichNhaTrang.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("ToaDo")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("TrangThai")
                         .IsRequired()
                         .HasMaxLength(20)
