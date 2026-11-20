@@ -4,13 +4,21 @@
 
 <div class="nt-page">
     <div class="container">
-        <h1 class="text-danger mb-3">Không có quyền truy cập</h1>
+        <div class="nt-form-box mx-auto text-center">
+            <div class="nt-auth-icon" style="margin: 0 auto 18px;">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2 1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V8h2v4z" />
+                </svg>
+            </div>
 
-        <p class="mb-4">
-            Tài khoản của bạn không được phép vào trang này.
-            Trang này chỉ dành cho quản trị viên (Admin).
-        </p>
+            <h1 class="text-danger">Không có quyền truy cập</h1>
 
-        <a asp-controller="Home" asp-action="Index" class="btn btn-nt-primary">Về trang chủ</a>
+            <p class="mb-4 nt-form-note">
+                Tài khoản của bạn không được phép vào trang này.
+                Trang này chỉ dành cho quản trị viên (Admin).
+            </p>
+
+            <a asp-controller="Home" asp-action="Index" class="btn btn-nt-primary">Về trang chủ</a>
+        </div>
     </div>
 </div>

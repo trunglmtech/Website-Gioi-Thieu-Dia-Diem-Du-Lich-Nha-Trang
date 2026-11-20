@@ -1,18 +1,43 @@
 /* =====================================================================
-   Giao diện website du lịch Nha Trang - phong cách Travello
-   Nền xanh đêm, chữ trắng, nút xanh dương, điểm nhấn vàng.
+   Giao diện website du lịch Nha Trang - phong cách "White modern" (neomorphism)
+   Nền trắng xám nhạt, chữ xanh đen, nút gradient xanh dương.
    File này ghi đè lên Bootstrap nên phải được nạp SAU bootstrap.min.css.
    ===================================================================== */
 
 :root {
-    --nt-navy: #0a1526;
-    --nt-navy-light: #12203a;
-    --nt-blue: #1f7ae0;
-    --nt-blue-dark: #1663bb;
-    --nt-gold: #f5c518;
-    --nt-text: #e8eef8;
-    --nt-muted: #93a4bd;
-    --nt-border: rgba(255, 255, 255, 0.08);
+    /* Nền và bề mặt */
+    --nt-bg: #eaf0f8;
+    --nt-surface: #eef3fb;
+    --nt-surface-soft: #f4f7fc;
+    --nt-white: #ffffff;
+
+    /* Chữ */
+    --nt-text: #1b2a41;
+    --nt-muted: #6b7a90;
+    --nt-heading: #12203a;
+
+    /* Màu nhấn */
+    --nt-blue: #1d8cf8;
+    --nt-blue-dark: #0b6fd0;
+    --nt-blue-light: #56c2ff;
+    --nt-blue-soft: #e3eefc;
+
+    /* Màu trạng thái */
+    --nt-green: #12a150;
+    --nt-green-soft: #e3f7ea;
+    --nt-red: #e5484d;
+    --nt-red-soft: #fdeaea;
+    --nt-gold: #e2a500;
+    --nt-gold-soft: #fff4d6;
+    --nt-gold-btn: #ffc93c;
+
+    /* Viền và bóng đổ (phần tạo cảm giác nổi của neomorphism) */
+    --nt-border: #dbe4f0;
+    --nt-shadow: 10px 10px 24px rgba(163, 177, 198, 0.35), -10px -10px 24px rgba(255, 255, 255, 0.95);
+    --nt-shadow-sm: 5px 5px 12px rgba(163, 177, 198, 0.3), -5px -5px 12px rgba(255, 255, 255, 0.9);
+    --nt-shadow-inset: inset 4px 4px 9px rgba(163, 177, 198, 0.35), inset -4px -4px 9px rgba(255, 255, 255, 0.95);
+    --nt-shadow-soft: 0 10px 30px rgba(27, 42, 65, 0.08);
+    --nt-gradient: linear-gradient(90deg, #1d8cf8 0%, #56c2ff 100%);
 }
 
 html {
@@ -28,7 +53,7 @@ html {
 }
 
 body {
-    background-color: var(--nt-navy);
+    background-color: var(--nt-bg);
     color: var(--nt-text);
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
     display: flex;
@@ -46,27 +71,32 @@ a {
 }
 
 a:hover {
-    color: #6fb1ff;
+    color: var(--nt-blue-dark);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--nt-heading);
 }
 
 /* ---------- Thanh menu ---------- */
 .nt-header {
-    background-color: rgba(10, 21, 38, 0.96);
-    border-bottom: 1px solid var(--nt-border);
+    background-color: rgba(234, 240, 248, 0.92);
+    border-bottom: 1px solid rgba(219, 228, 240, 0.8);
+    backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
 .nt-navbar {
-    padding: 14px 0;
+    padding: 12px 0;
 }
 
 .nt-brand {
-    color: #fff;
-    font-size: 1.3rem;
+    color: var(--nt-heading);
+    font-size: 1.25rem;
     font-weight: 800;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     text-decoration: none;
 }
@@ -81,7 +111,7 @@ a:hover {
 }
 
 .nt-navbar .nav-link:hover {
-    color: #fff;
+    color: var(--nt-blue);
 }
 
 .navbar-toggler {
@@ -89,7 +119,7 @@ a:hover {
 }
 
 .navbar-toggler-icon {
-    filter: invert(1);
+    filter: none;
 }
 
 .nt-hello {
@@ -98,43 +128,47 @@ a:hover {
 }
 
 .nt-hello strong {
-    color: #fff;
+    color: var(--nt-heading);
 }
 
 /* ---------- Nút ---------- */
 .btn-nt-primary {
-    background-color: var(--nt-blue);
+    background: var(--nt-gradient);
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(29, 140, 248, 0.3);
     color: #fff;
-    font-weight: 600;
-    padding: 10px 22px;
+    font-weight: 700;
+    padding: 10px 24px;
 }
 
 .btn-nt-primary:hover,
 .btn-nt-primary:focus {
-    background-color: var(--nt-blue-dark);
+    background: var(--nt-gradient);
+    box-shadow: 0 10px 26px rgba(29, 140, 248, 0.42);
     color: #fff;
+    transform: translateY(-1px);
 }
 
 .btn-nt-outline {
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 10px;
-    color: #fff;
+    background-color: var(--nt-surface);
+    border: 1px solid var(--nt-border);
+    border-radius: 12px;
+    box-shadow: var(--nt-shadow-sm);
+    color: var(--nt-heading);
     font-weight: 600;
     padding: 10px 22px;
 }
 
 .btn-nt-outline:hover,
 .btn-nt-outline:focus {
-    background-color: rgba(255, 255, 255, 0.08);
-    color: #fff;
+    box-shadow: var(--nt-shadow-inset);
+    color: var(--nt-blue);
 }
 
 /* ---------- Phần hero (ảnh lớn + ô tìm kiếm) ---------- */
 .nt-hero {
-    background-image: linear-gradient(rgba(10, 21, 38, 0.6), rgba(10, 21, 38, 0.95)), url("/images/sample/hero-nha-trang.jpg");
+    background-image: linear-gradient(rgba(234, 240, 248, 0.55), rgba(234, 240, 248, 0.9)), url("/images/sample/hero-nha-trang.jpg");
     background-size: cover;
     background-position: center;
     padding: 110px 0 80px;
@@ -142,7 +176,7 @@ a:hover {
 }
 
 .nt-hero-eyebrow {
-    color: var(--nt-gold);
+    color: var(--nt-blue);
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 4px;
@@ -151,23 +185,24 @@ a:hover {
 }
 
 .nt-hero h1 {
+    color: var(--nt-heading);
     font-size: clamp(1.9rem, 4.8vw, 3.3rem);
     font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    letter-spacing: 0.06em;
     line-height: 1.15;
     margin-bottom: 16px;
 }
 
 .nt-hero p {
-    color: var(--nt-muted);
+    color: #43536b;
     max-width: 620px;
     margin: 0 auto 32px;
 }
 
 .nt-search {
-    background-color: #fff;
+    background-color: var(--nt-bg);
     border-radius: 50px;
+    box-shadow: var(--nt-shadow);
     padding: 8px;
     max-width: 640px;
     margin: 0 auto;
@@ -176,23 +211,28 @@ a:hover {
 }
 
 .nt-search input {
+    background-color: transparent;
     border: none;
     border-radius: 50px;
     padding: 10px 22px;
     flex: 1;
     min-width: 0;
-    color: #10203a;
+    color: var(--nt-text);
 }
 
 .nt-search input:focus {
-    outline: 2px solid var(--nt-blue);
-    outline-offset: -2px;
+    outline: none;
+}
+
+.nt-search input::placeholder {
+    color: var(--nt-muted);
 }
 
 .nt-search button {
-    background-color: var(--nt-blue);
+    background: var(--nt-gradient);
     border: none;
     border-radius: 50px;
+    box-shadow: 0 6px 16px rgba(29, 140, 248, 0.3);
     color: #fff;
     font-weight: 700;
     padding: 10px 28px;
@@ -200,24 +240,24 @@ a:hover {
 }
 
 .nt-search button:hover {
-    background-color: var(--nt-blue-dark);
+    box-shadow: 0 8px 22px rgba(29, 140, 248, 0.45);
 }
 
 /* ---------- Dải 4 đặc điểm ---------- */
 .nt-features {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    gap: 18px;
     margin-top: -48px;
     position: relative;
     z-index: 5;
 }
 
 .nt-feature {
-    background-color: var(--nt-navy-light);
-    border: 1px solid var(--nt-border);
-    border-radius: 16px;
-    padding: 20px 18px;
+    background-color: var(--nt-surface);
+    border-radius: 20px;
+    box-shadow: var(--nt-shadow);
+    padding: 22px 18px;
     text-align: center;
 }
 
@@ -228,6 +268,7 @@ a:hover {
 }
 
 .nt-feature strong {
+    color: var(--nt-heading);
     display: block;
     font-size: 0.98rem;
 }
@@ -250,6 +291,7 @@ a:hover {
 }
 
 .nt-section-title {
+    color: var(--nt-heading);
     font-size: 1.6rem;
     font-weight: 800;
     margin-bottom: 4px;
@@ -262,19 +304,20 @@ a:hover {
 
 /* ---------- Card địa điểm ---------- */
 .nt-card {
-    background-color: var(--nt-navy-light);
-    border: 1px solid var(--nt-border);
-    border-radius: 18px;
+    background-color: var(--nt-surface);
+    border: none;
+    border-radius: 22px;
+    box-shadow: var(--nt-shadow-sm);
     overflow: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nt-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(31, 122, 224, 0.6);
+    box-shadow: var(--nt-shadow);
 }
 
 .nt-card-img {
@@ -294,9 +337,10 @@ a:hover {
     position: absolute;
     top: 12px;
     left: 12px;
-    background-color: var(--nt-gold);
-    color: #241c00;
+    background-color: var(--nt-gold-btn);
+    color: #3d2f00;
     border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(226, 165, 0, 0.35);
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 0.5px;
@@ -312,15 +356,16 @@ a:hover {
 }
 
 .nt-card-meta {
-    color: var(--nt-muted);
-    font-size: 0.8rem;
+    color: var(--nt-blue);
+    font-size: 0.78rem;
+    font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 8px;
     text-transform: uppercase;
 }
 
 .nt-card-title {
-    color: #fff;
+    color: var(--nt-heading);
     font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 8px;
@@ -346,10 +391,12 @@ a:hover {
     width: 100%;
     max-height: 430px;
     object-fit: cover;
-    border-radius: 20px;
+    border-radius: 24px;
+    box-shadow: var(--nt-shadow);
 }
 
 .nt-detail-title {
+    color: var(--nt-heading);
     font-size: 2rem;
     font-weight: 800;
     margin: 24px 0 10px;
@@ -361,9 +408,13 @@ a:hover {
 }
 
 .nt-detail-text {
-    color: #cfd9e8;
+    background-color: var(--nt-surface-soft);
+    border-radius: 20px;
+    box-shadow: var(--nt-shadow-soft);
+    color: #31425a;
     font-size: 1.05rem;
     line-height: 1.8;
+    padding: 24px 28px;
 }
 
 .nt-detail-text p {
@@ -379,13 +430,13 @@ a:hover {
 .nt-detail-text h1,
 .nt-detail-text h2,
 .nt-detail-text h3 {
-    color: #fff;
+    color: var(--nt-heading);
     font-weight: 800;
     margin: 1.4rem 0 0.75rem;
 }
 
 .nt-detail-text strong {
-    color: #fff;
+    color: var(--nt-heading);
 }
 
 .nt-detail-text blockquote {
@@ -396,24 +447,255 @@ a:hover {
 }
 
 .nt-detail-text a {
-    color: #6fb1ff;
+    color: var(--nt-blue);
     text-decoration: underline;
 }
 
-/* ---------- Khung form đăng nhập / đăng ký ---------- */
+/* ---------- Trang đăng nhập / đăng ký (thẻ nổi) ---------- */
+.nt-auth {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: calc(100vh - 220px);
+    overflow: hidden;
+    padding: 48px 16px;
+    position: relative;
+}
+
+/* Hai vòng tròn mờ ở hai bên như trong ảnh mẫu */
+.nt-auth::before,
+.nt-auth::after {
+    border-radius: 50%;
+    box-shadow: var(--nt-shadow);
+    content: '';
+    position: absolute;
+    z-index: 0;
+}
+
+.nt-auth::before {
+    background-color: #e6eef9;
+    height: 240px;
+    left: -40px;
+    top: 30px;
+    width: 240px;
+}
+
+.nt-auth::after {
+    background-color: #e6eef9;
+    bottom: 20px;
+    height: 200px;
+    right: -30px;
+    width: 200px;
+}
+
+.nt-auth-card {
+    background-color: var(--nt-surface-soft);
+    border-radius: 36px;
+    box-shadow: 18px 18px 40px rgba(163, 177, 198, 0.45), -18px -18px 40px rgba(255, 255, 255, 0.95);
+    max-width: 430px;
+    padding: 34px 34px 38px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.nt-auth-icon {
+    align-items: center;
+    background-color: var(--nt-surface);
+    border-radius: 50%;
+    box-shadow: var(--nt-shadow-sm);
+    display: flex;
+    height: 84px;
+    justify-content: center;
+    margin: -76px auto 18px;
+    width: 84px;
+}
+
+.nt-auth-icon svg {
+    height: 34px;
+    width: 34px;
+    fill: var(--nt-blue);
+}
+
+.nt-auth-card h1 {
+    color: var(--nt-heading);
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.nt-auth-sub {
+    color: var(--nt-muted);
+    font-size: 0.92rem;
+    margin-bottom: 26px;
+}
+
+.nt-auth-card .form-label {
+    color: var(--nt-muted);
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+/* Ô nhập lõm vào (inset) giống ảnh mẫu */
+.nt-auth-card .form-control,
+.nt-auth-card .form-select {
+    background-color: var(--nt-surface);
+    border: 1px solid transparent;
+    border-radius: 14px;
+    box-shadow: var(--nt-shadow-inset);
+    color: var(--nt-text);
+    padding: 12px 16px;
+}
+
+.nt-auth-card .form-control:focus,
+.nt-auth-card .form-select:focus {
+    background-color: var(--nt-surface);
+    border-color: rgba(29, 140, 248, 0.45);
+    box-shadow: var(--nt-shadow-inset), 0 0 0 0.2rem rgba(29, 140, 248, 0.15);
+    color: var(--nt-text);
+}
+
+.nt-auth-card .form-control::placeholder {
+    color: #98a6ba;
+}
+
+.nt-auth-card .form-check-input {
+    background-color: var(--nt-surface);
+    border-color: var(--nt-border);
+    box-shadow: var(--nt-shadow-sm);
+}
+
+.nt-auth-card .form-check-input:checked {
+    background-color: var(--nt-blue);
+    border-color: var(--nt-blue);
+}
+
+.nt-auth-card .form-check-label {
+    color: var(--nt-muted);
+    font-size: 0.9rem;
+}
+
+.nt-auth-card .text-danger {
+    display: block;
+    font-size: 0.82rem;
+    text-align: left;
+}
+
+.nt-auth-card .btn-nt-primary {
+    border-radius: 24px;
+    font-size: 1rem;
+    padding: 13px 24px;
+    width: 100%;
+}
+
+.nt-auth-links {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.nt-auth-links a {
+    color: var(--nt-muted);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.nt-auth-links a:hover {
+    color: var(--nt-blue);
+}
+
+/* Ô mật khẩu có nút con mắt để hiện / ẩn */
+.nt-password-field {
+    position: relative;
+}
+
+.nt-password-field .form-control {
+    padding-right: 48px;
+}
+
+.nt-password-toggle {
+    background: transparent;
+    border: none;
+    bottom: 6px;
+    color: #98a6ba;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    position: absolute;
+    right: 8px;
+    top: 6px;
+}
+
+.nt-password-toggle svg {
+    fill: currentColor;
+    height: 20px;
+    width: 20px;
+}
+
+.nt-password-toggle:hover,
+.nt-password-toggle.dang-hien {
+    color: var(--nt-blue);
+}
+
+.nt-small-link {
+    color: var(--nt-blue);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.nt-small-link:hover {
+    color: var(--nt-blue-dark);
+    text-decoration: underline;
+}
+
+.nt-auth-hint {
+    color: var(--nt-muted);
+    font-size: 0.88rem;
+}
+
+/* Nút tròn dấu + để sang trang đăng ký */
+.nt-auth-plus {
+    align-items: center;
+    background-color: var(--nt-surface);
+    border-radius: 50%;
+    box-shadow: var(--nt-shadow-sm);
+    color: var(--nt-blue);
+    display: inline-flex;
+    font-size: 1.5rem;
+    font-weight: 600;
+    height: 44px;
+    justify-content: center;
+    line-height: 1;
+    text-decoration: none;
+    width: 44px;
+}
+
+.nt-auth-plus:hover {
+    box-shadow: var(--nt-shadow-inset);
+    color: var(--nt-blue-dark);
+}
+
+/* ---------- Khung form chung (đăng bài, sửa loại...) ---------- */
 .nt-page {
     padding: 48px 0 64px;
 }
 
 .nt-form-box {
-    background-color: var(--nt-navy-light);
-    border: 1px solid var(--nt-border);
-    border-radius: 18px;
-    max-width: 520px;
-    padding: 28px;
+    background-color: var(--nt-surface-soft);
+    border-radius: 24px;
+    box-shadow: var(--nt-shadow);
+    max-width: 560px;
+    padding: 30px 32px;
 }
 
 .nt-form-box h1 {
+    color: var(--nt-heading);
     font-size: 1.5rem;
     font-weight: 800;
     margin-bottom: 20px;
@@ -424,25 +706,30 @@ a:hover {
     font-size: 0.9rem;
 }
 
-.nt-form-box .form-control {
-    background-color: #0d1a2f;
+.nt-form-box .form-control,
+.nt-form-box .form-select {
+    background-color: var(--nt-surface);
     border: 1px solid var(--nt-border);
+    border-radius: 12px;
+    box-shadow: var(--nt-shadow-sm);
     color: var(--nt-text);
+    padding: 10px 14px;
 }
 
-.nt-form-box .form-control:focus {
-    background-color: #0d1a2f;
+.nt-form-box .form-control:focus,
+.nt-form-box .form-select:focus {
+    background-color: var(--nt-surface);
     border-color: var(--nt-blue);
-    box-shadow: 0 0 0 0.2rem rgba(31, 122, 224, 0.25);
+    box-shadow: var(--nt-shadow-inset);
     color: var(--nt-text);
 }
 
 .nt-form-box .form-control::placeholder {
-    color: #5f708a;
+    color: #98a6ba;
 }
 
 .nt-form-box input[type="file"]::file-selector-button {
-    background-color: var(--nt-blue);
+    background: var(--nt-gradient);
     border: none;
     border-radius: 8px;
     color: #fff;
@@ -461,17 +748,7 @@ a:hover {
 
 .nt-form-box .btn-link {
     color: var(--nt-muted);
-}
-
-.nt-form-box .form-select {
-    background-color: #0d1a2f;
-    border: 1px solid var(--nt-border);
-    color: var(--nt-text);
-}
-
-.nt-form-box .form-select:focus {
-    border-color: var(--nt-blue);
-    box-shadow: 0 0 0 0.2rem rgba(31, 122, 224, 0.25);
+    text-decoration: none;
 }
 
 .nt-form-box .form-text {
@@ -483,7 +760,7 @@ a:hover {
 }
 
 .nt-form-wide {
-    max-width: 680px;
+    max-width: 720px;
 }
 
 .nt-form-note {
@@ -494,15 +771,15 @@ a:hover {
 
 /* ---------- Khung soạn thảo mô tả (Quill) ---------- */
 .nt-editor .ql-toolbar.ql-snow {
-    background-color: #0d1a2f;
+    background-color: var(--nt-surface);
     border: 1px solid var(--nt-border);
-    border-radius: 10px 10px 0 0;
+    border-radius: 12px 12px 0 0;
 }
 
 .nt-editor .ql-container.ql-snow {
-    background-color: #0d1a2f;
+    background-color: var(--nt-white);
     border: 1px solid var(--nt-border);
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 12px 12px;
     color: var(--nt-text);
     font-family: inherit;
     font-size: 1rem;
@@ -513,24 +790,24 @@ a:hover {
 }
 
 .nt-editor .ql-editor.ql-blank::before {
-    color: #5f708a;
+    color: #98a6ba;
     font-style: normal;
 }
 
 .nt-editor .ql-snow .ql-stroke {
-    stroke: #cfd9e8;
+    stroke: var(--nt-text);
 }
 
 .nt-editor .ql-snow .ql-fill {
-    fill: #cfd9e8;
+    fill: var(--nt-text);
 }
 
 .nt-editor .ql-snow .ql-picker {
-    color: #cfd9e8;
+    color: var(--nt-text);
 }
 
 .nt-editor .ql-snow .ql-picker-options {
-    background-color: var(--nt-navy-light);
+    background-color: var(--nt-white);
     border-color: var(--nt-border);
 }
 
@@ -635,9 +912,13 @@ a:hover {
     content: '48';
 }
 
-/* ---------- Bảng bài viết của tôi ---------- */
+/* ---------- Bảng bài viết ---------- */
 .nt-table-wrap {
+    background-color: var(--nt-surface-soft);
+    border-radius: 20px;
+    box-shadow: var(--nt-shadow-soft);
     overflow-x: auto;
+    padding: 6px 18px;
 }
 
 .nt-table {
@@ -649,21 +930,27 @@ a:hover {
 .nt-table th {
     border-bottom: 1px solid var(--nt-border);
     color: var(--nt-muted);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 700;
     letter-spacing: 1px;
-    padding: 12px;
+    padding: 14px 12px;
     text-align: left;
     text-transform: uppercase;
 }
 
 .nt-table td {
     border-bottom: 1px solid var(--nt-border);
+    color: var(--nt-text);
     padding: 14px 12px;
     vertical-align: middle;
 }
 
+.nt-table tr:last-child td {
+    border-bottom: none;
+}
+
 .nt-table-title {
-    color: #fff;
+    color: var(--nt-heading);
     font-weight: 600;
 }
 
@@ -677,18 +964,18 @@ a:hover {
 }
 
 .nt-status-cho {
-    background-color: rgba(245, 197, 24, 0.15);
-    color: var(--nt-gold);
+    background-color: var(--nt-gold-soft);
+    color: #9a6b00;
 }
 
 .nt-status-da {
-    background-color: rgba(74, 222, 128, 0.15);
-    color: #4ade80;
+    background-color: var(--nt-green-soft);
+    color: var(--nt-green);
 }
 
 .nt-status-tu {
-    background-color: rgba(248, 113, 113, 0.15);
-    color: #f87171;
+    background-color: var(--nt-red-soft);
+    color: var(--nt-red);
 }
 
 /* ---------- Trang quản trị ---------- */
@@ -699,27 +986,27 @@ a:hover {
 }
 
 .nt-admin-filter {
-    border: 1px solid var(--nt-border);
+    background-color: var(--nt-surface);
     border-radius: 30px;
+    box-shadow: var(--nt-shadow-sm);
     color: var(--nt-muted);
     font-size: 0.9rem;
-    padding: 7px 16px;
+    padding: 8px 18px;
     text-decoration: none;
 }
 
 .nt-admin-filter:hover {
-    border-color: var(--nt-blue);
-    color: #fff;
+    color: var(--nt-blue);
 }
 
 .nt-admin-filter.active {
-    background-color: var(--nt-blue);
-    border-color: var(--nt-blue);
+    background: var(--nt-gradient);
+    box-shadow: 0 8px 18px rgba(29, 140, 248, 0.3);
     color: #fff;
 }
 
 .nt-admin-thumb {
-    border-radius: 8px;
+    border-radius: 10px;
     display: block;
     height: 54px;
     object-fit: cover;
@@ -727,7 +1014,8 @@ a:hover {
 }
 
 .nt-admin-title-link {
-    color: #fff;
+    color: var(--nt-heading);
+    font-weight: 600;
     text-decoration: none;
 }
 
@@ -747,43 +1035,47 @@ a:hover {
 }
 
 .nt-admin-actions .btn {
+    border-radius: 10px;
     font-size: 0.8rem;
-    padding: 4px 10px;
+    font-weight: 600;
+    padding: 4px 12px;
     white-space: nowrap;
 }
 
 .btn-nt-approve {
-    border: 1px solid rgba(74, 222, 128, 0.6);
-    color: #4ade80;
+    background-color: var(--nt-green-soft);
+    border: 1px solid #b9e8ca;
+    color: var(--nt-green);
 }
 
 .btn-nt-approve:hover {
-    background-color: #4ade80;
-    border-color: #4ade80;
-    color: var(--nt-navy);
+    background-color: var(--nt-green);
+    border-color: var(--nt-green);
+    color: #fff;
 }
 
 .btn-nt-reject {
-    border: 1px solid rgba(248, 113, 113, 0.6);
-    color: #f87171;
+    background-color: var(--nt-gold-soft);
+    border: 1px solid #f3dca0;
+    color: #9a6b00;
 }
 
 .btn-nt-reject:hover {
-    background-color: #f87171;
-    border-color: #f87171;
-    color: var(--nt-navy);
+    background-color: #f0b000;
+    border-color: #f0b000;
+    color: #fff;
 }
 
 .btn-nt-delete {
-    background-color: rgba(248, 113, 113, 0.15);
-    border: 1px solid rgba(248, 113, 113, 0.6);
-    color: #f87171;
+    background-color: var(--nt-red-soft);
+    border: 1px solid #f6c4c5;
+    color: var(--nt-red);
 }
 
 .btn-nt-delete:hover {
-    background-color: #f87171;
-    border-color: #f87171;
-    color: var(--nt-navy);
+    background-color: var(--nt-red);
+    border-color: var(--nt-red);
+    color: #fff;
 }
 
 .nt-back-link {
@@ -798,14 +1090,14 @@ a:hover {
 }
 
 .nt-admin-detail {
-    background-color: var(--nt-navy-light);
-    border: 1px solid var(--nt-border);
-    border-radius: 16px;
+    background-color: var(--nt-surface-soft);
+    border-radius: 24px;
+    box-shadow: var(--nt-shadow-soft);
     padding: 28px;
 }
 
 .nt-admin-detail h1 {
-    color: #fff;
+    color: var(--nt-heading);
     font-weight: 800;
     margin: 10px 0;
 }
@@ -816,7 +1108,7 @@ a:hover {
 }
 
 .nt-admin-detail-img {
-    border-radius: 12px;
+    border-radius: 16px;
     margin: 18px 0;
     max-height: 420px;
     object-fit: cover;
@@ -824,41 +1116,41 @@ a:hover {
 }
 
 .nt-admin-reason {
-    background-color: rgba(248, 113, 113, 0.1);
-    border-left: 4px solid #f87171;
-    border-radius: 8px;
-    color: #fecaca;
+    background-color: var(--nt-red-soft);
+    border-left: 4px solid var(--nt-red);
+    border-radius: 10px;
+    color: #8f2225;
     margin-top: 18px;
     padding: 12px 16px;
 }
 
 .nt-admin-reject-box {
-    background-color: rgba(248, 113, 113, 0.05);
-    border: 1px solid rgba(248, 113, 113, 0.25);
-    border-radius: 12px;
+    background-color: #fff8f8;
+    border: 1px solid #f6d4d5;
+    border-radius: 16px;
     max-width: 560px;
-    padding: 18px;
+    padding: 20px;
 }
 
 .nt-admin-reject-box .form-label {
-    color: #fff;
+    color: var(--nt-heading);
     font-weight: 600;
 }
 
 .nt-admin-reject-box .form-control {
-    background-color: #0d1a2f;
+    background-color: var(--nt-white);
     border: 1px solid var(--nt-border);
+    border-radius: 12px;
     color: var(--nt-text);
 }
 
 .nt-admin-reject-box .form-control::placeholder {
-    color: #5f708a;
+    color: #98a6ba;
 }
 
 .nt-admin-reject-box .form-control:focus {
-    background-color: #0d1a2f;
-    border-color: #f87171;
-    box-shadow: 0 0 0 0.2rem rgba(248, 113, 113, 0.2);
+    border-color: var(--nt-red);
+    box-shadow: 0 0 0 0.2rem rgba(229, 72, 77, 0.15);
     color: var(--nt-text);
 }
 
@@ -868,7 +1160,7 @@ a:hover {
 }
 
 .nt-reject-reason {
-    color: #f87171;
+    color: var(--nt-red);
     font-size: 0.8rem;
     margin-top: 6px;
     max-width: 240px;
@@ -898,18 +1190,18 @@ a:hover {
 
 /* ---------- Hộp thông báo ---------- */
 .nt-alert {
-    background-color: rgba(31, 122, 224, 0.12);
-    border: 1px solid rgba(31, 122, 224, 0.4);
-    border-radius: 12px;
-    color: #bcd7fb;
+    background-color: var(--nt-blue-soft);
+    border: 1px solid #bfdcfa;
+    border-radius: 14px;
+    color: #0d4f92;
     padding: 14px 18px;
 }
 
 /* Thông báo lỗi (ví dụ: không xóa được loại đang có bài) */
 .nt-alert-danger {
-    background-color: rgba(248, 113, 113, 0.12);
-    border-color: rgba(248, 113, 113, 0.4);
-    color: #fecaca;
+    background-color: var(--nt-red-soft);
+    border-color: #f6c4c5;
+    color: #a32b2f;
 }
 
 /* ---------- Quản lý loại địa điểm ---------- */
@@ -921,35 +1213,35 @@ a:hover {
 }
 
 .nt-admin-tab {
-    border: 1px solid var(--nt-border);
+    background-color: var(--nt-surface);
     border-radius: 30px;
+    box-shadow: var(--nt-shadow-sm);
     color: var(--nt-muted);
     font-size: 0.9rem;
-    padding: 7px 16px;
+    padding: 8px 18px;
     text-decoration: none;
 }
 
 .nt-admin-tab:hover {
-    border-color: var(--nt-blue);
-    color: #fff;
+    color: var(--nt-blue);
 }
 
 .nt-admin-tab.active {
-    background-color: var(--nt-blue);
-    border-color: var(--nt-blue);
+    background: var(--nt-gradient);
+    box-shadow: 0 8px 18px rgba(29, 140, 248, 0.3);
     color: #fff;
 }
 
 .nt-category-add {
     align-items: flex-end;
-    background-color: var(--nt-navy-light);
-    border: 1px solid var(--nt-border);
-    border-radius: 16px;
+    background-color: var(--nt-surface-soft);
+    border-radius: 20px;
+    box-shadow: var(--nt-shadow-soft);
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     max-width: 760px;
-    padding: 18px;
+    padding: 20px;
 }
 
 .nt-category-add-field {
@@ -962,20 +1254,22 @@ a:hover {
 }
 
 .nt-category-add .form-control {
-    background-color: #0d1a2f;
+    background-color: var(--nt-surface);
     border: 1px solid var(--nt-border);
+    border-radius: 12px;
+    box-shadow: var(--nt-shadow-sm);
     color: var(--nt-text);
+    padding: 10px 14px;
 }
 
 .nt-category-add .form-control:focus {
-    background-color: #0d1a2f;
     border-color: var(--nt-blue);
-    box-shadow: 0 0 0 0.2rem rgba(31, 122, 224, 0.25);
+    box-shadow: var(--nt-shadow-inset);
     color: var(--nt-text);
 }
 
 .nt-category-add .form-control::placeholder {
-    color: #5f708a;
+    color: #98a6ba;
 }
 
 .nt-category-add .text-danger {
@@ -992,17 +1286,19 @@ a:hover {
 
 /* ---------- Donate (mô phỏng) ---------- */
 .btn-nt-gold {
-    background-color: var(--nt-gold);
-    border: 1px solid var(--nt-gold);
-    color: #14213d;
+    background-color: var(--nt-gold-btn);
+    border: 1px solid #f0b800;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(226, 165, 0, 0.28);
+    color: #3d2f00;
     font-weight: 700;
 }
 
 .btn-nt-gold:hover,
 .btn-nt-gold:focus {
-    background-color: #ffd63a;
-    border-color: #ffd63a;
-    color: #14213d;
+    background-color: #ffd55c;
+    box-shadow: 0 8px 20px rgba(226, 165, 0, 0.38);
+    color: #3d2f00;
 }
 
 .nt-donate-presets {
@@ -1012,24 +1308,25 @@ a:hover {
 }
 
 .nt-donate-preset {
-    background-color: transparent;
-    border: 1px solid var(--nt-border);
+    background-color: var(--nt-surface);
+    border: none;
     border-radius: 30px;
+    box-shadow: var(--nt-shadow-sm);
     color: var(--nt-text);
     font-size: 0.9rem;
-    padding: 6px 16px;
+    padding: 8px 18px;
 }
 
 .nt-donate-preset:hover {
-    border-color: var(--nt-gold);
-    color: var(--nt-gold);
+    box-shadow: var(--nt-shadow-inset);
+    color: var(--nt-blue);
 }
 
 .nt-donate-summary {
-    background-color: #0d1a2f;
-    border: 1px solid var(--nt-border);
-    border-radius: 12px;
-    padding: 14px 18px;
+    background-color: var(--nt-surface);
+    border-radius: 16px;
+    box-shadow: var(--nt-shadow-inset);
+    padding: 16px 20px;
 }
 
 .nt-donate-row {
@@ -1045,12 +1342,12 @@ a:hover {
 }
 
 .nt-donate-money {
-    color: var(--nt-gold);
+    color: #b57f00;
 }
 
 /* Mã đặt lại mật khẩu (6 số) hiện to, dễ đọc khi demo */
 .nt-code {
-    color: var(--nt-gold);
+    color: var(--nt-blue);
     font-size: 1.6rem;
     font-weight: 800;
     letter-spacing: 6px;
@@ -1063,23 +1360,24 @@ a:hover {
 
 /* ---------- Khung trống khi chưa có bài ---------- */
 .nt-empty {
-    background-color: var(--nt-navy-light);
-    border: 1px dashed var(--nt-border);
-    border-radius: 16px;
+    background-color: var(--nt-surface-soft);
+    border: 2px dashed var(--nt-border);
+    border-radius: 20px;
     color: var(--nt-muted);
-    padding: 40px;
+    padding: 44px;
     text-align: center;
 }
 
 /* ---------- Footer ---------- */
 .nt-footer {
-    background-color: #070f1c;
+    background-color: #f7f9fd;
     border-top: 1px solid var(--nt-border);
+    margin-top: 40px;
     padding: 36px 0 24px;
 }
 
 .nt-footer-brand {
-    color: #fff;
+    color: var(--nt-heading);
     font-weight: 800;
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -1100,5 +1398,5 @@ a:hover {
 }
 
 .nt-footer a:hover {
-    color: #fff;
+    color: var(--nt-blue);
 }

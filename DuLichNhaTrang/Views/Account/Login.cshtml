@@ -4,46 +4,79 @@
     ViewData["Title"] = "Đăng nhập";
 }
 
-<div class="nt-page">
-    <div class="container">
-        <div class="nt-form-box">
-            <h1>Đăng nhập</h1>
+@* Trang đăng nhập kiểu thẻ nổi (neomorphism) theo ảnh mẫu *@
+<section class="nt-auth">
+    <div class="nt-auth-card">
+        <div class="nt-auth-icon">
+            @* Icon ổ khóa màu xanh *@
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 1 1 6 0v3H9zm3 4a1.5 1.5 0 0 1 .75 2.8V18a.75.75 0 0 1-1.5 0v-1.2A1.5 1.5 0 0 1 12 14z" />
+            </svg>
+        </div>
 
-            @if (TempData["ThongBao"] != null)
-            {
-                <div class="nt-alert mb-3">@TempData["ThongBao"]</div>
-            }
+        <h1>Welcome</h1>
+        <p class="nt-auth-sub">Đăng nhập để tiếp tục hành trình</p>
 
-            <form asp-action="Login" method="post">
-                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+        @if (TempData["ThongBao"] != null)
+        {
+            <div class="nt-alert mb-3 text-start">@TempData["ThongBao"]</div>
+        }
 
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <form asp-action="Login" method="post" class="text-start">
+            <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
-                <div class="mb-3">
-                    <label asp-for="TenDangNhap" class="form-label"></label>
-                    <input asp-for="TenDangNhap" class="form-control" />
-                    <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="TenDangNhap" class="form-label">Tên đăng nhập</label>
+                <input asp-for="TenDangNhap" class="form-control" placeholder="Nhập tên đăng nhập" autocomplete="username" />
+                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MatKhau" class="form-label">Mật khẩu</label>
+                @* Ô mật khẩu + nút con mắt để xem/ẩn mật khẩu *@
+                <div class="nt-password-field">
+                    <input asp-for="MatKhau" class="form-control" placeholder="Nhập mật khẩu" autocomplete="current-password" />
+                    <button type="button" class="nt-password-toggle" id="nutHienMatKhau" aria-label="Hiện mật khẩu">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                        </svg>
+                    </button>
                 </div>
+                <span asp-validation-for="MatKhau" class="text-danger"></span>
+            </div>
 
-                <div class="mb-3">
-                    <label asp-for="MatKhau" class="form-label"></label>
-                    <input asp-for="MatKhau" class="form-control" />
-                    <span asp-validation-for="MatKhau" class="text-danger"></span>
-                </div>
-
-                <div class="form-check mb-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div class="form-check">
                     <input asp-for="GhiNho" class="form-check-input" />
-                    <label asp-for="GhiNho" class="form-check-label"></label>
+                    <label asp-for="GhiNho" class="form-check-label">Ghi nhớ đăng nhập</label>
                 </div>
+                <a asp-action="QuenMatKhau" class="nt-small-link">Quên mật khẩu?</a>
+            </div>
 
-                <button type="submit" class="btn btn-nt-primary">Đăng nhập</button>
-                <a asp-action="Register" class="btn btn-link">Chưa có tài khoản? Đăng ký</a>
-                <a asp-action="QuenMatKhau" class="btn btn-link">Quên mật khẩu?</a>
-            </form>
+            <button type="submit" class="btn btn-nt-primary">Đăng nhập</button>
+        </form>
+
+        @* Dòng cuối giống ảnh mẫu: chưa có tài khoản + nút tròn dấu + *@
+        <div class="nt-auth-links mt-4">
+            <span class="nt-auth-hint">Chưa có tài khoản?</span>
+            <a asp-action="Register" class="nt-auth-plus" title="Đăng ký tài khoản">+</a>
         </div>
     </div>
-</div>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // Bấm con mắt để hiện / ẩn mật khẩu đang nhập
+        var nutHien = document.getElementById('nutHienMatKhau');
+        var oMatKhau = document.getElementById('MatKhau');
+        nutHien.addEventListener('click', function () {
+            var dangAn = oMatKhau.type === 'password';
+            oMatKhau.type = dangAn ? 'text' : 'password';
+            nutHien.classList.toggle('dang-hien', dangAn);
+        });
+    </script>
 }

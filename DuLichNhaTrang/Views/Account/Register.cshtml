@@ -4,39 +4,81 @@
     ViewData["Title"] = "Đăng ký";
 }
 
-<div class="nt-page">
-    <div class="container">
-        <div class="nt-form-box">
-            <h1>Đăng ký tài khoản</h1>
+@* Trang đăng ký cùng phong cách thẻ nổi với trang đăng nhập *@
+<section class="nt-auth">
+    <div class="nt-auth-card">
+        <div class="nt-auth-icon">
+            @* Icon người dùng màu xanh *@
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12zm0 2c-4.4 0-8 2.2-8 5v1.5A1.5 1.5 0 0 0 5.5 22h13a1.5 1.5 0 0 0 1.5-1.5V19c0-2.8-3.6-5-8-5z" />
+            </svg>
+        </div>
 
-            <form asp-action="Register" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <h1>Create Account</h1>
+        <p class="nt-auth-sub">Đăng ký để chia sẻ địa điểm du lịch</p>
 
-                <div class="mb-3">
-                    <label asp-for="TenDangNhap" class="form-label"></label>
-                    <input asp-for="TenDangNhap" class="form-control" />
-                    <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+        @if (TempData["ThongBao"] != null)
+        {
+            <div class="nt-alert mb-3 text-start">@TempData["ThongBao"]</div>
+        }
+
+        <form asp-action="Register" method="post" class="text-start">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="TenDangNhap" class="form-label">Tên đăng nhập</label>
+                <input asp-for="TenDangNhap" class="form-control" placeholder="Từ 3 đến 50 ký tự" autocomplete="username" />
+                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MatKhau" class="form-label">Mật khẩu</label>
+                <div class="nt-password-field">
+                    <input asp-for="MatKhau" class="form-control" placeholder="Ít nhất 6 ký tự" autocomplete="new-password" />
+                    <button type="button" class="nt-password-toggle" data-toggle-for="MatKhau" aria-label="Hiện mật khẩu">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                        </svg>
+                    </button>
                 </div>
+                <span asp-validation-for="MatKhau" class="text-danger"></span>
+            </div>
 
-                <div class="mb-3">
-                    <label asp-for="MatKhau" class="form-label"></label>
-                    <input asp-for="MatKhau" class="form-control" />
-                    <span asp-validation-for="MatKhau" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="NhapLaiMatKhau" class="form-label">Nhập lại mật khẩu</label>
+                <div class="nt-password-field">
+                    <input asp-for="NhapLaiMatKhau" class="form-control" placeholder="Nhập lại mật khẩu" autocomplete="new-password" />
+                    <button type="button" class="nt-password-toggle" data-toggle-for="NhapLaiMatKhau" aria-label="Hiện mật khẩu">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                        </svg>
+                    </button>
                 </div>
+                <span asp-validation-for="NhapLaiMatKhau" class="text-danger"></span>
+            </div>
 
-                <div class="mb-3">
-                    <label asp-for="NhapLaiMatKhau" class="form-label"></label>
-                    <input asp-for="NhapLaiMatKhau" class="form-control" />
-                    <span asp-validation-for="NhapLaiMatKhau" class="text-danger"></span>
-                </div>
+            <button type="submit" class="btn btn-nt-primary">Đăng ký</button>
+        </form>
 
-                <button type="submit" class="btn btn-nt-primary">Đăng ký</button>
-                <a asp-action="Login" class="btn btn-link">Đã có tài khoản? Đăng nhập</a>
-            </form>
+        <div class="nt-auth-links mt-4">
+            <span class="nt-auth-hint">Đã có tài khoản?</span>
+            <a asp-action="Login" class="nt-auth-plus" title="Đăng nhập">&#8592;</a>
         </div>
     </div>
-</div>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // Mỗi nút con mắt hiện / ẩn ô mật khẩu tương ứng
+        document.querySelectorAll('.nt-password-toggle').forEach(function (nut) {
+            nut.addEventListener('click', function () {
+                var o = document.getElementById(nut.getAttribute('data-toggle-for'));
+                var dangAn = o.type === 'password';
+                o.type = dangAn ? 'text' : 'password';
+                nut.classList.toggle('dang-hien', dangAn);
+            });
+        });
+    </script>
 }

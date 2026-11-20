@@ -4,30 +4,37 @@
     ViewData["Title"] = "Quên mật khẩu";
 }
 
-<div class="nt-page">
-    <div class="container">
-        <div class="nt-form-box">
-            <h1>Quên mật khẩu</h1>
+@* Cùng phong cách thẻ nổi với trang đăng nhập *@
+<section class="nt-auth">
+    <div class="nt-auth-card">
+        <div class="nt-auth-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 1 1 6 0v3H9z" />
+            </svg>
+        </div>
 
-            <p class="nt-form-note">
-                Nhập tên đăng nhập, hệ thống sẽ tạo một <strong>mã đặt lại gồm 6 số</strong> có hiệu lực 15 phút.
-            </p>
+        <h1>Quên mật khẩu</h1>
+        <p class="nt-auth-sub">
+            Nhập tên đăng nhập, hệ thống sẽ tạo <strong>mã 6 số</strong> có hiệu lực 15 phút.
+        </p>
 
-            <form asp-action="QuenMatKhau" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <form asp-action="QuenMatKhau" method="post" class="text-start">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                <div class="mb-3">
-                    <label asp-for="TenDangNhap" class="form-label"></label>
-                    <input asp-for="TenDangNhap" class="form-control" />
-                    <span asp-validation-for="TenDangNhap" class="text-danger"></span>
-                </div>
+            <div class="mb-3">
+                <label asp-for="TenDangNhap" class="form-label">Tên đăng nhập</label>
+                <input asp-for="TenDangNhap" class="form-control" placeholder="Nhập tên đăng nhập" autocomplete="username" />
+                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+            </div>
 
-                <button type="submit" class="btn btn-nt-primary">Nhận mã đặt lại</button>
-                <a asp-action="Login" class="btn btn-link">Quay lại đăng nhập</a>
-            </form>
+            <button type="submit" class="btn btn-nt-primary">Nhận mã đặt lại</button>
+        </form>
+
+        <div class="nt-auth-links mt-4">
+            <a asp-action="Login">Quay lại đăng nhập</a>
         </div>
     </div>
-</div>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
