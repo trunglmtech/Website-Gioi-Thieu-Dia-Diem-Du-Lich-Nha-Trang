@@ -15,9 +15,9 @@ namespace DuLichNhaTrang.Controllers
             _context = context;
         }
 
-        // GET: / hoặc /?q=từ khóa
+        // GET: / hoặc /?q=từ khóa&loai=3
         // Trang chủ: chỉ hiện bài Đã duyệt, bài donate còn hạn lên đầu, còn lại xếp ngẫu nhiên
-        public IActionResult Index(string? q = null)
+        public IActionResult Index(string? q = null, int? loai = null)
         {
             // Bước 1: lấy các bài đã được Admin duyệt
             var query = _context.Posts
@@ -28,6 +28,12 @@ namespace DuLichNhaTrang.Controllers
             if (!string.IsNullOrWhiteSpace(q))
             {
                 query = query.Where(p => p.TieuDe.Contains(q));
+            }
+
+            // Bước 2b: nếu chọn loại địa điểm thì chỉ lấy bài thuộc loại đó
+            if (loai != null)
+            {
+                query = query.Where(p => p.CategoryId == loai);
             }
 
             var danhSach = query.ToList();
@@ -46,7 +52,11 @@ namespace DuLichNhaTrang.Controllers
                 .OrderBy(p => Guid.NewGuid())
                 .ToList();
 
+            // Danh sách loại địa điểm để hiện thành các thẻ "Khám phá theo loại" + ô chọn trong tìm kiếm
+            ViewBag.DanhSachLoai = _context.Categories.OrderBy(c => c.TenLoai).ToList();
             ViewBag.TuKhoa = q;
+            ViewBag.LoaiDangChon = loai;
+
             return View(noiBat.Concat(conLai).ToList());
         }
 

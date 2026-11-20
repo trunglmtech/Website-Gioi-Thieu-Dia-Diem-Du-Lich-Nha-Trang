@@ -3,66 +3,200 @@
 @{
     ViewData["Title"] = "Trang chủ";
     string tuKhoa = ViewBag.TuKhoa as string ?? "";
+    int? loaiDangChon = ViewBag.LoaiDangChon as int?;
+    var danhSachLoai = ViewBag.DanhSachLoai as List<DuLichNhaTrang.Models.Category> ?? new List<DuLichNhaTrang.Models.Category>();
+
+    // Đang tìm kiếm/lọc thì ẩn các mục giới thiệu, chỉ hiện kết quả
+    bool dangTimKiem = !string.IsNullOrWhiteSpace(tuKhoa) || loaiDangChon != null;
+
+    // Bài đang được ưu tiên (donate còn hạn)
+    var baiNoiBat = Model.Where(p => p.FeaturedUntil != null && p.FeaturedUntil > DateTime.Now).ToList();
+
+    // Icon cho từng loại địa điểm, dò theo tên loại
+    string IconLoai(string ten)
+    {
+        var t = ten.ToLower();
+        if (t.Contains("vui chơi")) return "🎡";
+        if (t.Contains("ăn uống")) return "🍜";
+        if (t.Contains("nghỉ dưỡng")) return "🏖️";
+        if (t.Contains("cà phê")) return "☕";
+        if (t.Contains("tham quan")) return "🏛️";
+        return "📍";
+    }
 }
 
-@* ---------- Phần hero: tiêu đề lớn + ô tìm kiếm ---------- *@
+@* ---------- Phần hero: tiêu đề lớn + ô tìm kiếm nhiều lựa chọn ---------- *@
 <section class="nt-hero">
     <div class="container">
         <div class="nt-hero-eyebrow">Việt Nam · Khánh Hòa</div>
         <h1>Khám phá Nha Trang</h1>
         <p>
-            Nơi thành viên chia sẻ những điểm vui chơi, ăn uống, tham quan và nghỉ dưỡng
-            đẹp nhất của thành phố biển Nha Trang.
+            Thành phố biển với những bãi cát trắng, món ăn đậm vị và điểm vui chơi
+            do chính cộng đồng du khách chia sẻ.
         </p>
 
-        @* Gửi từ khóa lên HomeController.Index bằng phương thức GET (?q=...) *@
-        <form class="nt-search" asp-controller="Home" asp-action="Index" method="get">
-            <input type="text" name="q" value="@tuKhoa" placeholder="Tìm địa điểm theo tên..." />
-            <button type="submit">Tìm kiếm</button>
+        @* Tìm kiếm theo tên + lọc theo loại địa điểm (gửi bằng GET: /?q=...&loai=...) *@
+        <form class="nt-search-bar" asp-controller="Home" asp-action="Index" method="get">
+            <div class="nt-search-field">
+                <label for="oTuKhoa">Bạn muốn đi đâu?</label>
+                <input id="oTuKhoa" type="text" name="q" value="@tuKhoa" placeholder="Tìm Nha Trang, Vinpearl, bún chả cá..." />
+            </div>
+
+            <div class="nt-search-field">
+                <label for="oLoai">Trải nghiệm gì?</label>
+                <select id="oLoai" name="loai">
+                    <option value="">Tất cả loại địa điểm</option>
+                    @foreach (var l in danhSachLoai)
+                    {
+                        if (loaiDangChon == l.Id)
+                        {
+                            <option value="@l.Id" selected>@l.TenLoai</option>
+                        }
+                        else
+                        {
+                            <option value="@l.Id">@l.TenLoai</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="nt-search-btn">
+                <span>Tìm kiếm</span>
+            </button>
         </form>
     </div>
 </section>
 
-@* ---------- Dải 4 đặc điểm ---------- *@
-<div class="container">
-    <div class="nt-features">
-        <div class="nt-feature">
-            <span class="nt-feature-icon">🏖️</span>
-            <strong>Điểm nghỉ dưỡng</strong>
-            <span>Bãi biển, resort</span>
-        </div>
-        <div class="nt-feature">
-            <span class="nt-feature-icon">🏛️</span>
-            <strong>Điểm tham quan</strong>
-            <span>Tháp Bà, nhà thờ Núi</span>
-        </div>
-        <div class="nt-feature">
-            <span class="nt-feature-icon">🍜</span>
-            <strong>Điểm ăn uống</strong>
-            <span>Bún chả cá, hải sản</span>
-        </div>
-        <div class="nt-feature">
-            <span class="nt-feature-icon">🎡</span>
-            <strong>Điểm vui chơi</strong>
-            <span>Vinpearl, công viên nước</span>
+@if (!dangTimKiem)
+{
+    @* ---------- Dải 4 đặc điểm ---------- *@
+    <div class="container">
+        <div class="nt-features">
+            <div class="nt-feature">
+                <span class="nt-feature-icon">🏖️</span>
+                <strong>Điểm nghỉ dưỡng</strong>
+                <span>Bãi biển, resort</span>
+            </div>
+            <div class="nt-feature">
+                <span class="nt-feature-icon">🏛️</span>
+                <strong>Điểm tham quan</strong>
+                <span>Tháp Bà, nhà thờ Núi</span>
+            </div>
+            <div class="nt-feature">
+                <span class="nt-feature-icon">🍜</span>
+                <strong>Điểm ăn uống</strong>
+                <span>Bún chả cá, hải sản</span>
+            </div>
+            <div class="nt-feature">
+                <span class="nt-feature-icon">🎡</span>
+                <strong>Điểm vui chơi</strong>
+                <span>Vinpearl, công viên nước</span>
+            </div>
         </div>
     </div>
-</div>
+
+    @* ---------- Khám phá theo loại địa điểm ---------- *@
+    if (danhSachLoai.Count > 0)
+    {
+        <section class="nt-section nt-section-tight">
+            <div class="container">
+                <div class="nt-head-row">
+                    <div>
+                        <h2 class="nt-section-title">Khám phá theo loại</h2>
+                        <p class="nt-section-sub">Chọn nhóm địa điểm bạn quan tâm nhất</p>
+                    </div>
+                </div>
+
+                <div class="nt-cat-grid">
+                    @foreach (var l in danhSachLoai)
+                    {
+                        <a class="nt-cat-tile" asp-controller="Home" asp-action="Index" asp-route-loai="@l.Id">
+                            <span class="nt-cat-tile-icon">@IconLoai(l.TenLoai)</span>
+                            <strong>@l.TenLoai</strong>
+                            <span class="nt-cat-tile-arrow">&rarr;</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+
+    @* ---------- Điểm đang được ưu tiên (donate còn hạn) ---------- *@
+    if (baiNoiBat.Count > 0)
+    {
+        var bai = baiNoiBat[0];
+        var anhNoiBat = string.IsNullOrEmpty(bai.HinhAnh)
+            ? Url.Content("~/images/sample/hero-nha-trang.jpg")
+            : Url.Content("~/" + bai.HinhAnh);
+
+        <section class="nt-section nt-section-tight">
+            <div class="container">
+                <div class="nt-head-row">
+                    <div>
+                        <h2 class="nt-section-title">Điểm đang nổi bật</h2>
+                        <p class="nt-section-sub">Bài được thành viên donate để ưu tiên hiển thị</p>
+                    </div>
+                </div>
+
+                <a class="nt-spotlight" asp-controller="Home" asp-action="Details" asp-route-id="@bai.Id">
+                    <img class="nt-spotlight-img" src="@anhNoiBat" alt="@bai.TieuDe" loading="lazy" />
+                    <div class="nt-spotlight-body">
+                        <span class="nt-badge-featured nt-badge-inline">Nổi bật</span>
+                        <div class="nt-card-meta">@bai.Category?.TenLoai</div>
+                        <h3>@bai.TieuDe</h3>
+                        <p>@NoiDungHtml.LayChuThuan(bai.MoTa)</p>
+                        <span class="nt-spotlight-link">Xem chi tiết &rarr;</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    }
+}
 
 @* ---------- Danh sách bài viết đã duyệt ---------- *@
 <section class="nt-section">
     <div class="container">
-        <h2 class="nt-section-title">Địa điểm du lịch</h2>
-        <p class="nt-section-sub">
-            @if (string.IsNullOrWhiteSpace(tuKhoa))
+        <div class="nt-head-row">
+            <div>
+                <h2 class="nt-section-title">
+                    @if (dangTimKiem)
+                    {
+                        <text>Kết quả tìm kiếm</text>
+                    }
+                    else
+                    {
+                        <text>Địa điểm du lịch</text>
+                    }
+                </h2>
+                <p class="nt-section-sub">
+                    @if (string.IsNullOrWhiteSpace(tuKhoa) && loaiDangChon == null)
+                    {
+                        <text>Tổng cộng @Model.Count địa điểm đã được duyệt. Bài có donate được ưu tiên hiển thị trước.</text>
+                    }
+                    else
+                    {
+                        var tenLoai = danhSachLoai.FirstOrDefault(c => c.Id == loaiDangChon)?.TenLoai;
+                        <text>
+                            @Model.Count địa điểm
+                            @if (!string.IsNullOrWhiteSpace(tuKhoa))
+                            {
+                                <text> cho từ khóa "<strong>@tuKhoa</strong>"</text>
+                            }
+                            @if (tenLoai != null)
+                            {
+                                <text> thuộc <strong>@tenLoai</strong></text>
+                            }
+                            .
+                        </text>
+                    }
+                </p>
+            </div>
+
+            @if (dangTimKiem)
             {
-                <text>Tổng cộng @Model.Count địa điểm đã được duyệt. Bài có donate được ưu tiên hiển thị trước.</text>
+                <a class="btn btn-nt-outline btn-sm" asp-controller="Home" asp-action="Index">Xóa bộ lọc</a>
             }
-            else
-            {
-                <text>Kết quả cho từ khóa "@tuKhoa": @Model.Count địa điểm.</text>
-            }
-        </p>
+        </div>
 
         @if (Model.Count == 0)
         {
@@ -87,13 +221,13 @@
 
                     <div class="col-sm-6 col-lg-4">
                         <article class="nt-card">
-                            <div class="nt-card-img">
+                            <a class="nt-card-img" asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">
                                 <img src="@duongDanAnh" alt="@post.TieuDe" loading="lazy" />
                                 @if (dangNoiBat)
                                 {
                                     <span class="nt-badge-featured">Nổi bật</span>
                                 }
-                            </div>
+                            </a>
                             <div class="nt-card-body">
                                 <div class="nt-card-meta">@post.Category?.TenLoai</div>
                                 <h3 class="nt-card-title">@post.TieuDe</h3>
