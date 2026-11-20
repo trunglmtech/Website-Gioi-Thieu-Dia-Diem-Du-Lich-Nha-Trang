@@ -23,7 +23,9 @@
 
             <div class="mb-3">
                 <label asp-for="TenDangNhap" class="form-label">Tên đăng nhập</label>
-                <input asp-for="TenDangNhap" class="form-control" placeholder="Nhập tên đăng nhập" autocomplete="username" />
+                <div class="nt-vong-sang">
+                    <input asp-for="TenDangNhap" class="form-control" placeholder="Nhập tên đăng nhập" autocomplete="username" />
+                </div>
                 <span asp-validation-for="TenDangNhap" class="text-danger"></span>
             </div>
 

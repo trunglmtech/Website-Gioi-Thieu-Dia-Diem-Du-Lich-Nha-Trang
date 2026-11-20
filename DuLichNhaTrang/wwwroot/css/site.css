@@ -551,9 +551,33 @@ h1, h2, h3, h4, h5, h6 {
 .nt-auth-card .form-control:focus,
 .nt-auth-card .form-select:focus {
     background-color: var(--nt-surface);
-    border-color: rgba(29, 140, 248, 0.45);
-    box-shadow: var(--nt-shadow-inset), 0 0 0 0.2rem rgba(29, 140, 248, 0.15);
+    border-color: transparent;
+    box-shadow: var(--nt-shadow-inset);
     color: var(--nt-text);
+    animation: nt-vong-xoay-noi 2.5s linear infinite;
+}
+
+/* Vòng sáng xanh chạy quanh viền ô đang nhập (hiệu ứng đèn 3D) */
+@keyframes nt-vong-xoay-noi {
+    0% {
+        box-shadow: var(--nt-shadow-inset), 0 0 0 2px #56c2ff, 0 0 16px rgba(29, 140, 248, 0.45);
+    }
+
+    25% {
+        box-shadow: var(--nt-shadow-inset), 0 0 0 2px #1d8cf8, 0 0 22px rgba(29, 140, 248, 0.55);
+    }
+
+    50% {
+        box-shadow: var(--nt-shadow-inset), 0 0 0 2px #a6e1ff, 0 0 26px rgba(86, 194, 255, 0.6);
+    }
+
+    75% {
+        box-shadow: var(--nt-shadow-inset), 0 0 0 2px #1d8cf8, 0 0 22px rgba(29, 140, 248, 0.55);
+    }
+
+    100% {
+        box-shadow: var(--nt-shadow-inset), 0 0 0 2px #56c2ff, 0 0 16px rgba(29, 140, 248, 0.45);
+    }
 }
 
 .nt-auth-card .form-control::placeholder {
@@ -615,6 +639,42 @@ h1, h2, h3, h4, h5, h6 {
 
 .nt-password-field .form-control {
     padding-right: 48px;
+}
+
+/* Vòng bóng xanh chạy quanh ô đang được chọn: bọc ô trong khung 2px và xoay gradient liên tục */
+.nt-auth-card .nt-password-field,
+.nt-auth-card .nt-vong-sang {
+    border-radius: 16px;
+    padding: 2px;
+    transition: background 0.2s ease;
+}
+
+.nt-auth-card .nt-password-field:focus-within,
+.nt-auth-card .nt-vong-sang:focus-within {
+    background: conic-gradient(from 0deg,
+        #56c2ff, #1d8cf8 25%, #a6e1ff 50%, #1d8cf8 75%, #56c2ff);
+    box-shadow: 0 0 20px rgba(29, 140, 248, 0.55), 0 0 40px rgba(86, 194, 255, 0.35);
+    animation: nt-vong-xoay 2.5s linear infinite;
+}
+
+/* Viền ngoài nở nhẹ cho giống hiệu ứng 3D */
+@keyframes nt-vong-xoay {
+    to {
+        background: conic-gradient(from 360deg,
+            #56c2ff, #1d8cf8 25%, #a6e1ff 50%, #1d8cf8 75%, #56c2ff);
+    }
+}
+
+/* Ô nhập bên trong phải phẳng (bỏ bóng) để vòng gradient lộ ra quanh viền */
+.nt-auth-card .nt-password-field .form-control,
+.nt-auth-card .nt-password-field .form-control:focus,
+.nt-auth-card .nt-vong-sang .form-control,
+.nt-auth-card .nt-vong-sang .form-control:focus {
+    background-color: var(--nt-surface);
+    border: none;
+    box-shadow: none;
+    position: relative;
+    z-index: 1;
 }
 
 .nt-password-toggle {
@@ -684,6 +744,28 @@ h1, h2, h3, h4, h5, h6 {
 /* ---------- Khung form chung (đăng bài, sửa loại...) ---------- */
 .nt-page {
     padding: 48px 0 64px;
+}
+
+/* Ô nhập ở các form khác cũng có vòng sáng xanh khi đang chọn */
+.nt-form-box .nt-vong-sang {
+    border-radius: 14px;
+    padding: 2px;
+    transition: background 0.2s ease;
+}
+
+.nt-form-box .nt-vong-sang:focus-within {
+    background: conic-gradient(from 0deg,
+        #56c2ff, #1d8cf8 25%, #a6e1ff 50%, #1d8cf8 75%, #56c2ff);
+    box-shadow: 0 0 18px rgba(29, 140, 248, 0.45);
+    animation: nt-vong-xoay 2.5s linear infinite;
+}
+
+.nt-form-box .nt-vong-sang .form-control,
+.nt-form-box .nt-vong-sang .form-control:focus {
+    border: none;
+    box-shadow: none;
+    position: relative;
+    z-index: 1;
 }
 
 .nt-form-box {

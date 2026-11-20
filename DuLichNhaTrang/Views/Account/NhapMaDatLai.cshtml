@@ -33,13 +33,17 @@
 
             <div class="mb-3">
                 <label asp-for="TenDangNhap" class="form-label">Tên đăng nhập</label>
-                <input asp-for="TenDangNhap" class="form-control" readonly />
+                <div class="nt-vong-sang">
+                    <input asp-for="TenDangNhap" class="form-control" readonly />
+                </div>
             </div>
 
             <div class="mb-3">
                 <label asp-for="MaDatLai" class="form-label">Mã đặt lại (6 số)</label>
-                <input asp-for="MaDatLai" class="form-control" maxlength="6" inputmode="numeric"
-                       placeholder="Ví dụ: 123456" />
+                <div class="nt-vong-sang">
+                    <input asp-for="MaDatLai" class="form-control" maxlength="6" inputmode="numeric"
+                           placeholder="Ví dụ: 123456" />
+                </div>
                 <span asp-validation-for="MaDatLai" class="text-danger"></span>
             </div>
 
